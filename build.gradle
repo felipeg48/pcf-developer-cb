@@ -1,0 +1,78 @@
+buildscript {
+  repositories {
+    jcenter()
+  }
+  dependencies {
+    classpath 'org.asciidoctor:asciidoctor-gradle-plugin:1.5.3'
+  }
+}
+
+apply plugin: 'org.asciidoctor.convert'
+
+repositories {
+  jcenter()
+}
+
+configurations.asciidoctor {
+  resolutionStrategy {
+    force 'org.asciidoctor:asciidoctorj-groovy-dsl:1.0.0.Alpha2'
+  }
+}
+
+asciidoctor {
+  asciidoctorj {
+    version = '1.5.4.1'
+  }
+  backends 'html5'
+  sourceDir file('docs')
+  sources {
+    include '*.adoc'
+  }
+  resources {
+    from('resources') {
+      include '**/*'
+    }
+  }
+  outputDir file('build')
+  options doctype: 'book'
+  extensions {
+    docinfo_processor { document ->
+      def attrs = document.attributes.findAll { key, value ->
+        String val = value.toString()
+        val.startsWith('{{') && val.endsWith('}}')
+      }.keySet()
+
+      if (!attrs.empty) {
+       """<script>
+       var attributes = [${attrs.collect { "'${it}'" }.join(', ')}];
+</script>"""
+      }
+    }
+
+    block(name: "alternatives", contexts: [":paragraph"]) {
+          parent, reader, attributes ->
+
+      def id = attributes.id
+
+      def tabinfo = reader.readLines().join("\n")
+      def tabs = tabinfo.split(/\|/).collect{it.trim()}.findAll{!it.empty}
+
+      def writer = new StringWriter()
+      def builder = new groovy.xml.MarkupBuilder(writer)
+      builder.doubleQuotes = true
+
+      builder.div(class: "tabs", 'data-for': id) {
+        ul {
+          tabs.eachWithIndex { tab, i ->
+            li { a(href: "#tabs-${id}-${i+1}", tab) }
+          }
+        }
+      }
+
+      createBlock(parent, "pass", writer.toString(), attributes, [:])
+    }
+  }
+
+}
+
+defaultTasks 'asciidoctor'

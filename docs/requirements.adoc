@@ -1,0 +1,14 @@
+= Requirements
+Eitan Suez <esuez@pivotal.io>
+v0.1, 2017:  GCP-specific Lab Instructions
+:doctype: book
+:linkcss:
+:docinfo: shared
+:toc: left
+:sectnums:
+:linkattrs:
+:icons: font
+:source-highlighter: highlightjs
+:imagesdir: docimages
+
+TBD

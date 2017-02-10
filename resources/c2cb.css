@@ -1,0 +1,9 @@
+/* copy to clipboard styles */
+#content .c2cb-trigger {
+  position: absolute; right: 0; top: 0;
+}
+#content .c2cb-trigger > img {
+  position: relative;
+  width: 13px;
+  cursor: pointer;
+}

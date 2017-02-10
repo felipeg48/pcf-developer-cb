@@ -1,0 +1,33 @@
+#header form#thebinding {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 5em;
+  z-index: 10;
+  background-color: white;
+}
+#header form#thebinding fieldset {
+  display: table;
+}
+#header form#thebinding p {
+  display: table-row;
+}
+#header form#thebinding div.label {
+  display: table-cell;
+  text-align: right;
+}
+#header form#thebinding div.input {
+  display: table-cell;
+  text-align: left;
+}
+#header form#thebinding div.input.btn {
+  text-align: right;
+  padding-top: 0.5em;
+}
+#header #form-trigger {
+  width: 1.5em;
+  position: absolute;
+  top: 3.5em;
+  right: 0;
+  cursor: pointer;
+}
