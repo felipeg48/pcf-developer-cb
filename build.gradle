@@ -44,7 +44,7 @@ asciidoctor {
 
       if (!attrs.empty) {
        """<script>
-       var attributes = [${attrs.collect { "'${it}'" }.join(', ')}];
+  var attributes = [${attrs.collect { "'${it}'" }.join(', ')}];
 </script>"""
       }
     }
