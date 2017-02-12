@@ -55,7 +55,7 @@ $(function() {
     var parts, i, o = {};
     for (i=0; i<pairs.length; i++) {
       parts = pairs[i].split("=");
-      o[parts[0]] = parts[1];
+      o[parts[0]] = unescape(parts[1]);
     }
     return o;
   }
