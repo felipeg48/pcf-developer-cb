@@ -10,6 +10,7 @@ v0.1, 2017:  GCP-specific Lab Instructions
 :icons: font
 :source-highlighter: highlightjs
 :imagesdir: docimages
+:attendees_endpoint_uri: {{attendees_endpoint_uri}}
 
 _Estimated Time: 25 minutes_
 
@@ -44,10 +45,10 @@ https://github.com/pivotal-enablement/attendee-service[Source^] is not required,
 
 . Push the `attendee-service` application.
 
-[source,bash,subs="attributes+"]
+[source]
 ----
-$ cd ~/pivotal-cloud-foundry-developer-workshop/attendee-service/
-$ cf push attendee-service -p ./attendee-service-0.0.1-SNAPSHOT.jar -m 512M --random-route
+cd ~/pivotal-cloud-foundry-developer-workshop/attendee-service/
+cf push attendee-service -p ./attendee-service-0.0.1-SNAPSHOT.jar -m 512M --random-route
 ----
 
 Does `attendee-service` start up correctly?  Why not?
@@ -57,9 +58,9 @@ Does `attendee-service` start up correctly?  Why not?
 . Review the http://docs.pivotal.io/pivotalcf/devguide/services/managing-services.html[documentation^] on managing service instances
 . Review what services are available in the marketplace.
 +
-[source,bash,subs="attributes+"]
+[source]
 ----
-$ cf marketplace
+cf marketplace
 ----
 
 . Provision a MySql service instance.
@@ -69,34 +70,34 @@ Pivotal Cloud Foundry | Pivotal Web Services
 +
 [#tabs-create_service-1.create_service]
 --
-[source,bash,subs="attributes+"]
+[source]
 ----
-$ cf create-service p-mysql 100mb-dev attendee-mysql
+cf create-service p-mysql 100mb-dev attendee-mysql
 ----
 --
 +
 [#tabs-create_service-2.create_service]
 --
-[source,bash,subs="attributes+"]
+[source]
 ----
-$ cf create-service cleardb spark attendee-mysql
+cf create-service cleardb spark attendee-mysql
 ----
 --
 
 . Now we need to bind the application with the service instance.
 +
-[source,bash,subs="attributes+"]
+[source]
 ----
-$ cf bind-service attendee-service attendee-mysql
+cf bind-service attendee-service attendee-mysql
 ----
 +
 NOTE: You can ignore the _TIP: Use 'cf restage attendee-service' to ensure your env variable changes take effect_ message at this time.
 
 . Restart the application.
 +
-[source,bash,subs="attributes+"]
+[source]
 ----
-$ cf restart attendee-service
+cf restart attendee-service
 ----
 
 . View the `attendee-service` in a browser.
@@ -112,9 +113,9 @@ image::attendee_service.png[attendee-service]
 . Read about https://docs.pivotal.io/pivotalcf/devguide/deploy-apps/environment-variable.html#VCAP-SERVICES[VCAP_SERVICES^].
 . View the environment for `attendee-service`.
 +
-[source,bash,subs="attributes+"]
+[source]
 ----
-$ cf env attendee-service
+cf env attendee-service
 ----
 . Different languages/frameworks will have various ways to read environment variables.  `attendee-service` takes advantage of a https://github.com/cloudfoundry/java-buildpack[Java Buildpack^] feature called https://github.com/cloudfoundry/java-buildpack-auto-reconfiguration[Auto-Reconfiguration^] that will automatically re-write bean definitions to connect with services bound to an application.
 ****
@@ -138,31 +139,36 @@ Additionally, how can we easily connect applications together running on the pla
 
 . Read about http://docs.pivotal.io/pivotalcf/devguide/services/user-provided.html[user-provided service instances^].
 
-. Create a user-provided service instance.  This will create an interactive prompt.  Don't use the literal below for the value of `uri`, use your `attendee-service` `uri`.  Also make sure to specify `http` and include `/attendees` in the path.
+. Create a user-provided service instance.
 +
-CAUTION: This will not work with `https`.
+[source]
+----
+cf create-user-provided-service attendee-service -p uri
+----
 +
-[source,bash,subs="attributes+"]
+This will create an interactive prompt.  For the value of `uri`, enter your `attendee-service` application's `attendees` endpoint:
++
+[source]
 ----
-$ cf create-user-provided-service attendee-service -p uri
-
-uri> http://attendee-service-surfy-glt.pcfi1.fe.gopivotal.com/attendees
+uri> {{attendees_endpoint_uri}}
 ----
++
+CAUTION: Make sure to specify `http` (this will not work with `https`).
 
 . Bind `articulate` to the `attendee-service` user-provided service.
 +
-[source,bash,subs="attributes+"]
+[source]
 ----
-$ cf bind-service articulate attendee-service
+cf bind-service articulate attendee-service
 ----
 +
 NOTE: You can ignore the _TIP: Use 'cf restage articulate' to ensure your env variable changes take effect_ message at this time.
 
 . Restart the application.
 +
-[source,bash,subs="attributes+"]
+[source]
 ----
-$ cf restart articulate
+cf restart articulate
 ----
 
 . Refresh the `articulate` _Services_ page.  You can now see the `attendee-service` listed under `Services`.
@@ -172,9 +178,9 @@ image::articulate_attendee.png[articulate attendee]
 
 . Review the environment.
 +
-[source,bash,subs="attributes+"]
+[source]
 ----
-$ cf env articulate
+cf env articulate
 ----
 
 . Add some attendees.
