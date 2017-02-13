@@ -52,14 +52,16 @@ If you do not see this dialog, the same information can be found under `Tools` (
 
 . Open a terminal window.  Explore the `cf` CLI. In the terminal window type `cf`.
 +
+[source.terminal]
 ----
-$ cf
+cf
 ----
 
 . Review the commands available with the `cf` CLI.  Help on a specific command can be found using the `--help` option (e.g. `cf login --help`).
 +
+[source.terminal]
 ----
-$ cf login --help
+cf login --help
 ----
 
 
@@ -67,16 +69,18 @@ $ cf login --help
 
 . Continue to follow directions for logging in with the `cf` CLI.  You can copy and paste the `cf login` command directly from Apps Manager.
 +
+[source.terminal]
 ----
-$ cf login -a {{api_endpoint}}
+cf login -a {{api_endpoint}}
 ----
 +
 NOTE: Are SSL errors preventing you from logging in?  Try adding the `--skip-ssl-validation` option.
 
 . Review your current API endpoint, user, org, and space
 +
+[source.terminal]
 ----
-$ cf target
+cf target
 ----
 
 .What Just Happened?
@@ -96,16 +100,22 @@ The zip file contains four directories; each directory contains an application d
 
 . Open a terminal window and push the `node` application
 +
+[source.terminal]
 ----
-$ cd ~/pivotal-cloud-foundry-developer-workshop/demo-apps/node
-$ cf push node --random-route -m 128M
+cd ~/pivotal-cloud-foundry-developer-workshop/demo-apps/node
+----
++
+[source.terminal]
+----
+cf push node --random-route -m 128M
 ----
 
 . View the `node` application in your browser or use `curl`.  The url can be obtained from the `cf push` output or by issuing the command `cf apps`.
 +
+[source.terminal]
 .Example:
 ----
-$ curl node-northeasterly-zygoma.cfapps.io
+curl node-northeasterly-zygoma.cfapps.io
 Hello Node
 ----
 
@@ -141,8 +151,9 @@ You have interfaced with Pivotal Cloud Foudry from two separate clients (`cf` an
 +
 This is very important for resource constrained environments.
 +
+[source.terminal]
 ----
-$ cf delete node
+cf delete node
 ----
 +
 Repeat for `php`, `python`, and `ruby` applications.
