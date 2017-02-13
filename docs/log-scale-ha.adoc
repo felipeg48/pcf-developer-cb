@@ -100,17 +100,25 @@ cf events articulate
 
 . Start tailing the logs again.
 +
+[alternatives#tail_logs_scaleup]
+mac, linux | windows
++
+[#tabs-tail_logs_scaleup-1.tail_logs_scaleup]
+--
 [source.terminal]
-.mac, linux
 ----
 cf logs articulate | grep "API\|CELL"
 ----
+--
 +
+[#tabs-tail_logs_scaleup-2.tail_logs_scaleup]
+--
 [source.terminal]
-.windows
 ----
 cf logs articulate | findstr "API CELL"
 ----
+--
+
 +
 The above statement filters only matching log lines from the https://docs.pivotal.io/pivotalcf/concepts/architecture/cloud-controller.html[Cloud Controller^] and https://docs.pivotal.io/pivotalcf/concepts/architecture/#diego-cell[Cell^] components.
 
@@ -145,17 +153,24 @@ Review the `Application Environment Information`.
 
 . Start tailing the logs.
 +
+[alternatives#tail_logs_scaleout]
+mac, linux | windows
++
+[#tabs-tail_logs_scaleout-1.tail_logs_scaleout]
+--
 [source.terminal]
-.mac, linux
 ----
 cf logs articulate | grep 'API\|CELL'
 ----
+--
 +
+[#tabs-tail_logs_scaleout-2.tail_logs_scaleout]
+--
 [source.terminal]
-.windows
 ----
 cf logs articulate | findstr "API CELL"
 ----
+--
 
 . In another terminal window, scale the `articulate` application.
 +
