@@ -45,7 +45,7 @@ https://github.com/pivotal-enablement/attendee-service[Source^] is not required,
 
 . Push the `attendee-service` application.
 
-[source]
+[source.terminal]
 ----
 cd ~/pivotal-cloud-foundry-developer-workshop/attendee-service/
 cf push attendee-service -p ./attendee-service-0.0.1-SNAPSHOT.jar -m 512M --random-route
@@ -58,7 +58,7 @@ Does `attendee-service` start up correctly?  Why not?
 . Review the http://docs.pivotal.io/pivotalcf/devguide/services/managing-services.html[documentation^] on managing service instances
 . Review what services are available in the marketplace.
 +
-[source]
+[source.terminal]
 ----
 cf marketplace
 ----
@@ -70,7 +70,7 @@ Pivotal Cloud Foundry | Pivotal Web Services
 +
 [#tabs-create_service-1.create_service]
 --
-[source]
+[source.terminal]
 ----
 cf create-service p-mysql 100mb-dev attendee-mysql
 ----
@@ -78,7 +78,7 @@ cf create-service p-mysql 100mb-dev attendee-mysql
 +
 [#tabs-create_service-2.create_service]
 --
-[source]
+[source.terminal]
 ----
 cf create-service cleardb spark attendee-mysql
 ----
@@ -86,7 +86,7 @@ cf create-service cleardb spark attendee-mysql
 
 . Now we need to bind the application with the service instance.
 +
-[source]
+[source.terminal]
 ----
 cf bind-service attendee-service attendee-mysql
 ----
@@ -95,7 +95,7 @@ NOTE: You can ignore the _TIP: Use 'cf restage attendee-service' to ensure your 
 
 . Restart the application.
 +
-[source]
+[source.terminal]
 ----
 cf restart attendee-service
 ----
@@ -113,7 +113,7 @@ image::attendee_service.png[attendee-service]
 . Read about https://docs.pivotal.io/pivotalcf/devguide/deploy-apps/environment-variable.html#VCAP-SERVICES[VCAP_SERVICES^].
 . View the environment for `attendee-service`.
 +
-[source]
+[source.terminal]
 ----
 cf env attendee-service
 ----
@@ -141,14 +141,14 @@ Additionally, how can we easily connect applications together running on the pla
 
 . Create a user-provided service instance.
 +
-[source]
+[source.terminal]
 ----
 cf create-user-provided-service attendee-service -p uri
 ----
 +
 This will create an interactive prompt.  For the value of `uri`, enter your `attendee-service` application's `attendees` endpoint:
 +
-[source]
+[source.terminal]
 ----
 uri> {{attendees_endpoint_uri}}
 ----
@@ -157,7 +157,7 @@ CAUTION: Make sure to specify `http` (this will not work with `https`).
 
 . Bind `articulate` to the `attendee-service` user-provided service.
 +
-[source]
+[source.terminal]
 ----
 cf bind-service articulate attendee-service
 ----
@@ -166,7 +166,7 @@ NOTE: You can ignore the _TIP: Use 'cf restage articulate' to ensure your env va
 
 . Restart the application.
 +
-[source]
+[source.terminal]
 ----
 cf restart articulate
 ----
@@ -178,7 +178,7 @@ image::articulate_attendee.png[articulate attendee]
 
 . Review the environment.
 +
-[source]
+[source.terminal]
 ----
 cf env articulate
 ----
