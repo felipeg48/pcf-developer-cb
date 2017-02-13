@@ -1,0 +1,82 @@
+= Manifest
+Eitan Suez <esuez@pivotal.io>
+v0.1, 2017:  GCP-specific Lab Instructions
+:doctype: book
+:linkcss:
+:docinfo: shared
+:toc: left
+:sectnums:
+:linkattrs:
+:icons: font
+:source-highlighter: highlightjs
+:imagesdir: images
+
+
+_Estimated Time: 10 minutes_
+
+== Requirements
+
+See link:requirements{outfilesuffix}[Lab Requirements].
+
+== What you will learn
+
+* How to create a manifest
+* How to use a manifest when pushing an application
+
+== Exercises
+
+=== Create an application manifest
+
+. Read about https://docs.pivotal.io/pivotalcf/devguide/deploy-apps/manifest.html[application manifests^]
+
+. Change directories to the `attendee-service` application.
++
+[source.terminal]
+.Example:
+----
+cd ~/pivotal-cloud-foundry-developer-workshop/attendee-service/
+----
+
+. Generate a manifest.
++
+[source.terminal]
+----
+cf create-app-manifest attendee-service -p ./manifest.yml
+----
+
+. Edit the manifest.
++
+* Increase the `instances` to `2`.
+* Set the `path` to the `./attendee-service-0.0.1-SNAPSHOT.jar`
+
+. Push `attendee-service`.
++
+[source.terminal]
+----
+cf push
+----
+
+. Confirm the `attendee-service` is running and the latest push parameters are reflected.
++
+[source.terminal]
+----
+cf app attendee-service
+----
+
+==== Questions
+
+* Assuming you have application running with a bound service (MySQL).  You `push` the application again with a manifest, but said service is not specified in the manifest.  Is the service still bound to the application?
+* What are some `cf` commands that don't have to be explicitly made when using manifests?
+
+=== Cleanup
+
+. Edit the manifest.
+
+* Decrease the `instances` to `1`
+
+. Push `attendee-service`.
++
+[source.terminal]
+----
+cf push
+----
