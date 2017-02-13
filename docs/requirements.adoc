@@ -11,4 +11,61 @@ v0.1, 2017:  GCP-specific Lab Instructions
 :source-highlighter: highlightjs
 :imagesdir: images
 
-TBD
+
+== Personal Experience
+
+* Understanding of development concepts
+* Experience using a terminal window
+
+== Pivotal Cloud Foundry Environment
+
+You will need a Pivotal Cloud Foundry environment to execute the labs.  You may use a Pivotal Cloud Foundry instance or http://run.pivotal.io[Pivotal Web Services^].
+
+If taking the course via e-learning, Pivotal Web Services is recommended, unless you have access to another Pivotal Cloud Foundry instance (typically already provisioned by your company).  It is not recommended that you provision a personal Pivotal Cloud Foundry environment to complete the labs.  The setup and installation of Pivotal Cloud Foundry is beyond the scope of this course.
+
+If taking the course via instructor led training your instructor will provide guidance on the environment to use.
+
+Throughout the labs you will see specific directions for Pivotal Cloud Foundry or Pivotal Web Services.  Make sure follow the directions for the applicable environment.
+
+=== Pivotal Cloud Foundry
+
+Pivotal Cloud Foundry may be used to complete these labs.  The following dependencies are required:
+
+* Elastic Runtime 1.7 +
++
+TIP: If using self-signed certificates, under the `Elastic Runtime Tile` → `Settings` → `Networking` page make sure the following options have been checked: `Disable SSL certificate verification for this environment`, `Ignore SSL certificate verification on route services`.
+
+* MySql Tile
+* Metrics Tile
+* Redis Tile
+
+
+=== Pivotal Web Services
+
+http://run.pivotal.io[Pivotal Web Services^] may be used to complete these labs.  Simply sign up for an account.
+
+=== A Note About the Service Broker Lab
+
+The link:service-broker{outfilesuffix}[Service Broker lab] requires access to a MongoDB instance.  Please review that link:service-broker{outfilesuffix}[lab] for alternatives on how to meet that requirement.  Options include using the link:aws-mongo-ami{outfilesuffix}[AWS MongoDB AMI].
+
+
+== Local Machine
+
+You will need the ability to install software on your local machine.
+
+* 4GB Memory
+* Installation of `cf` (this will be done in the first lab)
+* Network access to the Pivotal Cloud Foundry environment and internet
+* http://jmeter.apache.org/[Apache JMeter^] also requires http://www.oracle.com/technetwork/java/javase/downloads/index.html[Java^] - Used in the link:application-auto-scaler{outfilesuffix}[Auto Scaler], link:application-performance-monitor{outfilesuffix}[APM] and link:metrics{outfilesuffix}[Metrics] labs
+* https://jenkins.io/[Jenkins^] also requires a http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html[JDK 8^] and https://git-scm.com/[git^] (provisioning a link:aws-jenkins-ami{outfilesuffix}[Jenkins on AWS] is alternative to local install) - Used in Continuous Delivery Lab
+
+=== Optional
+
+* https://chrome.google.com/webstore/detail/json-formatter/bcjindcccaagfpapjjmafapmmgkkhgoa?hl=en[JSON Formatter for Chrome^]
+* Windows users may desire a better terminal experience than the _cmd.exe_.  Check out https://conemu.github.io/[ConEmu^].  It provides multiple tabs and search which is helpful during these labs.
+
+== Windows VM
+
+An alternative to installing and configuring the software on your local machine is to use the Windows VM.
+
+If using the Windows VM see these link:windows-vm{outfilesuffix}[requirements].
