@@ -1,0 +1,40 @@
+= Platform Operator Benevolence
+Eitan Suez <esuez@pivotal.io>
+v0.1, 2017:  GCP-specific Lab Instructions
+:doctype: book
+:linkcss:
+:docinfo: shared
+:toc: left
+:sectnums:
+:linkattrs:
+:icons: font
+:source-highlighter: highlightjs
+:imagesdir: images
+
+During this workshop your instructors have assumed the role of Platform Operator.  You can assume that what you're being given is similar to what a new project team would receive upon requesting a fresh environment from whichever group you would ask for such things.
+
+== Orgs
+
+An organization is the unit of tenancy in Pivotal Cloud Foundry. Within an enterprise there are typically many lines of business. These map to `Orgs` within Pivotal Cloud Foundry.
+
+== Spaces
+
+`Spaces` are used to group applications and services. `Spaces` are generally created according to a project's delivery environments (e.g. `test`, `qa`, `staging`, `production`). However, spaces are free form and we believe development teams should organize them in whatever way suits their needs and objectives.
+
+Your instructors will be providing you with an org and space.
+
+Within your `org` you'll find a `space`.  `Spaces` are where you will do your work (push your applications, create service instances, etc).
+
+NOTE: If you are taking this course via e-learning use an `org` and `space` appropriate for your environment.
+
+== Accounts
+
+You will need an account to access Pivotal Cloud Foundry.  Your instructors will provide one for you.
+
+NOTE: If taking this course via e-learning, use a Pivotal Cloud Foundry account that your admin has setup for you or use http://run.pivotal.io/[Pivotal Web Services^].  Choose the `org` and `space` that works for you.
+
+.Additional Reading
+****
+* http://docs.pivotal.io/pivotalcf/concepts/roles.html[Orgs, Spaces, Roles, and Permissions^]
+* https://docs.pivotal.io/pivotalcf/opsguide/change-quota-plan.html[Quotas^]
+****

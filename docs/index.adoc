@@ -5,4 +5,7 @@ v0.1, 2017:  Asciidoc port of lab instructions (wip)
 
 .Documents
 - link:requirements{outfilesuffix}[Requirements]
+- link:approach{outfilesuffix}[Approach and Methodology]
+- link:platform-operator-setup{outfilesuffix}[What the Platform Operator has setup for you]
+
 - link:services{outfilesuffix}[Services]

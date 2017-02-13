@@ -1,0 +1,31 @@
+= Approach and Methodology
+Eitan Suez <esuez@pivotal.io>
+v0.1, 2017:  GCP-specific Lab Instructions
+:doctype: book
+:linkcss:
+:docinfo: shared
+:toc: left
+:sectnums:
+:linkattrs:
+:icons: font
+:source-highlighter: highlightjs
+:imagesdir: images
+
+
+== Approach
+
+After completing this course, you will be prepared to deliver applications with Pivotal Cloud Foundry.
+
+This course is designed to challenge you. In this course, you will learn by doing. For this reason, the course is approximately 1/3 slides and 2/3 labs.
+
+The course makes extensive use of the official product documentation to supplement your learning. Pivotal Cloud Foundry is a fast moving project and it is imperative that you learn where to go for help. The expectation is that you read documentation to complete the labs and answer inline questions (in the labs).
+
+Explore! Dive into the cf CLI and all facets of Pivotal Cloud Foundry.
+
+== Methodology
+
+The flow of each module will move from a presentation (if applicable) to lab then a recap.
+
+During the presentations you will learn about high level concepts, then move into a lab where you can see things happen in action.
+
+The recap will bring it back together.
