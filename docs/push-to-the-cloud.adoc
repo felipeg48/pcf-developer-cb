@@ -1,0 +1,153 @@
+= Push to the Cloud
+Eitan Suez <esuez@pivotal.io>
+v0.1, 2017:  GCP-specific Lab Instructions
+:doctype: book
+:linkcss:
+:docinfo: shared
+:toc: left
+:sectnums:
+:linkattrs:
+:icons: font
+:source-highlighter: highlightjs
+:imagesdir: images
+:api_endpoint: {{api_endpoint}}
+
+
+_Estimated Time: 25 minutes_
+
+== Requirements
+
+See link:requirements{outfilesuffix}[Lab Requirements].
+
+== What you will learn
+
+* How to access Apps Manager
+* How to install the `cf` CLI
+* How to target a Pivotal Cloud Foundry instance with the `cf` CLI
+* How to `cf push` apps
+
+== Exercises
+
+=== Download the `cf` CLI
+
+Endpoint and credential information for accessing Apps Manager will be provided by your instructor.  Apps Manager is a web application that helps you manage your applications, but it is also the place to download the `cf` CLI.  The next set of steps walk you through just that.
+
+NOTE: If you are consuming these materials via e-learning and using http://run.pivotal.io/[Pivotal Web Services^] you can login to Apps Manager http://run.pivotal.io/[here^]. If you are using a Pivotal Cloud Foundry instance please see your system administrators for access to Apps Manager.
+
+. http://docs.pivotal.io/pivotalcf/console/dev-console.html[Review the Apps Manager Documentation^].  Knowing where to go for help is essential.
+
+. Login into Pivotal Cloud Foundry with the Apps Manager.
++
+NOTE: It is common to use self signed certs in educational environments, but doing so will result in warnings from your browser.  These warnings can safely be ignored (proceed through them).
+
+. Upon logging into Apps Manager for the first time you will be greeted with a welcome message that will walk you through the installation of the `cf` CLI.
++
+[.thumb]
+image::get_started.png[Get Started]
++
+If you do not see this dialog, the same information can be found under `Tools` (Left side).
+
+. Download and http://docs.pivotal.io/pivotalcf/cf-cli/install-go-cli.html[install^] the `cf` CLI for your platform.
+
+. Open a terminal window.  Explore the `cf` CLI. In the terminal window type `cf`.
++
+----
+$ cf
+----
+
+. Review the commands available with the `cf` CLI.  Help on a specific command can be found using the `--help` option (e.g. `cf login --help`).
++
+----
+$ cf login --help
+----
+
+
+=== Login to Pivotal Cloud Foundry with the `cf` CLI
+
+. Continue to follow directions for logging in with the `cf` CLI.  You can copy and paste the `cf login` command directly from Apps Manager.
++
+----
+$ cf login -a {{api_endpoint}}
+----
++
+NOTE: Are SSL errors preventing you from logging in?  Try adding the `--skip-ssl-validation` option.
+
+. Review your current API endpoint, user, org, and space
++
+----
+$ cf target
+----
+
+.What Just Happened?
+****
+You have logged into Pivotal Cloud Foundry from two different clients (Apps Manager and the `cf` CLI).  You have installed the `cf` CLI and targeted a Pivotal Cloud Foundry instance.  You are ready to `push` apps.
+****
+
+=== Pushing apps
+
+Next we will push (deploy) several applications.
+
+. Download the link:artifacts/demo-apps.zip[demo applications].  Copy the file to folder: `~/pivotal-cloud-foundry-developer-workshop` (`~` is shorthand for the home directory in Linux, Mac and Unix based operating systems).  You will need to create this directory in your https://en.wikipedia.org/wiki/Home_directory[home^] directory.
+
+. Extract the zip file to `~/pivotal-cloud-foundry-developer-workshop/demo-apps`.
++
+The zip file contains four directories; each directory contains an application developed in a different language.
+
+. Open a terminal window and push the `node` application
++
+----
+$ cd ~/pivotal-cloud-foundry-developer-workshop/demo-apps/node
+$ cf push node --random-route -m 128M
+----
+
+. View the `node` application in your browser or use `curl`.  The url can be obtained from the `cf push` output or by issuing the command `cf apps`.
++
+.Example:
+----
+$ curl node-northeasterly-zygoma.cfapps.io
+Hello Node
+----
+
+. Repeat steps 3 - 4 for the `php`, `python`, and `ruby` applications.
++
+NOTE: Make sure you `cd` into each directory before pushing.
+
+.What Just Happened?
+****
+You just deployed four applications each based on a different language and runtime.  Pivotal Cloud Foundry is a polyglot platform, meaning it supports multiple languages and does so in a pluggable way (via buildpacks)!
+****
+
+==== Questions
+
+* What are some common items in the output that occurred when pushing each application?
+
+=== Explore Apps Manager
+
+. Review the following views:
+
+* Org
+* Space
+* App
+
+.What Just Happened?
+****
+You have interfaced with Pivotal Cloud Foudry from two separate clients (`cf` and Apps Manager).  Many of the operations that are available in `cf` CLI are also available in Apps Manager.
+****
+
+=== Clean up
+
+. Delete the applications you just pushed.
++
+This is very important for resource constrained environments.
++
+----
+$ cf delete node
+----
++
+Repeat for `php`, `python`, and `ruby` applications.
+
+== Beyond the class
+
+Check out the Cloud Foundry https://github.com/cloudfoundry-samples[sample applications^].
+
+https://github.com/cloudfoundry-samples/spring-music[Spring Music^] is a favorite.

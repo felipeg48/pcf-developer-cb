@@ -3,9 +3,13 @@ Eitan Suez <esuez@pivotal.io>
 v0.1, 2017:  Asciidoc port of lab instructions (wip)
 :linkcss:
 
-.Documents
+== Kickoff
+
 - link:requirements{outfilesuffix}[Requirements]
 - link:approach{outfilesuffix}[Approach and Methodology]
 - link:platform-operator-setup{outfilesuffix}[What the Platform Operator has setup for you]
 
+== Application Development
+
+- link:push-to-the-cloud{outfilesuffix}[An introduction to Pivotal Cloud Foundry]
 - link:services{outfilesuffix}[Services]
