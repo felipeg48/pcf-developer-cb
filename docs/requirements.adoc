@@ -9,6 +9,6 @@ v0.1, 2017:  GCP-specific Lab Instructions
 :linkattrs:
 :icons: font
 :source-highlighter: highlightjs
-:imagesdir: docimages
+:imagesdir: images
 
 TBD
