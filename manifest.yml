@@ -1,0 +1,6 @@
+---
+applications:
+- name: pcfdev-asciidoc
+  buildpack: staticfile_buildpack
+  memory: 64M
+
