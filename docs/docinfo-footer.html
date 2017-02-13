@@ -1,1 +1,20 @@
 <script id="template" type="text/x-handlebars-template"></script>
+<script id="form_field" type="text/x-handlebars-template">
+  <p>
+    <div class="label">
+      <label for="{{name}}">{{name}}</label>:
+    </div>
+    <div class="input">
+      <input type="text" name="{{name}}">
+    </div>
+  </p>
+</script>
+<script id="form_button" type="text/x-handlebars-template">
+  <p>
+    <div class="label">
+    </div>
+    <div class="input btn">
+      <input type="button" id="binditBtn" value="Apply">
+    </div>
+  </p>
+</script>

@@ -1,33 +1,14 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.6.0/clipboard.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.6/handlebars.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
+
 <script src="c2cb.js"></script>
 <link rel="stylesheet" href="c2cb.css">
 
-<script src="jquery-ui.min.js"></script>
-<link rel="stylesheet" href="jquery-ui.min.css">
 <script src="tabs.js"></script>
 <link rel="stylesheet" href="tabs.css">
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.6/handlebars.min.js"></script>
 <script src="templatize.js"></script>
 <link rel="stylesheet" href="form.css">
-<script id="form_field" type="text/x-handlebars-template">
-  <p>
-    <div class="label">
-      <label for="{{name}}">{{name}}</label>:
-    </div>
-    <div class="input">
-      <input type="text" name="{{name}}">
-    </div>
-  </p>
-</script>
-<script id="form_button" type="text/x-handlebars-template">
-  <p>
-    <div class="label">
-    </div>
-    <div class="input btn">
-      <input type="button" id="binditBtn" value="Apply">
-    </div>
-  </p>
-</script>
