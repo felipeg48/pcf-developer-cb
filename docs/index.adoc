@@ -5,11 +5,13 @@ v0.1, 2017:  Asciidoc port of lab instructions (wip)
 
 == Kickoff
 
-- link:requirements{outfilesuffix}[Requirements]
-- link:approach{outfilesuffix}[Approach and Methodology]
-- link:platform-operator-setup{outfilesuffix}[What the Platform Operator has setup for you]
+- link:requirements{outfilesuffix}[Requirements^]
+- link:approach{outfilesuffix}[Approach and Methodology^]
+- link:platform-operator-setup{outfilesuffix}[What the Platform Operator has setup for you^]
 
 == Application Development
 
-- link:push-to-the-cloud{outfilesuffix}[An introduction to Pivotal Cloud Foundry]
-- link:services{outfilesuffix}[Services]
+- link:push-to-the-cloud{outfilesuffix}[An introduction to Pivotal Cloud Foundry^]
+- link:log-scale-ha{outfilesuffix}[Logging, Scale and HA^]
+- link:services{outfilesuffix}[Services^]
+- link:manifest{outfilesuffix}[Manifest^]

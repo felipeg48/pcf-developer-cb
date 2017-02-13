@@ -1,0 +1,223 @@
+= Logging, Scale, and HA
+Eitan Suez <esuez@pivotal.io>
+v0.1, 2017:  GCP-specific Lab Instructions
+:doctype: book
+:linkcss:
+:docinfo: shared
+:toc: left
+:sectnums:
+:linkattrs:
+:icons: font
+:source-highlighter: highlightjs
+:imagesdir: images
+:experimental:
+
+
+_Estimated Time: 30 minutes_
+
+== Requirements
+
+See link:requirements{outfilesuffix}[Lab Requirements].
+
+== What you will learn
+
+* How to access application logs
+* How to scale an application
+* How to access events
+* How Pivotal Cloud Foundry handles failed application instances
+
+== Exercises
+
+=== Push the `articulate` application
+
+. link:(artifacts/articulate-0.0.1-SNAPSHOT.jar[Download] the `articulate` application.  Copy the file to folder: `~/pivotal-cloud-foundry-developer-workshop/articulate/` (`~` is shorthand for the home directory in Linux, Mac and Unix based operating systems).  You will need to create this directory in your https://en.wikipedia.org/wiki/Home_directory[home^] directory.
++
+NOTE: If your browser warns you about downloading this file please proceed to download it.
++
+https://github.com/pivotal-enablement/articulate[Source^] is not required, but you may be curious how it works as you move through the labs.
+
+. Push the `articulate` application.
++
+----
+$ cd ~/pivotal-cloud-foundry-developer-workshop/articulate/
+$ cf push articulate -p ./articulate-0.0.1-SNAPSHOT.jar -m 512M --random-route --no-start
+----
+
+=== Access `articulate` logs
+
+. Review the documentation on http://docs.pivotal.io/pivotalcf/devguide/deploy-apps/streaming-logs.html[application logging^].
+
+. Tail the logs of the `articulate` application.
++
+----
+$ cf logs articulate
+----
+
+. Open _another_ terminal window and start the `articulate` application.  Review the output from both terminal windows.
++
+----
+$ cf start articulate
+----
+
+. Open a browser and view the `articulate` application.  Read about our demo application.
++
+[.thumb]
+image::ha-articulate.png[Articulate]
+
+. Observe the log output when the `articulate` web page is refreshed.  More logs are added!
+
+. Stop tailing logs
+
+.. Go to the terminal tailing the logs
+.. Send an interrupt (kbd:[Ctrl+C])
+
+==== Questions
+
+* Where should your application write logs?
+* What are some of the different origin codes seen in the log?
+* How does this change how you access logs today?  At scale?
+
+=== Access `articulate` events
+
+Events for the application can also be used to compliment the logs in determining what has occurred with an application.
+
+----
+$ cf events articulate
+----
+
+
+=== Scale `articulate`
+
+==== Scale up
+
+. Start tailing the logs again.
++
+----
+[mac, linux]
+$ cf logs articulate | grep "API\|CELL"
+
+[windows]
+$ cf logs articulate | findstr "API CELL"
+----
++
+The above statement filters only matching log lines from the https://docs.pivotal.io/pivotalcf/concepts/architecture/cloud-controller.html[Cloud Controller^] and https://docs.pivotal.io/pivotalcf/concepts/architecture/#diego-cell[Cell^] components.
+
+. In _another_ terminal window scale `articulate`.
++
+----
+$ cf scale articulate -m 1G
+----
+
+. Observe log output.
+
+. Stop tailing the logs.
+
+. Scale `articulate` back to our original settings.
++
+----
+$ cf scale articulate -m 512M
+----
+
+==== Scale out
+
+. Browse to the `Scale and HA` page of the `articulate` application.
++
+[.thumb]
+image::scale_ha.png[Scale and HA]
++
+Review the `Application Environment Information`.
+
+. Press the `Refresh` button multiple times.  All requests are going to one application instance.
+
+. Start tailing the logs.
++
+----
+[mac, linux]
+$ cf logs articulate | grep 'API\|CELL'
+
+[windows]
+$ cf logs articulate | findstr "API CELL"
+----
+
+. In another terminal window, scale the `articulate` application.
++
+----
+$ cf scale articulate -i 3
+----
+
+. Observe log output.  Then stop tailing the logs.
+
+. Return to `articulate` in a web browser.  Press the `Refresh` button several times. Observe the `Addresses` and `Instance Index` changing.
+
+_Notice how quickly the new application instances are provisioned and subsequently load balanced!_
+
+==== Questions
+
+* What is the difference between scaling out versus scaling up?
+
+=== High Availability
+
+Pivotal Cloud Foundry has https://blog.pivotal.io/pivotal-cloud-foundry/products/the-four-levels-of-ha-in-pivotal-cf[4 levels of HA^] (High Availability) that keep your applications and the underlying platform running.  In this section, we will demonstrate one of them.  Failed application instances will be recovered.
+
+. At this time you should be running multiple instances of `articulate`.  Confirm this with the following command:
++
+----
+$ cf app articulate
+----
+
+. Return to `articulate` in a web browser (`Scale and HA` page).  Press the `Refresh` button. Confirm the application is running.
+
+. Kill the app.  Press the `Kill` button!
+
+. Check the state of the app through the `cf` CLI.
++
+----
+$ cf app articulate
+----
++
+Sample output below (notice the `requested state` vs actual `state`).  In this case, Pivotal Cloud Foundry had already detected the failure and is starting a new instance.
++
+----
+requested state: started
+instances: 3/3
+usage: 512M x 3 instances
+urls: articulate.pcfi1.fe.gopivotal.com
+last uploaded: Mon Mar 21 20:27:57 UTC 2016
+stack: cflinuxfs2
+buildpack: java-buildpack=v3.5.1-offline-http://github.com/pivotal-cf/pcf-java-buildpack.git#d6c19f8 java-main open-jdk-like-jre=1.8.0_65 open-jdk-like-memory-calculator=2.0.1_RELEASE spring-auto-reconfiguration=1.10.0_RELEASE
+
+     state      since                    cpu     memory           disk           details
+#0   starting   2016-03-21 04:16:23 PM   0.0%    692K of 512M     93.4M of 1G
+#1   running    2016-03-21 03:28:58 PM   0.5%    410.4M of 512M   158.8M of 1G
+#2   running    2016-03-21 04:15:57 PM   23.9%   357.8M of 512M   158.8M of 1G
+----
++
+Repeat this command as necessary until `state` = `running`.
+
+. In your browser, `Refresh` the `articulate` application.
++
+The app is back up!
++
+A new, healthy app instance has been automatically provisioned to replace the failing one.
+
+. View which instance was killed.
++
+----
+$ cf events articulate
+----
+
+. Scale `articulate` back to our original settings.
++
+----
+$ cf scale articulate -i 1
+----
+
+==== Questions
+
+* How do you recover failing application instances today?
+* What effect does this have on your application design?
+* How could you determine if your application has been crashing?
+
+== Beyond the class
+
+* Try the same exercises, but using Apps Manager instead
