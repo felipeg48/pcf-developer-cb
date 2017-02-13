@@ -30,7 +30,7 @@ See link:requirements{outfilesuffix}[Lab Requirements].
 
 === Push the `articulate` application
 
-. link:(artifacts/articulate-0.0.1-SNAPSHOT.jar[Download] the `articulate` application.  Copy the file to folder: `~/pivotal-cloud-foundry-developer-workshop/articulate/` (`~` is shorthand for the home directory in Linux, Mac and Unix based operating systems).  You will need to create this directory in your https://en.wikipedia.org/wiki/Home_directory[home^] directory.
+. link:(artifacts/articulate-0.0.1-SNAPSHOT.[Download] the `articulate` application.  Copy the file to folder: `~/pivotal-cloud-foundry-developer-workshop/articulate/` (`~` is shorthand for the home directory in Linux, Mac and Unix based operating systems).  You will need to create this directory in your https://en.wikipedia.org/wiki/Home_directory[home^] directory.
 +
 NOTE: If your browser warns you about downloading this file please proceed to download it.
 +
@@ -38,9 +38,14 @@ https://github.com/pivotal-enablement/articulate[Source^] is not required, but y
 
 . Push the `articulate` application.
 +
+[source.terminal]
 ----
-$ cd ~/pivotal-cloud-foundry-developer-workshop/articulate/
-$ cf push articulate -p ./articulate-0.0.1-SNAPSHOT.jar -m 512M --random-route --no-start
+cd ~/pivotal-cloud-foundry-developer-workshop/articulate/
+----
++
+[source.terminal]
+----
+cf push articulate -p ./articulate-0.0.1-SNAPSHOT./$ -m 512M --random-route --no-start
 ----
 
 === Access `articulate` logs
@@ -49,14 +54,16 @@ $ cf push articulate -p ./articulate-0.0.1-SNAPSHOT.jar -m 512M --random-route -
 
 . Tail the logs of the `articulate` application.
 +
+[source.terminal]
 ----
-$ cf logs articulate
+cf logs articulate
 ----
 
 . Open _another_ terminal window and start the `articulate` application.  Review the output from both terminal windows.
 +
+[source.terminal]
 ----
-$ cf start articulate
+cf start articulate
 ----
 
 . Open a browser and view the `articulate` application.  Read about our demo application.
@@ -81,8 +88,9 @@ image::ha-articulate.png[Articulate]
 
 Events for the application can also be used to compliment the logs in determining what has occurred with an application.
 
+[source.terminal]
 ----
-$ cf events articulate
+cf events articulate
 ----
 
 
@@ -92,20 +100,25 @@ $ cf events articulate
 
 . Start tailing the logs again.
 +
+[source.terminal]
+.mac, linux
 ----
-[mac, linux]
-$ cf logs articulate | grep "API\|CELL"
-
-[windows]
-$ cf logs articulate | findstr "API CELL"
+cf logs articulate | grep "API\|CELL"
+----
++
+[source.terminal]
+.windows
+----
+cf logs articulate | findstr "API CELL"
 ----
 +
 The above statement filters only matching log lines from the https://docs.pivotal.io/pivotalcf/concepts/architecture/cloud-controller.html[Cloud Controller^] and https://docs.pivotal.io/pivotalcf/concepts/architecture/#diego-cell[Cell^] components.
 
 . In _another_ terminal window scale `articulate`.
 +
+[source.terminal]
 ----
-$ cf scale articulate -m 1G
+cf scale articulate -m 1G
 ----
 
 . Observe log output.
@@ -114,8 +127,9 @@ $ cf scale articulate -m 1G
 
 . Scale `articulate` back to our original settings.
 +
+[source.terminal]
 ----
-$ cf scale articulate -m 512M
+cf scale articulate -m 512M
 ----
 
 ==== Scale out
@@ -131,18 +145,23 @@ Review the `Application Environment Information`.
 
 . Start tailing the logs.
 +
+[source.terminal]
+.mac, linux
 ----
-[mac, linux]
-$ cf logs articulate | grep 'API\|CELL'
-
-[windows]
-$ cf logs articulate | findstr "API CELL"
+cf logs articulate | grep 'API\|CELL'
+----
++
+[source.terminal]
+.windows
+----
+cf logs articulate | findstr "API CELL"
 ----
 
 . In another terminal window, scale the `articulate` application.
 +
+[source.terminal]
 ----
-$ cf scale articulate -i 3
+cf scale articulate -i 3
 ----
 
 . Observe log output.  Then stop tailing the logs.
@@ -161,8 +180,9 @@ Pivotal Cloud Foundry has https://blog.pivotal.io/pivotal-cloud-foundry/products
 
 . At this time you should be running multiple instances of `articulate`.  Confirm this with the following command:
 +
+[source.terminal]
 ----
-$ cf app articulate
+cf app articulate
 ----
 
 . Return to `articulate` in a web browser (`Scale and HA` page).  Press the `Refresh` button. Confirm the application is running.
@@ -171,8 +191,9 @@ $ cf app articulate
 
 . Check the state of the app through the `cf` CLI.
 +
+[source.terminal]
 ----
-$ cf app articulate
+cf app articulate
 ----
 +
 Sample output below (notice the `requested state` vs actual `state`).  In this case, Pivotal Cloud Foundry had already detected the failure and is starting a new instance.
@@ -202,14 +223,16 @@ A new, healthy app instance has been automatically provisioned to replace the fa
 
 . View which instance was killed.
 +
+[source.terminal]
 ----
-$ cf events articulate
+cf events articulate
 ----
 
 . Scale `articulate` back to our original settings.
 +
+[source.terminal]
 ----
-$ cf scale articulate -i 1
+cf scale articulate -i 1
 ----
 
 ==== Questions
