@@ -14,7 +14,7 @@ $(function() {
   buildForm();
 
   function buildForm() {
-    header.append("<img id='form-trigger' src='chevron-bottom.svg' alt='Environment'>");
+    header.append("<i id='form-trigger' class='fa fa-chevron-down fa-2x' title='Environment'></i>");
     header.append("<form id='thebinding'><fieldset><legend>Environment</legend></fieldset></form>");
     var form = $("#thebinding");
 

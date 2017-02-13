@@ -25,9 +25,8 @@
   padding-top: 0.5em;
 }
 #header #form-trigger {
-  width: 1.5em;
   position: absolute;
-  top: 3.5em;
-  right: 0;
+  top: 1.5em;
+  right: 0.5em;
   cursor: pointer;
 }
