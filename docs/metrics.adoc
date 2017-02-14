@@ -1,0 +1,53 @@
+= Metrics
+Eitan Suez <esuez@pivotal.io>
+v0.1, 2017:  GCP-specific Lab Instructions
+:doctype: book
+:linkcss:
+:docinfo: shared
+:toc: left
+:sectnums:
+:linkattrs:
+:icons: font
+:source-highlighter: highlightjs
+:imagesdir: images
+
+
+_Estimated Time: 25 minutes_
+
+== Requirements
+
+See link:requirements{outfilesuffix}[Lab Requirements].
+
+== What you will learn
+
+* How to access PCF Metrics
+* How to use PCF Metrics to better understand how your application is performing
+
+== Exercises
+
+=== PCF Metrics Overview
+
+[alternatives#docref]
+Pivotal Cloud Foundry | Pivotal Web Services
+
+[#tabs-docref-1.docref]
+--
+. Review the http://docs.pivotal.io/pcf-metrics/using.html[documentation^] on PCF Metrics.
+--
+
+[#tabs-docref-2.docref]
+--
+. Review the http://docs.run.pivotal.io/metrics/using.html[documentation^] on PCF Metrics.
+--
+
+=== Explore PCF Metrics
+
+. Log into PCF Metrics and explore the views for `articulate`.
+
+. Generate some traffic to `articulate` and observe the effects.
+
+Optionally use the JMeter script from the link:autoscaler{outfilesuffix}[Application Autoscaler lab] to generate some traffic.
+
+=== Questions
+
+* What might a spike in memory indicate?

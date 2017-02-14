@@ -22,7 +22,7 @@ v0.1, 2017:  Asciidoc port of lab instructions (wip)
 - link:autoscaler{outfilesuffix}[Application Autoscaler^]
 - link:apm{outfilesuffix}[Application Performance Monitor^]
 - link:metrics{outfilesuffix}[Metrics^]
-- link:buildpack{outfilesuffix}[Buildpack^]
-- link:service-broker{outfilesuffix}[Service Broker^]
-- link:continuous-delivery{outfilesuffix}[Continuous Delivery^]
-- link:route-service{outfilesuffix}[Route Service^]
+- link:buildpack{outfilesuffix}[Buildpack^] TBD
+- link:service-broker{outfilesuffix}[Service Broker^] TBD
+- link:continuous-delivery{outfilesuffix}[Continuous Delivery^] TBD
+- link:route-service{outfilesuffix}[Route Service^] TBD
