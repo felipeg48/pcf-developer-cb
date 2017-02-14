@@ -1,0 +1,175 @@
+= Application Autoscale r
+Eitan Suez <esuez@pivotal.io>
+v0.1, 2017:  GCP-specific Lab Instructions
+:doctype: book
+:linkcss:
+:docinfo: shared
+:toc: left
+:sectnums:
+:linkattrs:
+:icons: font
+:source-highlighter: highlightjs
+:imagesdir: images
+:jmeter_basedir: {{jmeter_basedir}}
+
+
+_Estimated Time: 25 minutes_
+
+== Requirements
+
+See link:requirements{outfilesuffix}[Lab Requirements].
+
+== What you will learn
+
+How to use the `app-autoscaler` service
+
+== Exercises
+
+=== Setup
+
+. Ensure the `articulate` application has one application instance running.
++
+[source.terminal]
+----
+cf scale articulate -i 1
+----
+
+=== Provision and Bind an Autoscaler Service Instance
+
+. Read the documentation about https://docs.pivotal.io/pivotalcf/1-7/appsman-services/autoscaler/autoscale-configuration.html[App Autoscaling^].
+
+. Review what's in the marketplace.
++
+[source.terminal]
+----
+cf marketplace
+----
+
+. Create a autoscaler service instance.
++
+[source.terminal]
+----
+cf create-service app-autoscaler standard autoscaler
+----
+
+. Bind the service to `articulate`.
++
+[source.terminal]
+----
+cf bind-service articulate autoscaler
+----
++
+NOTE: You can ignore the "TIP: Use 'cf restage articulate' to ensure your env variable changes take effect" message at this time.
+
+. Restart the application.
++
+[source.terminal]
+----
+cf restart articulate
+----
+
+=== Configuring Autoscaling Service Instance
+
+. View `articulate` in Apps Manager.
++
+.. Navigate to the `Services` tab.
+.. Click the `Manage` link for the autoscaler (this will open a new tab).
++
+[.thumb]
+image::auto-scaler-manage.png[Manage]
+
+. `Turn on` autoscaling for `articulate`.
++
+[.thumb]
+image::auto-scaler-turn_on.png[Turn On]
++
+We will use policy defaults.  Note that the default policy for minimum instances is `2`.
++
+[.thumb]
+image::auto-scaler-settings.png[Settings]
+
+. Return to Apps Manager and observe the number of instances increase from `1` to `2`.
+
+=== Generate Load and Observe the Results
+
+. Download http://jmeter.apache.org/download_jmeter.cgi[Apache JMeter^].  It will be used to generate load.  Review the JMeter http://jmeter.apache.org/usermanual/get-started.html[getting started^] directions.
++
+[alternatives#hints]
+Linux and Mac | Windows
++
+[#tabs-hints-1.hints]
+--
+. Add execute permissions to the JMeter script: `chmod +x {{jmeter_basedir}}/bin/jmeter.sh`
+. Start JMeter by executing `{{jmeter_basedir}}/bin/jmeter.sh`
+--
++
+[#tabs-hints-2.hints]
+--
+. Start JMeter by double clicking the following file in Windows Explorer: `{{jmeter_basedir}}/bin/jmeter.bat`
+--
++
+. Download the link:artifacts/load-gen.jmx[load-gen.jmx] file.
+
+. Open the load-gen.jmx file with the JMeter GUI.
+
+. Expand the content of the JMeter test plan by:
++
+.. Selecting the `Load Generator` test plan on the left pane.
+.. Going to the menu: `Options` → `Expand All`.
+
+. Under `HTTP Request`, edit the test plan as follows:
++
+.. Set the value of the `Service Name or IP` field to your application’s fully-qualified hostname (do not include the `http://`).  For example: `jsmith-articulate.cfapps.io`
+.. Set the value of the HTTP Request `Path` field to `/services`
+
+. Save the test plan: `File` → `Save`.
+
+. Run the test plan: `Run` → `Start`.
+
+. Use Apps Manager and the `cf` CLI to observe your service scale up and back down based on load.
++
+NOTE: You may see `articulate` crash when placing load on it in this scenario.  This is okay.  We are running the application with a lower memory setting so that we can scale within quota limits.
+
+. Stop the test plan: `Run` → `Stop`.
+
+. Review Autoscale history.
+
+[.thumb]
+image::auto-scaler-history.png[History]
+
+=== Clean up
+
+. Unbind the `autoscaler` service instance.
++
+[source.terminal]
+----
+cf unbind-service articulate autoscaler
+----
+
+. Delete the `autoscaler` service instance.
++
+[source.terminal]
+----
+cf delete-service autoscaler
+----
+
+. Scale `articulate` back to original settings.
++
+[source.terminal]
+----
+cf scale articulate -i 1
+----
+
+. Restart `articulate`.
++
+[source.terminal]
+----
+cf restart articulate
+----
+
+
+=== Questions
+
+* How do you handle autoscaling today?
+* What 12 factor principles are important when it comes to scaling?
+* How do you handle scaling at the data layer?
