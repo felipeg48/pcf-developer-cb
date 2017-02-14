@@ -21,7 +21,7 @@ See link:requirements{outfilesuffix}[Lab Requirements].
 
 == What you will learn
 
-* How to create a log drain
+How to create a log drain
 
 == Exercises
 

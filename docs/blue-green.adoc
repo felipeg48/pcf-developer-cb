@@ -1,0 +1,229 @@
+= Blue Green
+Eitan Suez <esuez@pivotal.io>
+v0.1, 2017:  GCP-specific Lab Instructions
+:doctype: book
+:linkcss:
+:docinfo: shared
+:toc: left
+:sectnums:
+:linkattrs:
+:icons: font
+:source-highlighter: highlightjs
+:imagesdir: images
+:domain_name: {{domain_name}}
+:articulate_hostname: {{articulate_hostname}}
+:articulate_hostname_temp: {{articulate_hostname_temp}}
+
+_Estimated Time: 25 minutes_
+
+== Requirements
+
+See link:requirements{outfilesuffix}[Lab Requirements].
+
+== What you will learn
+
+How to manage an application upgrade with a blue-green deployment
+
+== Exercises
+
+=== Setup
+
+. To simulate a blue-green deployment, first scale `articulate` to multiple instances.
++
+[source.terminal]
+----
+cf scale articulate -i 2
+----
+
+=== Perform a Blue-Green Deployment
+
+. Read about using https://docs.pivotal.io/pivotalcf/devguide/deploy-apps/blue-green.html[Blue-Green Deployments to reduce downtime and risk^].
+
+. Browse to the `articulate` `Blue-Green` page.
++
+[.thumb]
+image::blue_green.png[Blue-Green Deployments]
+
+. Lets assume that the deployed application is version 1.  Let's generate some traffic.  Press the `Start` button.
++
+_Leave this open as a dedicated tab in your browser.  We will come back to this later._
+
+. Observe our existing application handling all the web requests.
++
+[.thumb]
+image::start.png[Start Load]
+
+. Record the subdomain (`host`) for the `articulate` application.
++
+This is our production route.  _You will use this in the next step._
++
+For example:
++
+[source.terminal]
+----
+cf routes
+
+Getting routes as droberts@pivotal.io ...
+
+space   host                                           domain                   apps
+dev     articulate-heartsickening-elegance             pcfi1.fe.gopivotal.com   articulate
+----
+
+. Now let's `push` the next version of `articulate`.
++
+However, this time we will specify the subdomain by appending `-temp` to our production route.
++
+For example:
++
+[source.terminal]
+----
+cd ~/pivotal-cloud-foundry-developer-workshop/articulate/
+----
++
+[source.terminal]
+----
+cf push articulate-v2 -p ./articulate-0.0.1-SNAPSHOT.jar -m 512M -n {{articulate_hostname_temp}} --no-start
+----
+
+. Bind `articulate-v2` to the `attendee-service` user provided service.
++
+[source.terminal]
+----
+cf bind-service articulate-v2 attendee-service
+----
++
+NOTE: You can ignore the "TIP: Use 'cf restage articulate-v2' to ensure your env variable changes take effect" message at this time.
+
+. Start the application.
++
+[source.terminal]
+----
+cf start articulate-v2
+----
+
+. Now we have two versions of our app deployed.
++
+_Open a new tab_ and view version 2 of `articulate` in your browser.  Take note of the application name.
++
+[.thumb]
+image::green.png[Green]
++
+At this point in the deployment process, you could do further testing of the version you are about to release before exposing customers to it.
+
+. Let's assume we are ready to start directing production traffic to version 2.  We need to map our production route to `articulate-v2`.
++
+For example (your domain and subdomain will be different):
++
+[source.terminal]
+----
+cf map-route articulate-v2 {{domain_name}} --hostname {{articulate_hostname}}
+----
+
+. Return to browser tab where you started the load.  You should see that it is starting to send requests to version 2.
++
+[.thumb]
+image::map_route.png[Map Route]
+
+. Press the `Reset` button, so we can see how the load get distributed across app instances.
++
+If you are running with a similar configuration to this:
++
+[source.terminal]
+----
+cf apps
+
+Getting apps in org dave / space dev as droberts@pivotal.io...
+OK
+
+name                     requested state   instances   memory   disk   urls
+articulate               started           2/2         512M       1G     ...
+articulate-v2            started           1/1         512M       1G     ...
+----
++
+You should see about a third of the requests going to version 2.
++
+[.thumb]
+image::third.png[Third]
+
+. Move more traffic to version 2, with:
++
+[source.terminal]
+----
+cf scale articulate -i 1
+----
++
+..and:
++
+[source.terminal]
+----
+cf scale articulate-v2 -i 2
+----
++
+If you `Reset` the load generator, you will see 2/3 of the traffic go to `articulate-v2`.
+
+. Move all traffic to version 2.
++
+Remove the production route from the `articulate` application.
++
+For example (your domain and subdomain will be different):
++
+[source.terminal]
+----
+cf unmap-route articulate {{domain_name}} --hostname {{articulate_hostname}}
+----
++
+If you `Reset` the load generator, you will see all the traffic goes to `articulate-v2`.
++
+[.thumb]
+image::unmap.png[Unmap]
++
+NOTE: Refreshing the entire page will update the application name.
+
+. Remove the temp route from the `articulate-v2` application.
++
+For example (your domain and subdomain will be different):
++
+[source.terminal]
+----
+cf unmap-route {{domain_name}} --hostname {{articulate_hostname}}
+----
+
+**Congratulations!** You performed a blue-green deployment.
+
+==== Questions
+
+* How would a rollback situation be handled using a blue-green deployment?
+* What other design implications does running at least two versions at the same time have on your applications?
+* Do you do blue-green deployments today?  How is this different?
+
+=== Cleanup
+
+Let's reset our environment.
+
+. Delete the `articulate` application.
++
+[source.terminal]
+----
+cf delete articulate
+----
+
+. Rename `articulate-v2` to `articulate`.
++
+[source.terminal]
+----
+cf rename articulate-v2 articulate
+----
+
+. Restart `articulate`.
++
+[source.terminal]
+----
+cf restart articulate
+----
+
+. Scale down.
++
+[source.terminal]
+----
+cf scale articulate -i 1
+----

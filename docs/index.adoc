@@ -18,3 +18,11 @@ v0.1, 2017:  Asciidoc port of lab instructions (wip)
 - link:asg{outfilesuffix}[Application Security Groups^]
 - link:log-drain{outfilesuffix}[Log Drain^]
 - link:blue-green{outfilesuffix}[Blue-Green^]
+- Microservices
+- link:autoscaler{outfilesuffix}[Application Autoscaler^]
+- link:apm{outfilesuffix}[Application Performance Monitor^]
+- link:metrics{outfilesuffix}[Metrics^]
+- link:buildpack{outfilesuffix}[Buildpack^]
+- link:service-broker{outfilesuffix}[Service Broker^]
+- link:continuous-delivery{outfilesuffix}[Continuous Delivery^]
+- link:route-service{outfilesuffix}[Route Service^]
