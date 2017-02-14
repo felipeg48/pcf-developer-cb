@@ -1,0 +1,86 @@
+= Log Drain
+Eitan Suez <esuez@pivotal.io>
+v0.1, 2017:  GCP-specific Lab Instructions
+:doctype: book
+:linkcss:
+:docinfo: shared
+:toc: left
+:sectnums:
+:linkattrs:
+:icons: font
+:source-highlighter: highlightjs
+:imagesdir: images
+:syslog_drain_url: {{syslog_drain_url}}
+
+
+_Estimated Time: 25 minutes_
+
+== Requirements
+
+See link:requirements{outfilesuffix}[Lab Requirements].
+
+== What you will learn
+
+* How to create a log drain
+
+== Exercises
+
+=== Create a log drain
+
+Pivotal Cloud Foundry does not persist logs.  For long term storage of logs, drain logs to a third party log management service.
+
+. Read about http://docs.pivotal.io/pivotalcf/devguide/services/log-management.html[log draining^].
++
+In this section, you will configure application log draining into a log analysis tool with a User Provided Service Instance.  We will use the free Papertrail service, but any tool that supports tcp syslog draining can be used.
+
+. Sign up for a free Papertrail https://papertrailapp.com/[account^].  We've got some http://docs.pivotal.io/pivotalcf/devguide/services/log-management-thirdparty-svc.html#papertrail[instructions^] to set up Papertrail.
++
+In a nutshell:
++
+.. Create a Papertrail account, fill in your email and password
+.. Browse to https://papertrailapp.com/systems/new[papertrailapp.com/systems/new^]
+.. Select "I use Cloud Foundry"
+.. "What should we call it?" give it a name - `log-drain`
+.. Click "Save"
+.. Take note of the url (logs2.papertrail.com:&lt;some-port&gt;)
+
+. Create a User Provided Service Instance that streams logs to Papertrail.
++
+[source.terminal]
+----
+cf create-user-provided-service articulate-log-drain -l syslog://{{syslog_drain_url}}
+----
+
+. Bind the `articulate-log-drain` service to the `articulate` application.
++
+[source.terminal]
+----
+cf bind-service articulate articulate-log-drain
+----
++
+NOTE: It can take up to ten minutes for logs to start flowing into Papertrail.  At the time of writing, this was consistently 10 minutes before seeing logs in Papertrail.
++
+_Question_: Is `cf restart/restage` required for log draining to start working? Why? Why not?
+
+. View `articulate` in a browser.  Refresh as necessary to generate logs.
+
+. To view the logs in Papertrail do the following:
+
+.. Click on "Dashboard"
+.. Click on "log-drain"
+
+. Experiment.  Restart the `articulate` application.
++
+[source.terminal]
+----
+cf restart articulate
+----
+
+== Questions
+
+* How does this approach differ from how you get your logs today?
+* What kinds of alerts or visualizations could you create from your logs data?
+
+== Beyond the Class
+
+* Visualize your logs

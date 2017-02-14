@@ -15,3 +15,6 @@ v0.1, 2017:  Asciidoc port of lab instructions (wip)
 - link:log-scale-ha{outfilesuffix}[Logging, Scale and HA^]
 - link:services{outfilesuffix}[Services^]
 - link:manifest{outfilesuffix}[Manifest^]
+- link:asg{outfilesuffix}[Application Security Groups^]
+- link:log-drain{outfilesuffix}[Log Drain^]
+- link:blue-green{outfilesuffix}[Blue-Green^]
