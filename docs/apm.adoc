@@ -1,0 +1,193 @@
+= Application Performance Monitoring
+Eitan Suez <esuez@pivotal.io>
+v0.1, 2017:  GCP-specific Lab Instructions
+:doctype: book
+:linkcss:
+:docinfo: shared
+:toc: left
+:sectnums:
+:linkattrs:
+:icons: font
+:source-highlighter: highlightjs
+:imagesdir: images
+
+
+_Estimated Time: 25 minutes_
+
+== Requirements
+
+See link:requirements{outfilesuffix}[Lab Requirements].
+
+== What you will learn
+
+How to use an APM service
+
+== Exercises
+
+=== Setup
+
+. APM solutions cause applications to consume more memory.  Increase the memory limit for each application.
++
+[source.terminal]
+----
+cf scale articulate -m 1G -i 1
+----
++
+..and:
++
+[source.terminal]
+----
+cf scale attendee-service -m 1G -i 1
+----
+
+=== Provision a New Relic Service Instance
+
+Read the documentation on https://github.com/cloudfoundry/java-buildpack/blob/master/docs/framework-new_relic_agent.md[New Relic integration^] with the Java Buildpack.
+
+==== Pivotal Cloud Foundry Instructions
+
+[alternatives#instructions]
+Pivotal Cloud Foundry | Pivotal Web Services
+
+[#tabs-instructions-1.instructions]
+--
+. Signup for a http://newrelic.com/signup?funnel=pivotal-cloud-foundry&partner=Pivotal+Cloud+Foundry&product_id=Standard&promo_code=PVCF60PRO[60 day free trial license^] with New Relic.
+
+. Obtain `license key`.
++
+This can be found under `Account Settings` from the drop down menu in the upper right corner of the page.
+
+. Create a user provided service instance.  This will create an interactive prompt.
++
+[source.terminal]
+----
+cf create-user-provided-service newrelic -p license_key
+----
+--
+
+[#tabs-instructions-2.instructions]
+--
+Create a New Relic Service instance.
+
+[source.terminal]
+----
+cf create-service newrelic standard newrelic
+----
+--
+
+
+===  Bind the New Relic Service Instance
+
+. Bind the `newrelic` service instance to `articulate`.
++
+[source.terminal]
+----
+cf bind-service articulate newrelic
+----
+
+. Restage `articulate`.
++
+[source.terminal]
+----
+cf restage articulate
+----
+
+. Bind the `newrelic` service instance to `attendee-service`.
++
+[source.terminal]
+----
+cf bind-service attendee-service newrelic
+----
+
+. Restage `attendee-service`.
++
+[source.terminal]
+----
+cf restage attendee-service
+----
+
+==== Questions
+
+* Why must `articulate` & `attendee-service` be restaged as oppose to restarted?
+
+=== Create Some Web Traffic and View in New Relic
+
+. Refresh the `articulate` `Service` web page multiple times.
++
+Optionally use the JMeter script from the link:autoscaler{outfilesuffix}[Application Autoscaler lab].
+
+. Observe and explore the performance metrics in the New Relic console under the `APM` tab.
+
+_Pivotal Web Services_ users can access the New Relic console via the `Manage` link in Apps Manager:
+
+.Apps Manager `Manage` link
+[.thumb]
+image::application-performance-monitor-manage.png[Apps Manager]
+
+[.thumb]
+.`articulate`
+image::application-performance-monitor-articulate.png[Articulate]
+
+[.thumb]
+.`attendee-service`
+image::application-performance-monitor-attendee_service.png[Attendee Service]
+
+=== Clean up
+
+. Unbind `newrelic` service instance.
++
+[source.terminal]
+----
+cf unbind-service articulate newrelic
+----
++
+..and:
++
+[source.terminal]
+----
+cf unbind-service attendee-service newrelic
+----
+
+. Delete `newrelic` service instance.
++
+[source.terminal]
+----
+cf delete-service newrelic
+----
+
+. Scale back down to our original settings.
++
+[source.terminal]
+----
+cf scale articulate -m 512M -i 1
+----
++
+..and:
++
+[source.terminal]
+----
+cf scale attendee-service -m 512M -i 1
+----
+
+. Restage applications.
++
+[source.terminal]
+----
+cf restage articulate
+----
++
+..and:
++
+[source.terminal]
+----
+cf restage attendee-service
+----
+
+
+=== Questions
+
+* How do you manage APM tools today?  How is this different?
+
+== Beyond the Class
+
+Pivotal Cloud Foundry offers a marketplace experience with both https://docs.pivotal.io/newrelic/index.html[New Relic^] and https://docs.pivotal.io/appdynamics/index.html[App Dynamics^].  Try it with your Pivotal Cloud Foundry installation.
