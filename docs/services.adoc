@@ -38,7 +38,7 @@ image::services.png[Services]
 
 === Push the `attendee-service` application
 
-. https://github.com/eitansuez/attendee-service/releases/download/v0.1/attendee-service-0.1.jar[Download^] the `attendee-service` application.  Copy the file to folder: `~/pivotal-cloud-foundry-developer-workshop/attendee-service/` (`~` is shorthand for the home directory in Linux, Mac and Unix based operating systems).  You will need to create this directory in your https://en.wikipedia.org/wiki/Home_directory[home^] directory.
+. https://github.com/eitansuez/attendee-service/releases/download/v0.1/attendee-service-0.1.jar[Download^] the `attendee-service` application.  Copy the file to folder: `~/pivotal-cloud-foundry-developer-workshop/attendee-service/` (`~` is shorthand for the home directory in Linux, Mac and Unix based operating systems).  You will need to create this directory in your home directory.
 
 NOTE: If your browser warns you about downloading this file please proceed to download it.
 

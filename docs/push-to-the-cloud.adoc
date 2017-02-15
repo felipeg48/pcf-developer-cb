@@ -92,7 +92,7 @@ You have logged into Pivotal Cloud Foundry from two different clients (Apps Mana
 
 Next we will push (deploy) several applications.
 
-. Download the link:artifacts/demo-apps.zip[demo applications].  Copy the file to folder: `~/pivotal-cloud-foundry-developer-workshop` (`~` is shorthand for the home directory in Linux, Mac and Unix based operating systems).  You will need to create this directory in your https://en.wikipedia.org/wiki/Home_directory[home^] directory.
+. Download the link:artifacts/demo-apps.zip[demo applications].  Copy the file to folder: `~/pivotal-cloud-foundry-developer-workshop` (`~` is shorthand for the home directory in Linux, Mac and Unix based operating systems).  You will need to create this directory in your home directory.
 
 . Extract the zip file to `~/pivotal-cloud-foundry-developer-workshop/demo-apps`.
 +
