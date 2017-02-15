@@ -1,0 +1,98 @@
+= Buildpack
+Eitan Suez <esuez@pivotal.io>
+v0.1, 2017:  GCP-specific Lab Instructions
+:doctype: book
+:linkcss:
+:docinfo: shared
+:toc: left
+:sectnums:
+:linkattrs:
+:icons: font
+:source-highlighter: highlightjs
+:imagesdir: images
+
+_Estimated Time: 25 minutes_
+
+== Requirements
+
+See link:requirements{outfilesuffix}[Lab Requirements].
+
+== What you will learn
+
+* How to use a custom buildpack
+* How to configure the Java Buildpack
+
+== Exercises
+
+=== Use a Custom Buildpack
+
+. Review the documentation on http://docs.pivotal.io/pivotalcf/buildpacks/custom.html#deploying-with-custom-buildpacks[deploying with custom buildpacks^] and how dependencies are handled with the Java Buildpack https://github.com/cloudfoundry/java-buildpack#online-package[online package^] and the https://github.com/cloudfoundry/java-buildpack#offline-package[offline package^].
+
+. Review the Java Version reported by `articulate`.
++
+[.thumb]
+image::java_version.png[Java Version]
+
+. Review which buildpack is in use.
++
+[source.terminal]
+----
+cf app articulate
+----
+
+. Push `articulate` again, but this time specify a custom buildpack.  In this case, we will use the latest version of the https://github.com/cloudfoundry/java-buildpack[Java Buildpack^] on GitHub.
++
+[source.terminal]
+----
+cd ~/pivotal-cloud-foundry-developer-workshop/articulate/
+----
++
+..and:
++
+[source.terminal]
+----
+cf push articulate -p ./articulate-0.0.1-SNAPSHOT.jar -b https://github.com/cloudfoundry/java-buildpack.git
+----
+
+. Using your browser, refresh the `articulate` application.
+
+It's likely (but not required) that the `Java Version` changed.
+
+.What Just Happened?
+****
+
+We instructed our application to use a custom buildpack (as opposed to a system provided one).
+
+In this case, we used the Java Buildpack source on Github as our custom buildpack.  The Java Buildpack source is continuously updated and it is an https://github.com/cloudfoundry/java-buildpack#online-package[online^] package of the buildpack.  Meaning it has access to all dependencies via the network (it has access to all JRE versions, etc).  Whereas, the system provided Java buidpack is https://github.com/cloudfoundry/java-buildpack#offline-package[offline^], with a limited set of dependencies.  For both the online and offline packages, unless the Java version is specified the application is run with the latest version of Java available to the buildpack.
+****
+
+=== Change the Java version
+
+. Review the Java Buildpack https://github.com/cloudfoundry/java-buildpack#configuration-and-extension[configuration and extension documentation^].
+
+. Let's assume that we want to run `articulate` on a specific version Java.
++
+[source.terminal]
+----
+cf set-env articulate JBP_CONFIG_OPEN_JDK_JRE "{jre: { version: 1.8.0_45 }}"
+----
+
+. Using your browser, refresh the `articulate` application.
++
+***QUESTION:*** Is the `articulate` running with `1.8.0_45`?  Why not?
+
+. Restage `articulate`.
++
+[source.terminal]
+----
+cf restage articulate
+----
++
+***QUESTION:*** Would `cf restart` be sufficient instead of `cf restage`?  Why not?
+
+. Using your browser, refresh the `articulate` application.
+
+=== Questions
+
+* What other items are easily customized with the Java Buildpack?
+* If you use Java, what items do you think would need customization in your environment?
