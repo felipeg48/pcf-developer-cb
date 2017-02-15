@@ -32,7 +32,7 @@ See link:requirements{outfilesuffix}[Lab Requirements].
 
 === Setup
 
-. Download the (/pivotal-cloud-foundry-developer/resources/demo-apps/cloudfoundry-mongodb-service-broker.zip)[zip file].  The zip file contains source code and jar ready for you to deploy (no building necessary).  Copy the file to folder: `~/pivotal-cloud-foundry-developer-workshop/` (`~` is shorthand for the home directory in Linux, Mac and Unix based operating systems).  You will need to create this directory in your home directory.
+. Download the following https://github.com/eitansuez/cloudfoundry-mongodb-service-broker/releases/download/v0.1/cloudfoundry-mongodb-service-broker.zip[zip file^], which contains the source code and precompiled jar file, ready for you to deploy (no building necessary).  Copy the file to folder: `~/pivotal-cloud-foundry-developer-workshop/` (`~` is shorthand for the home directory in Linux, Mac and Unix based operating systems).  You will need to create this directory in your home directory.
 
 . Extract the the zip file to `~/pivotal-cloud-foundry-developer-workshop/cloudfoundry-mongodb-service-broker`.
 
