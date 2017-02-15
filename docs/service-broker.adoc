@@ -1,0 +1,470 @@
+= Service Broker
+Eitan Suez <esuez@pivotal.io>
+v0.1, 2017:  GCP-specific Lab Instructions
+:doctype: book
+:linkcss:
+:docinfo: shared
+:toc: left
+:sectnums:
+:linkattrs:
+:icons: font
+:source-highlighter: highlightjs
+:imagesdir: images
+:initials: {{initials}}
+:service_broker_app_url: {{service_broker_app_url}}
+:mongodb_ip: {{mongodb_ip}}
+
+
+_Estimated Time: 60 minutes_
+
+== Requirements
+
+See link:requirements{outfilesuffix}[Lab Requirements].
+
+== What you will learn
+
+* How to implement the Service Broker API
+* How to deploy a service broker as an app to Pivotal Cloud Foundry
+* How to register the service broker with the Cloud Controller
+* How to make the single plan in the catalog “public” in your organization
+
+== Exercises
+
+=== Setup
+
+. Download the (/pivotal-cloud-foundry-developer/resources/demo-apps/cloudfoundry-mongodb-service-broker.zip)[zip file].  The zip file contains source code and jar ready for you to deploy (no building necessary).  Copy the file to folder: `~/pivotal-cloud-foundry-developer-workshop/` (`~` is shorthand for the home directory in Linux, Mac and Unix based operating systems).  You will need to create this directory in your home directory.
+
+. Extract the the zip file to `~/pivotal-cloud-foundry-developer-workshop/cloudfoundry-mongodb-service-broker`.
+
+. OPTIONAL STEP - Import applications into your IDE such as https://spring.io/tools[Spring Tool Suite^] (STS).
+
+STS Import Help:
+
+Select File > Import… Then select Gradle > Gradle Project. On the Import Gradle Project page, browse to the directory where you extracted the zip.  Then push the "Build Model" button.  Select the project.  Click "Finish".
+
+The above steps require the `Gradle Support` IDE extension to be installed. To install `Gradle Support` select Help > Dashboard.  This will open a new tab to the Dashboard.  Click on "IDE Extensions" then search for "Gradle".  Select `Gradle Support` or `Gradle (STS Legacy) Support` and click the "Install" button.  Complete the installation wizard and restart STS.
+
+=== Service Broker API Overview
+
+. Review the http://docs.pivotal.io/pivotalcf/services/api.html#api-overview[documentation^].  Specifically, the sequence diagram.  This is what we will implement.
+
+=== Create a MongoDB Service Broker
+
+==== About this Broker
+
+This broker is implemented with Spring Boot and leverages the https://github.com/spring-cloud/spring-cloud-cloudfoundry-service-broker[Spring Cloud Service Broker^] project.  As a result, a lot of the work has been done for us.  In a nutshell, this means that Service Broker endpoints have been mapped (provided) but there a few beans and interfaces we need to implement to complete a broker implementation.
+
+==== Implement Catalog Management
+
+. Review the documentation on http://docs.pivotal.io/pivotalcf/services/api.html#catalog-mgmt[implementing catalog management^].
+
+. We need to implement catalog management in our `mongodb-service-broker` application.  Fortunately, all the Service Broker API endpoints have been mapped by the Spring Cloud Service Broker project.  For instance, the  https://github.com/spring-cloud/spring-cloud-cloudfoundry-service-broker/blob/master/src/main/java/org/springframework/cloud/servicebroker/controller/CatalogController.java[`v2/catalog` endpoint^].
+
+. We have an endpoint, but the Spring Cloud Service Broker can't provide all the implementation.  We need to describe our catalog.  To to that, all we need to do is provide a `Catalog` bean.
++
+Review the following file: `~/pivotal-cloud-foundry-developer-workshop/cloudfoundry-mongodb-service-broker/src/main/java/org/springframework/cloud/servicebroker/mongodb/config/CatalogConfig.java`.
++
+[source,java]
+----
+@Configuration
+public class CatalogConfig {
+
+  @Bean
+  public Catalog catalog() {
+    return new Catalog(Collections.singletonList(
+        new ServiceDefinition(
+            getEnvOrDefault("SERVICE_ID","mongodb-service-broker"), //env variable
+            getEnvOrDefault("SERVICE_NAME","MongoDB"), //env variable
+            "A simple MongoDB service broker implementation",
+            true,
+            false,
+            Collections.singletonList(
+                new Plan(getEnvOrDefault("PLAN_ID","mongo-plan"), //env variable
+                    "standard",
+                    "This is a default mongo plan.  All services are created equally.",
+                    getPlanMetadata(),
+                    true)),
+            Arrays.asList("mongodb", "document"),
+            getServiceDefinitionMetadata(),
+            null,
+            null)));
+  }
+...
+----
+
+. Push the `mongodb-service-broker` application.
++
+[source.terminal]
+----
+cd ~/pivotal-cloud-foundry-developer-workshop/cloudfoundry-mongodb-service-broker/
+----
++
+..and:
++
+[source.terminal]
+----
+cf push mongodb-service-broker -p build/libs/cloudfoundry-mongodb-service-broker.jar -m 512M --random-route --no-start
+----
+
+. Set environment variables.
++
+These environment variables get used by the broker to generate the catalog.  These values should be unique across the entire Pivotal Cloud Foundry instance to meet the broker API specifications.
++
+As a convention, append your initials to where specified.
++
+----
+$ cf set-env mongodb-service-broker SERVICE_ID mongodb-service-broker-{{initials}}
+$ cf set-env mongodb-service-broker SERVICE_NAME MongoDB-{{initials}}
+$ cf set-env mongodb-service-broker PLAN_ID mongo-plan-{{initials}}
+----
++
+NOTE: You can safely ignore the "TIP: Use 'cf restage' to ensure your env variable changes take effect" message.
+
+. Start `mongodb-service-broker`
++
+[source.terminal]
+----
+cf start mongodb-service-broker
+----
+
+. Verify your work.  Call the application `v2/catalog` endpoint through a browser.  Because the application is secured with Basic Auth you will need to provide credentials.
++
+**Username:** pivotal
++
+**Password:** keepitsimple
++
+You should see response similar to the following (pic is using the https://chrome.google.com/webstore/detail/json-formatter/bcjindcccaagfpapjjmafapmmgkkhgoa?hl=en[JSON Formatter for Chrome^]):
++
+[.thumb]
+image::service-broker-catalog.png[Catalog]
+
+. Register your Service Broker.
++
+We will be creating a http://docs.pivotal.io/pivotalcf/services/managing-service-brokers.html[Space-Scoped^] broker.  Space-Scoped brokers help you during the development/testing of your service broker, because they are private to a space and don't require an `admin` to enable access (list it in the marketplace, provision service instances, etc).
++
+A unique broker name is required.  Use your initials.
++
+[source.terminal]
+----
+cf create-service-broker mongodb-service-broker-{{initials}} pivotal keepitsimple {{service_broker_app_url}} --space-scoped
+----
+
+. View the Service Brokers in your installation. You should see your new Service Broker.
++
+[source.terminal]
+----
+cf service-brokers
+----
+
+. Verify that your service is listed in the marketplace.
++
+[source.terminal]
+----
+cf marketplace
+----
+
+Congratulations, you have implemented and tested the catalog endpoint in your service broker!
+
+===== Questions
+
+* Can a service broker support upgrade/downgrade of a service?
+
+==== Implement Provisioning and Deprovisioning
+
+. Review the documentation on implementing http://docs.pivotal.io/pivotalcf/services/api.html#provisioning[provisioning^] and http://docs.pivotal.io/pivotalcf/services/api.html#deprovisioning[deprovisioning^].
+
+. We need to implement provisioning/deprovisioning in our `mongodb-service-broker` application. To do so we just need to implement the https://github.com/spring-cloud/spring-cloud-cloudfoundry-service-broker/blob/master/src/main/java/org/springframework/cloud/servicebroker/service/ServiceInstanceService.java[ServiceInstanceService^] interface, because the Spring Cloud Service Broker project has already done the https://github.com/spring-cloud/spring-cloud-cloudfoundry-service-broker/blob/master/src/main/java/org/springframework/cloud/servicebroker/controller/ServiceInstanceController.java[mapping^].
+
+Review the following file: `~/pivotal-cloud-foundry-developer-workshop/cloudfoundry-mongodb-service-broker/src/main/java/org/springframework/cloud/servicebroker/mongodb/service/MongoServiceInstanceService.java`
+
+Provisioning Code:
+
+[source,java]
+----
+@Service
+public class MongoServiceInstanceService implements ServiceInstanceService {
+...
+
+  @Override
+  public CreateServiceInstanceResponse createServiceInstance(CreateServiceInstanceRequest request) {
+    // make sure we haven't provisioned this before (check broker database)
+    ServiceInstance instance = repository.findOne(request.getServiceInstanceId());
+    if (instance != null) {
+      throw new ServiceInstanceExistsException(request.getServiceInstanceId(), request.getServiceDefinitionId());
+    }
+
+    instance = new ServiceInstance(request);
+
+    if (mongo.databaseExists(instance.getServiceInstanceId())) {
+      // ensure the instance is empty
+      mongo.deleteDatabase(instance.getServiceInstanceId());
+    }
+
+    DB db = mongo.createDatabase(instance.getServiceInstanceId());
+    if (db == null) {
+      throw new ServiceBrokerException("Failed to create new DB instance: " + instance.getServiceInstanceId());
+      }
+    //save to broker database for record keeping
+    repository.save(instance);
+
+    return new CreateServiceInstanceResponse();
+  }
+...
+
+----
+
+.What's happening?
+****
+The `createServiceInstance` method is where our broker provisions the database.  But to do so two things must happen:
+
+. Record details in the broker database that we are provisioning a service instance (a MongoDB database)
+. Create the database
+****
+
+Deprovisioning Code:
+
+[source,java]
+----
+@Service
+public class MongoServiceInstanceService implements ServiceInstanceService {
+...
+  @Override
+  public DeleteServiceInstanceResponse deleteServiceInstance(DeleteServiceInstanceRequest request) throws   MongoServiceException {
+    String instanceId = request.getServiceInstanceId();
+    //locate record in broker database
+    ServiceInstance instance = repository.findOne(instanceId);
+    if (instance == null) {
+      throw new ServiceInstanceDoesNotExistException(instanceId);
+    }
+
+    // delete mongo database
+    mongo.deleteDatabase(instanceId);
+    // delete record from broker database
+    repository.delete(instanceId);
+    return new DeleteServiceInstanceResponse();
+  }
+}
+----
+
+.What's happening?
+****
+The `deleteServiceInstance` method is where our broker deprovisions the database.  But to do so two things must happen:
+
+. Delete the database
+. Delete the record of the service instance in the broker database
+****
+
+===== Questions
+
+* The broker is required by the Cloud Controller to respond within how many seconds?
+* Does provisioning have to be done synchronously?
+
+==== Implement Binding and Unbinding
+
+. Review the documentation on implementing http://docs.pivotal.io/pivotalcf/services/api.html#binding[binding^] and http://docs.pivotal.io/pivotalcf/services/api.html#unbinding[unbinding^].
+
+. We need to implement binding/unbinding in our `mongodb-service-broker` application. To do so we just need to implement the https://github.com/spring-cloud/spring-cloud-cloudfoundry-service-broker/blob/master/src/main/java/org/springframework/cloud/servicebroker/service/ServiceInstanceBindingService.java[ServiceInstanceBindingService^] interface, because the Spring Cloud Service Broker project has already done the https://github.com/spring-cloud/spring-cloud-cloudfoundry-service-broker/blob/master/src/main/java/org/springframework/cloud/servicebroker/controller/ServiceInstanceBindingController.java[mapping^].
+
+Review the following file: `~/pivotal-cloud-foundry-developer-workshop/cloudfoundry-mongodb-service-broker/src/main/java/org/springframework/cloud/servicebroker/mongodb/service/MongoServiceInstanceBindingService.java`
+
+Binding Code:
+
+[source,java]
+----
+@Service
+public class MongoServiceInstanceBindingService implements ServiceInstanceBindingService {
+...
+  @Override
+  public CreateServiceInstanceBindingResponse createServiceInstanceBinding(CreateServiceInstanceBindingRequest request) {
+
+    String bindingId = request.getBindingId();
+    String serviceInstanceId = request.getServiceInstanceId();
+
+    ServiceInstanceBinding binding = bindingRepository.findOne(bindingId);
+    if (binding != null) {
+      throw new ServiceInstanceBindingExistsException(serviceInstanceId, bindingId);
+    }
+
+    String database = serviceInstanceId;
+    String username = bindingId;
+    String password = "password";
+
+
+    mongo.createUser(database, username, password);
+
+    Map<String, Object> credentials =
+        Collections.singletonMap("uri", (Object) mongo.getConnectionString(database, username, password));
+
+    binding = new ServiceInstanceBinding(bindingId, serviceInstanceId, credentials, null, request.getBoundAppGuid());
+    bindingRepository.save(binding);
+
+    return new CreateServiceInstanceAppBindingResponse().withCredentials(credentials);
+  }
+...
+----
+
+.What's happening?
+****
+The `createServiceInstanceBinding` method is where our broker binds an application to the provisioned service instance (database).  But to do so two things must happen:
+
+. Create a unique set of credentials for this binding request in MongoDB
+. Create a record of the binding in the broker database
+****
+
+Unbinding Code:
+
+[source,java]
+----
+@Service
+public class MongoServiceInstanceBindingService implements ServiceInstanceBindingService {
+
+  @Override
+  public void deleteServiceInstanceBinding(DeleteServiceInstanceBindingRequest request) {
+    String bindingId = request.getBindingId();
+    ServiceInstanceBinding binding = getServiceInstanceBinding(bindingId);
+
+    if (binding == null) {
+      throw new ServiceInstanceBindingDoesNotExistException(bindingId);
+    }
+
+    mongo.deleteUser(binding.getServiceInstanceId(), bindingId);
+    bindingRepository.delete(bindingId);
+  }
+}
+----
+
+.What's happening?
+****
+The `deleteServiceInstanceBinding` method is where our broker unbinds an application to the provisioned service instance (database).  But to do so two things must happen:
+
+. Delete the credentials (user) for this binding request in MongoDB
+. Delete the record of the binding in the broker database
+****
+
+Congratulations! You have created a simple service broker.
+
+===== Questions
+
+* Do all services have to be bindable?
+
+=== Use the MongoDB Service Broker
+
+. Configure the `mongodb-service-broker` application to use a MongoDB instance.
++
+A MongoDB instance can be obtained in the following ways:
++
+.. Your instructor will provision MongoDB and provide connectivity details to you
+.. Use a MongoDB instance in your environment
+.. Provision a link:aws-mongo-ami{outfilesuffix}[MongoDB instance on AWS]
++
+Make sure to obtain the IP address of your MongoDB instance before moving forward.  The broker will attempt to connect to MongoDB  on port 27017.
++
+NOTE: MongoDB security configuration should not be enabled (`security.authorization = false`).
++
+[source.terminal]
+----
+cf set-env mongodb-service-broker MONGODB_HOST {{mongodb_ip}}
+----
++
+_You can safely ignore the "TIP: Use 'cf restage' to ensure your env variable changes take effect" message._
+
+. Restart the application.
++
+[source.terminal]
+----
+cf restart mongodb-service-broker
+----
+
+. Download https://path/to/tbd/spring-music.war[Spring-Music^].  Copy the file to folder: `~/pivotal-cloud-foundry-developer-workshop/spring-music/` (`~` is shorthand for the home directory in Linux, Mac and Unix based operating systems).  You will need to create this directory in your home directory.
++
+https://github.com/pivotal-enablement/spring-music[Source^] is not required, but you may be curious how it works as you move through the labs.
+
+. Push `spring-music`
++
+[source.terminal]
+----
+cd ~/pivotal-cloud-foundry-developer-workshop/spring-music/
+----
++
+..and:
++
+[source.terminal]
+----
+cf push spring-music -p ./spring-music.war -m 512M --random-route
+----
+
+. View `spring-music` in a browser.  Click on the icon:info-circle[] button on the top right of the screen.  Notice that there are no services attached and `spring-music` is using an embedded database.
++
+[.thumb]
+image::service-broker-spring-music-initial.png[Spring Music - Embedded DB]
+
+. Create a MongoDB service instance.
++
+For Example:
++
+[source.terminal]
+----
+cf create-service MongoDB-{{initials}} standard mongo-service
+----
+
+. Bind the `spring-music` to `mongo-service`.
++
+[source.terminal]
+----
+cf bind-service spring-music mongo-service
+----
++
+NOTE: You can safely ignore the "TIP: Use 'cf restage spring-music' to ensure your env variable changes take effect" message.
+
+. Restart `spring-music`
++
+[source.terminal]
+----
+cf restart spring-music
+----
+
+. Refresh `spring-music` in the browser.  Click on the `i` button in the top right of the screen.  You are now using MongoDB!
++
+[.thumb]
+image::service-broker-spring-music-mongo.png[Spring Music - MongoDB]
+
+. **Optional Step:** If you have access.  View the data in MongoDB.
+
+=== Clean up
+
+. Delete `spring-music`.
++
+[source.terminal]
+----
+cf delete spring-music
+----
+
+. Delete the `mongo-service` service instance.
++
+[source.terminal]
+----
+cf delete-service mongo-service
+----
+
+. Delete the service broker.
++
+For example:
++
+[source.terminal]
+----
+cf delete-service-broker mongodb-service-broker-{{initials}}
+----
+
+. Delete `mongodb-service-broker` application.
++
+[source.terminal]
+----
+cf delete mongodb-service-broker
+----
+
+. If provisioned, terminate your AWS MongoDB instance by going to your AWS EC2 dashboard, selecting the MongoDB instance, and clicking Actions → Instance State → Terminate.
+
+
+== Beyond the class
+
+Review other http://docs.pivotal.io/pivotalcf/services/examples.html[sample brokers^].
