@@ -30,7 +30,7 @@ See link:requirements{outfilesuffix}[Lab Requirements].
 
 === Push the `articulate` application
 
-. link:(artifacts/articulate-0.0.1-SNAPSHOT.[Download] the `articulate` application.  Copy the file to folder: `~/pivotal-cloud-foundry-developer-workshop/articulate/` (`~` is shorthand for the home directory in Linux, Mac and Unix based operating systems).  You will need to create this directory in your https://en.wikipedia.org/wiki/Home_directory[home^] directory.
+. https://github.com/eitansuez/articulate/releases/download/v0.1/articulate-0.1.jar[Download^] the `articulate` application.  Copy the file to folder: `~/pivotal-cloud-foundry-developer-workshop/articulate/` (`~` is shorthand for the home directory in Linux, Mac and Unix based operating systems).  You will need to create this directory in your https://en.wikipedia.org/wiki/Home_directory[home^] directory.
 +
 NOTE: If your browser warns you about downloading this file please proceed to download it.
 +
