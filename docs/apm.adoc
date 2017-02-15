@@ -30,14 +30,14 @@ How to use an APM service
 +
 [source.terminal]
 ----
-cf scale articulate -m 1G -i 1
+cf scale articulate -m 768M -i 1
 ----
 +
 ..and:
 +
 [source.terminal]
 ----
-cf scale attendee-service -m 1G -i 1
+cf scale attendee-service -m 768M -i 1
 ----
 
 === Provision a New Relic Service Instance
