@@ -47,7 +47,7 @@ cf create-app-manifest attendee-service -p ./manifest.yml
 . Edit the manifest.
 +
 * Increase the `instances` to `2`.
-* Set the `path` to the `./attendee-service-0.0.1-SNAPSHOT.jar`
+* Add a manifest attribute entry to set the https://docs.cloudfoundry.org/devguide/deploy-apps/manifest.html#path[path^] to the application's artifact (either `attendee-service-0.0.1-SNAPSHOT.jar` or `attendee-service-0.1.jar` depending on whether you're using the downloaded release or built the code yourself from source).
 
 . Push `attendee-service`.
 +
@@ -67,6 +67,7 @@ cf app attendee-service
 
 * Assuming you have application running with a bound service (MySQL).  You `push` the application again with a manifest, but said service is not specified in the manifest.  Is the service still bound to the application?
 * What are some `cf` commands that don't have to be explicitly made when using manifests?
+* Why did the `create-app-manifest` command not write the `path` attribute for me?  In other words, why did I have to specify it manually?
 
 === Cleanup
 
