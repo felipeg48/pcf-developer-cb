@@ -10,6 +10,7 @@ v0.1, 2017:  GCP-specific Lab Instructions
 :icons: font
 :source-highlighter: highlightjs
 :imagesdir: images
+:experimental:
 :jmeter_basedir: {{jmeter_basedir}}
 
 
@@ -81,14 +82,14 @@ image::autoscaler-manage.png[Manage]
 . Edit instance limits
 +
 .. Click 'Edit'
-+
-[.thumb]
-image::autoscaler-view.png[Dashboard,width="50%""]
 .. Set the minimum number of instances to 2 and the maximum to 5
+.. Click 'Save'
 +
 [.thumb]
-image::autoscaler-edit.png[Edit,width="50%"]
-.. Click 'Save'
+image::autoscaler-view.png[Dashboard,float="left"]
++
+[.thumb]
+image::autoscaler-edit.png[Edit]
 
 . Return to Apps Manager and observe the number of instances increase from `1` to `2`.
 
@@ -137,7 +138,7 @@ NOTE: You may see `articulate` crash when placing load on it in this scenario.  
 . Review Autoscale history.
 
 [.thumb]
-image::autoscaler-events.png[History,width="50%"]
+image::autoscaler-events.png[History]
 
 === Clean up
 
