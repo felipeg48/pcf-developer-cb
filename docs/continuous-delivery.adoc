@@ -103,7 +103,7 @@ image::name-maven.png[Maven Name]
 
 === Create Build Job
 
-. From the Jenkins dashboard, click `New Item` (in top left corner), name it `articulate-{{initials}}` and select `Maven
+. From the Jenkins dashboard, click `New Item` (in top left corner), name it `articulate-{initials}` and select `Maven
 project` Then click `OK`.
 
 . Under `Source Code Management`, select `Git`, and supply your forked repository URL.
@@ -130,7 +130,7 @@ your credentials. Test the connection to make sure you can connect.  Also check 
 +
 Fill in the following fields:
 +
-* `Application Name` = `articulate-{{initials}}`
+* `Application Name` = `articulate-{initials}`
 * `Memory` = `512M`
 * `Hostname` = come up with something original and unique
 * `Instance` = `1`
@@ -156,7 +156,7 @@ image::cd-console.png[Console]
 . In your forked repo, edit the Welcome message for Articulate.
 +
 .. Edit the following file (can be done with a browser):
-https://github.com/{{github_username}}/articulate/blob/master/src/main/resources/templates/index.html[^]
+https://github.com/{github_username}/articulate/blob/master/src/main/resources/templates/index.html[^]
 .. Change the welcome message from `Welcome to Articulate!` to `Welcome to My Articulate Application!`
 Commit and push the change to GitHub, wait until the polling detects it, and watch the magic. Verify the build in Jenkins now succeeds.  Also verify your change in the deployed application with a browser.
 

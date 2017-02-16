@@ -102,13 +102,13 @@ Linux and Mac | Windows
 +
 [#tabs-hints-1.hints]
 --
-. Add execute permissions to the JMeter script: `chmod +x {{jmeter_basedir}}/bin/jmeter.sh`
-. Start JMeter by executing `{{jmeter_basedir}}/bin/jmeter.sh`
+. Add execute permissions to the JMeter script: `chmod +x {jmeter_basedir}/bin/jmeter.sh`
+. Start JMeter by executing `{jmeter_basedir}/bin/jmeter.sh`
 --
 +
 [#tabs-hints-2.hints]
 --
-. Start JMeter by double clicking the following file in Windows Explorer: `{{jmeter_basedir}}/bin/jmeter.bat`
+. Start JMeter by double clicking the following file in Windows Explorer: `{jmeter_basedir}/bin/jmeter.bat`
 --
 +
 . Download the link:artifacts/load-gen.jmx[load-gen.jmx] file.
