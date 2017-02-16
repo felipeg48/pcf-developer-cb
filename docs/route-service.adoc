@@ -243,7 +243,7 @@ cf create-user-provided-service rate-limiter-service -r {{ratelimiter_baseurl}}
 ----
 
 . Bind the `rate-limiter-service` to the `attendee-service` route.
-
++
 [source.terminal]
 ----
 cf bind-route-service {{domain_name}} rate-limiter-service --hostname {{attendee_service_hostname}}
