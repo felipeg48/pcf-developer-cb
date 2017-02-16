@@ -11,18 +11,18 @@ v0.1, 2017:  Asciidoc port of lab instructions (wip)
 
 == Application Development
 
-- link:push-to-the-cloud{outfilesuffix}[An introduction to Pivotal Cloud Foundry^]
-- link:log-scale-ha{outfilesuffix}[Logging, Scale and HA^]
-- link:services{outfilesuffix}[Services^]
-- link:manifest{outfilesuffix}[Manifest^]
-- link:asg{outfilesuffix}[Application Security Groups^]
-- link:log-drain{outfilesuffix}[Log Drain^]
-- link:blue-green{outfilesuffix}[Blue-Green^]
-- Microservices
-- link:autoscaler{outfilesuffix}[Application Autoscaler^]
-- link:apm{outfilesuffix}[Application Performance Monitor^]
-- link:metrics{outfilesuffix}[Metrics^]
-- link:buildpack{outfilesuffix}[Buildpack^]
-- link:service-broker{outfilesuffix}[Service Broker^]
-- link:continuous-delivery{outfilesuffix}[Continuous Delivery^]
-- link:route-service{outfilesuffix}[Route Service^]
+. link:push-to-the-cloud{outfilesuffix}[An introduction to Pivotal Cloud Foundry^]
+. link:log-scale-ha{outfilesuffix}[Logging, Scale and HA^]
+. link:services{outfilesuffix}[Services^]
+. link:manifest{outfilesuffix}[Manifest^]
+. link:asg{outfilesuffix}[Application Security Groups^]
+. link:log-drain{outfilesuffix}[Log Drain^]
+. link:blue-green{outfilesuffix}[Blue-Green^]
+. Microservices
+. link:autoscaler{outfilesuffix}[Application Autoscaler^]
+. link:apm{outfilesuffix}[Application Performance Monitor^]
+. link:metrics{outfilesuffix}[Metrics^]
+. link:buildpack{outfilesuffix}[Buildpack^]
+. link:service-broker{outfilesuffix}[Service Broker^]
+. link:continuous-delivery{outfilesuffix}[Continuous Delivery^]
+. link:route-service{outfilesuffix}[Route Service^]
