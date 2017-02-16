@@ -64,7 +64,12 @@ Does `attendee-service` start up correctly?  Why not?
 cf marketplace
 ----
 
-. Provision a MySql service instance.
+. There exist two distinct Cloud Foundry managed services that provision MySQL databases:
+
+.. http://docs.pivotal.io/p-mysql/[p-mysql^] is a Pivotal product, and
+.. http://docs.run.pivotal.io/marketplace/services/cleardb.html[cleardb^] is a company that specializes in cloud-based MySQL instances
++
+Pivotal Web Services offers the cleardb service in its marketplace.  If working in a different Pivotal Cloud Foundry environment, you are likely to have p-mysql instead.
 +
 [alternatives#create_service]
 Pivotal Cloud Foundry | Pivotal Web Services
