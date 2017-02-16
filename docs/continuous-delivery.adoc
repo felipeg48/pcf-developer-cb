@@ -1,0 +1,204 @@
+= Continuous Delivery
+Eitan Suez <esuez@pivotal.io>
+v0.1, 2017:  GCP-specific Lab Instructions
+:doctype: book
+:linkcss:
+:docinfo: shared
+:toc: left
+:sectnums:
+:linkattrs:
+:icons: font
+:source-highlighter: highlightjs
+:imagesdir: images
+:experimental:
+:initials: {{initials}}
+:github_username: {{github_username}}
+
+
+_Estimated Time: 25 minutes_
+
+== Requirements
+
+See link:requirements{outfilesuffix}[Lab Requirements].
+
+== What you will learn
+
+How to build a continuous delivery pipeline with Jenkins
+
+== Exercises
+
+=== What is Continuous Delivery?
+
+For a brief explanation, click https://en.wikipedia.org/wiki/Continuous_delivery[here^].
+
+=== Setup Github Repository
+
+. Locate the `Articulate` project on GitHub: https://github.com/pivotal-enablement/articulate[github.com/pivotal-enablement/articulate^]
+
+. Use the `Fork` button to make your own private copy of the project in your own GitHub account.
+
+=== Install Jenkins
+
+Install Jenkins on your local machine or use AWS Jenkins AMI.
+
+==== Local Installation
+
+. Prior to installing Jenkins the following should be installed:
++
+* http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html[JDK 1.8^]
+* https://git-scm.com/[git^]
+
+. http://mirrors.jenkins-ci.org/war-stable/1.642.4/jenkins.war[Download] `Jenkins` version 1.642.4 war file.  Copy the file to folder: `~/pivotal-cloud-foundry-developer-workshop/jenkins/` (`~` is shorthand for the home directory in Linux, Mac and Unix based operating systems).  You will need to create this directory in your home directory.
+
+. Change the working directory to where you copied the `jenkins.war` file.
++
+[source.terminal]
+----
+cd ~/pivotal-cloud-foundry-developer-workshop/jenkins/
+----
+
+. Run Jenkins.
++
+[source.terminal]
+----
+java -jar jenkins.war
+----
+
+. Open a browser to http://localhost:8080[^].
+
+==== AWS Jenkins AMI
+
+Provision a link:aws-jenkins-ami{outfilesuffix}[Jenkins instance on AWS].
+
+=== Configure Jenkins
+
+_You may skip this section if using the AWS Jenkins AMI_.
+
+. Click on the `Manage Jenkins` link, then click the `Manage Plugins` link.
++
+[.thumb]
+image::cd-manage_plugins.png[Manage Plugins]
+
+. Click on the `Available` tab, and find the GitHub plugin. (You can search using the Filter box in the top
+right corner.) Select it and click `Install without restart`.
++
+[.thumb]
+image::cd-github_plugin.png[GitHub plugin]
+
+. Also install the Cloud Foundry Plugin.  Select it and click `Install without restart`.
++
+[.thumb]
+image::cd-cf_plugin.png[cf plugin]
+
+. From the `Manage Jenkins` page, click on `Configure System`. Scroll down to the `Maven` section, and
+click the `Add Maven` button.
++
+[.thumb]
+image::cd-maven.png[Maven Configuration]
+
+. Enter a name into the name field then, at the bottom of the page, click `Save`.
++
+[.thumb]
+image::name-maven.png[Maven Name]
+
+=== Create Build Job
+
+. From the Jenkins dashboard, click `New Item` (in top left corner), name it `articulate-{{initials}}` and select `Maven
+project` Then click `OK`.
+
+. Under `Source Code Management`, select `Git`, and supply your forked repository URL.
++
+[.thumb]
+image::cd-repo.png[Repo]
+
+. Under `Build Triggers`, select `Poll SCM`. In the `Schedule`, enter the CRON formatted string such as `* * * * *`. This will poll your Github repository every minute for changes, and if any are detected, will execute the build.
++
+[.thumb]
+image::cd-poll.png[Poll]
+
+. Under `Build`, add the project path to the `Root POM`, so it becomes `pom.xml`.
++
+[.thumb]
+image::cd-build.png[Build]
+
+. Under `Post-build Actions`, click the `Add post-build action`, and select `Push to Cloud Foundry`.
+
+. Fill in the parameters to target and log into the Cloud Foundry instance you'll be using. You will have to add
+your credentials. Test the connection to make sure you can connect.  Also check the `Reset app if already exists` checkbox.  This allows for app bits and configuration to be updated/reset with each deployment; creating a more dependable way to redeploy the application (see the context sensitive help in Jenkins for more details).
+
+. Make sure that `Enter configuration in Jenkins` is selected.
++
+Fill in the following fields:
++
+* `Application Name` = `articulate-{{initials}}`
+* `Memory` = `512M`
+* `Hostname` = come up with something original and unique
+* `Instance` = `1`
+* `Timeout` = `60`
+* `Services` = `attendee-service`
++
+Advanced Settings:
++
+* `Application Path` = `target/articulate-0.0.1-SNAPSHOT.jar`
++
+[.thumb]
+image::cd-config.png[Push config]
+
+. Save the config and try running the build by clicking `Build Now`.  Do not proceed past this step until you have a successful build and deployment to Pivotal Cloud Foundry.  Confirm the application is deployed by viewing it in your browser.
++
+Make sure to view the Build details (Left Side of Screen → `Build History` → `Build #`).
++
+`Console Output` can be viewed there (for active or completed jobs).  This is very useful for debugging failing builds.
++
+[.thumb]
+image::cd-console.png[Console]
+
+. In your forked repo, edit the Welcome message for Articulate.
++
+.. Edit the following file (can be done with a browser):
+https://github.com/{{github_username}}/articulate/blob/master/src/main/resources/templates/index.html[^]
+.. Change the welcome message from `Welcome to Articulate!` to `Welcome to My Articulate Application!`
+Commit and push the change to GitHub, wait until the polling detects it, and watch the magic. Verify the build in Jenkins now succeeds.  Also verify your change in the deployed application with a browser.
+
+**Congratulations**, you have finished this exercise!
+
+
+=== Questions
+
+* What are some of the benefits of continuous delivery?
+* Does continuous delivery mean continuous deployment?
+
+=== Cleanup
+
+. Delete the application that the pipeline deployed. For example:
++
+[source.terminal]
+----
+cf delete articulate-{{initials}}
+----
+
+. If provisioned, terminate your AWS Jenkins instance by going to your AWS EC2 dashboard, selecting the Jenkins instance, and clicking Actions →  Instance State →  Terminate.
+
+== Beyond the Class
+
+The CD exercise above is very simplistic and should be expanded for real projects.
+
+=== Artifact Repository
+
+* Ideally, you want to build your artifacts (jars/wars) and publish them to a repository like Artifactory.
+* Artifacts should be versioned to match the app deployments on PCF.
+* All pushes to PCF should be using the same artifacts. Artifacts should be built once and used throughout the lifecycle.
+
+=== Code promotion
+
+* Jobs should be established in Jenkins to deploy/promote code to different phases like dev to test to prod.
+* Jobs should use the same artifact published to Artifactory.
+* Jobs can be triggered automatically or manually but should be fully automated. There should be no manual steps beyond clicking `build now`.
+
+=== Notification
+
+* Jenkins supports many notification plugins. It is important for code owners to be aware of build status.
+
+=== Pivotal Cloud Foundry
+
+Try out the https://docs.pivotal.io/partners/cloudbees/Jenkins.html[CloudBees Jenkins Operations Center tile^].
