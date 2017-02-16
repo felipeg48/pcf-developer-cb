@@ -76,17 +76,19 @@ cf restart articulate
 .. Click the `Manage` link for the autoscaler (this will open a new tab).
 +
 [.thumb]
-image::auto-scaler-manage.png[Manage]
+image::autoscaler-manage.png[Manage]
 
-. `Turn on` autoscaling for `articulate`.
+. Edit instance limits
++
+.. Click 'Edit'
 +
 [.thumb]
-image::auto-scaler-turn_on.png[Turn On]
-+
-We will use policy defaults.  Note that the default policy for minimum instances is `2`.
+image::autoscaler-view.png[Dashboard,width="50%""]
+.. Set the minimum number of instances to 2 and the maximum to 5
 +
 [.thumb]
-image::auto-scaler-settings.png[Settings]
+image::autoscaler-edit.png[Edit,width="50%"]
+.. Click 'Save'
 
 . Return to Apps Manager and observe the number of instances increase from `1` to `2`.
 
@@ -135,7 +137,7 @@ NOTE: You may see `articulate` crash when placing load on it in this scenario.  
 . Review Autoscale history.
 
 [.thumb]
-image::auto-scaler-history.png[History]
+image::autoscaler-events.png[History,width="50%"]
 
 === Clean up
 
