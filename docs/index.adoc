@@ -25,4 +25,4 @@ v0.1, 2017:  Asciidoc port of lab instructions (wip)
 - link:buildpack{outfilesuffix}[Buildpack^]
 - link:service-broker{outfilesuffix}[Service Broker^]
 - link:continuous-delivery{outfilesuffix}[Continuous Delivery^]
-- link:route-service{outfilesuffix}[Route Service^] TBD
+- link:route-service{outfilesuffix}[Route Service^]
