@@ -1,8 +1,8 @@
 #header form#thebinding {
   display: none;
-  position: absolute;
+  position: fixed;
   right: 0;
-  top: 5em;
+  top: 3.5em;
   z-index: 10;
   background-color: white;
 }
@@ -25,8 +25,9 @@
   padding-top: 0.5em;
 }
 #header #form-trigger {
-  position: absolute;
-  top: 1.5em;
+  position: fixed;
+  z-index: 11;
+  top: 0.5em;
   right: 0.5em;
   cursor: pointer;
 }
