@@ -15,11 +15,17 @@ v0.1, 2017:  GCP-specific Lab Instructions
 :articulate_hostname: {{articulate_hostname}}
 :articulate_hostname_temp: {{articulate_hostname_temp}}
 
+
 _Estimated Time: 25 minutes_
 
-== What you will learn
+== Preface
 
-How to manage an application upgrade with a blue-green deployment
+So you've pushed an app, and now it's time to deploy a new version.  Blue-green deployments are a technique for deploying updates with zero downtime.
+
+Cloudfoundry allows developers to manage everything about their application: from deployment to the management of routes to an application.  It's thanks to this self-service philosophy that the task of achieving zero-downtime deployments becomes easy.
+
+This lab will walk you through the steps to deploy a new version of an application with zero downtime, and provides a way to visualize how traffic gets routed to the new application.
+
 
 == Exercises
 

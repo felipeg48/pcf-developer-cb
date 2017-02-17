@@ -15,12 +15,11 @@ v0.1, 2017:  GCP-specific Lab Instructions
 
 _Estimated Time: 10 minutes_
 
-== What you will learn
+== Preface
 
-* How to view application security groups
-* How to view the details of an application security group
-* What commands that administrators can use to manage security groups
-* How security group rules can impact your application
+Application Security Groups, often abbreviated as ASGs, are a feature designed for cloudfoundry operators.  Nevertheless it's important for developers to learn what they are and how they work, as it might explain why a particular application may in some cases be unable to communicate with a backing service, and how to remedy the issue.
+
+Below is a summary of this feature, and of the cf CLI commands associated with managing application security groups.  Be mindful that, as a non-administrative user, you have permission to invoke only a subset of these commands.
 
 
 == Exercises

@@ -15,12 +15,9 @@ v0.1, 2017:  GCP-specific Lab Instructions
 
 _Estimated Time: 30 minutes_
 
-== What you will learn
+== Preface
 
-* How to access application logs
-* How to scale an application
-* How to access events
-* How Pivotal Cloud Foundry handles failed application instances
+In this lab, we build on the foundation we've picked up from the first lab.  We introduce new commands that are essential for developers working with cloudfoundry.  You'll learn how to tail logs, view application events, and scale an application with ease.  The last portion of the lab focuses on demonstrating one of the high availability characteristics of the cloud foundry platform:  automatic restart of a failed application instance.  Enjoy.
 
 == Exercises
 

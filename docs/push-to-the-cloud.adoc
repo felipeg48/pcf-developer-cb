@@ -16,12 +16,13 @@ v0.1, 2017:  GCP-specific Lab Instructions
 
 _Estimated Time: 25 minutes_
 
-== What you will learn
+== Preface
 
-* How to access Apps Manager
-* How to install the `cf` CLI
-* How to target a Pivotal Cloud Foundry instance with the `cf` CLI
-* How to `cf push` apps
+This lab incorporates many preliminary steps.  You'll be learning about and accessing the "Apps Manager" for the first time.  You'll download and install the _cf_ command line tool (the CLI), and use it to login to a Pivotal Cloud Foundry instance.  You'll also learn about the concept of the cf _target_.
+
+You'll deploy your first set of simple applications to cloudfoundry with the `cf push` command.
+
+Although this lab is an introduction to Pivotal Cloud Foundry, you'll learn a great deal in a fairly short span of time.  Enjoy.
 
 == Exercises
 

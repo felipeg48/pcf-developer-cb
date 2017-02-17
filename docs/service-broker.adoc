@@ -18,12 +18,11 @@ v0.1, 2017:  GCP-specific Lab Instructions
 
 _Estimated Time: 60 minutes_
 
-== What you will learn
+== Preface
 
-* How to implement the Service Broker API
-* How to deploy a service broker as an app to Pivotal Cloud Foundry
-* How to register the service broker with the Cloud Controller
-* How to make the single plan in the catalog “public” in your organization
+Cloudfoundry is an extensible platform.  Managed services can easily be plugged in and made available in the services marketplace.  In this lab, we'll use a feature known as space-scoped service brokers to register a custom managed service that provisions Mongodb databases for our application.
+
+You'll deploy an application that implements the service broker API, register it as a service broker in Cloudfoundry, and then put it to use by instantiating a mongodb instance (with `create-service`), and attaching that resource (with `bind-service`) to an application that will use it to persist album information.
 
 == Exercises
 

@@ -16,9 +16,11 @@ v0.1, 2017:  GCP-specific Lab Instructions
 
 _Estimated Time: 25 minutes_
 
-== What you will learn
+== Preface
 
-How to use the `app-autoscaler` service
+So you can deploy your app, you can scale it.  But what if we wish to automate scaling an application up and down during periods of higher and subsequently lower traffic.  PCF allows us to automate scaling via the marketplace service named the _App Autoscaler_.
+
+In this exercise we'll introduce a load against our application, and watch it automatically scale up to multiple instances, and then automatically scale back down to a specified minimum.  Enjoy.
 
 == Exercises
 

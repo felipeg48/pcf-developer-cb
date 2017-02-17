@@ -15,10 +15,9 @@ v0.1, 2017:  GCP-specific Lab Instructions
 
 _Estimated Time: 25 minutes_
 
-== What you will learn
+== Preface
 
-* How to access PCF Metrics
-* How to use PCF Metrics to better understand how your application is performing
+PCF Metrics provides application metrics for your application directly inside cloudfoundry.  It's an innovative tool that combines application events, metrics (cpu, memory, network), and logs into a powerful view that can help you monitor and gain insight into your application's behavior over time.  In this lab you'll take a little time to explore PCF Metrics and its user interface.
 
 == Exercises
 

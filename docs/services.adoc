@@ -15,11 +15,13 @@ v0.1, 2017:  GCP-specific Lab Instructions
 
 _Estimated Time: 25 minutes_
 
-== What you will learn
+== Preface
 
-* How to create a managed service instance
-* How to create a user-provided service instance
-* How to bind an application to a service instance
+Up until now, we've focused on the deployment of applications.  But as we know, applications often use backing services: databases, message brokers, and other applications' services (to name a few).
+
+In this lab, you'll have the opportunity to experiment with both managed services and user-provided services:  you'll create a mysql backing service to persist information about attendees, and you'll create a user-provided service to allow one application to consume the services of another without hard-coding its route.
+
+In the process, you'll learn new cf commands:  `create-service`, `create-user-provided-service`, and `bind-service`.  Don't forget:  `cf help` is there to help us understand how to invoke each command.
 
 
 == Exercises

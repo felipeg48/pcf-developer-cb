@@ -18,9 +18,13 @@ v0.1, 2017:  GCP-specific Lab Instructions
 
 _Estimated Time: 25 minutes_
 
-== What you will learn
+== Preface
 
-How to create a route service
+Route services can be put to use in many ways:  to cache responses from back-end services, to control access to an application, to audit how an application is accessed, and more.
+
+In this lab you'll deploy a route service that will allow you to rate-limit access to the attendee-service application.  In the process you'll learn yet more cf CLI commands, namely the `create-user-provided-service` command with a new flag (`-r`), and the `bind-route-service` command.
+
+Don't forget to examine the source code to understand how this route service is implemented.
 
 == Exercises
 

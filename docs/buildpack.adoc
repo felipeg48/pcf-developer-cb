@@ -12,12 +12,12 @@ v0.1, 2017:  GCP-specific Lab Instructions
 :imagesdir: images
 :experimental:
 
+
 _Estimated Time: 25 minutes_
 
-== What you will learn
+== Preface
 
-* How to use a custom buildpack
-* How to configure the Java Buildpack
+We've learned that buildpacks produce the droplets that are needed to run our applications.  But how do we customize their behavior?  In this lab, you'll explore ways to configure the version of the java runtime that the java buildpack provisions for your application.
 
 == Exercises
 

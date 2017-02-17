@@ -15,9 +15,9 @@ v0.1, 2017:  GCP-specific Lab Instructions
 
 _Estimated Time: 25 minutes_
 
-== What you will learn
+== Preface
 
-How to use an APM service
+In the previous labs, we learned how to setup log analysis for our application, and how to autoscale our app.  We also must be able to monitor it.  Configuring your application for monitoring becomes effortless with integration from monitoring tools such as newrelic and appdynamics.  In this lab, we'll use the newrelic managed service to setup application performance monitoring for our app.
 
 == Exercises
 

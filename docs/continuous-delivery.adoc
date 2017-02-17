@@ -17,9 +17,10 @@ v0.1, 2017:  GCP-specific Lab Instructions
 
 _Estimated Time: 25 minutes_
 
-== What you will learn
+== Preface
 
-How to build a continuous delivery pipeline with Jenkins
+There's something special about setting up the automation to produce a new build artifact for an application as soon as a commit is made to version control, and then automatically deploying that application to cloudfoundry.  In this lab, you'll do precisely that.  You're going to use the Jenkins CI tool for the build job, and CloudFoundry as your target deployment platform.  Enjoy.
+
 
 == Exercises
 

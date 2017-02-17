@@ -16,9 +16,13 @@ v0.1, 2017:  GCP-specific Lab Instructions
 
 _Estimated Time: 25 minutes_
 
-== What you will learn
+== Preface
 
-How to create a log drain
+Cloud Foundry's loggregator subsystem routes applications' log streams out of the containers from which they emanate, and makes them accessible via the `cf logs` command.
+
+But what if you needed to maintain a month's worth of logs, and wanted to leverage third party tools or services for log analysis?  Cloudfoundry provides the capability to _drain_ application logs to some destination, whether it be an internal enterprise system or a third-party service.
+
+In this lab, you'll setup a log drain for your application using a service called Papertail.
 
 == Exercises
 

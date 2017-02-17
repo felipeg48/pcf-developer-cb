@@ -15,10 +15,13 @@ v0.1, 2017:  GCP-specific Lab Instructions
 
 _Estimated Time: 10 minutes_
 
-== What you will learn
+== Preface
 
-* How to create a manifest
-* How to use a manifest when pushing an application
+You can imagine how tedious things would be if we had to repeatedly pass a handful of command arguments to the cf cli each time we push an application.  There's a better way:  application manifests allow you to consolidate into a single file all of our application's deployment metadata, including the application name, memory, path, hostname, and much more.  We can associate services and environment variables to our application in a single manifest file.
+
+Don't forget to take the time to read through the excellent documentation on manifests that's referenced below.  There are lots of manifest file attributes you'll want to learn about.  If you're new to yaml, take a little time to familiarize yourself with the syntax.
+
+In this lab you'll reverse-engineer an application manifest file from one of the running applications you deployed in the last lab.  That's a pretty convenient feature.
 
 == Exercises
 
