@@ -1,7 +1,6 @@
 = Push to the Cloud
 Eitan Suez <esuez@pivotal.io>
 v0.1, 2017:  GCP-specific Lab Instructions
-:doctype: book
 :linkcss:
 :docinfo: shared
 :toc: left
