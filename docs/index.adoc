@@ -1,6 +1,6 @@
 = PCF Developer
 Eitan Suez <esuez@pivotal.io>
-v0.1, 2017:  Lab Instructions, Fork of DNR's original work
+v0.1, 2017:  Lab Instructions, fork of DNR's original work
 :linkcss:
 
 == Kickoff
