@@ -15,10 +15,6 @@ v0.1, 2017:  GCP-specific Lab Instructions
 
 _Estimated Time: 25 minutes_
 
-== Requirements
-
-See link:requirements{outfilesuffix}[Lab Requirements].
-
 == What you will learn
 
 How to use an APM service
