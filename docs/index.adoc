@@ -1,6 +1,6 @@
-= PCF Developer Experiment
+= PCF Developer
 Eitan Suez <esuez@pivotal.io>
-v0.1, 2017:  Asciidoc port of lab instructions (wip)
+v0.1, 2017:  Lab Instructions, Fork from DNR's excellent work
 :linkcss:
 
 == Kickoff
