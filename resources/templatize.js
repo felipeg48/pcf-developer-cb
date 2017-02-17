@@ -47,6 +47,7 @@ $(function() {
 
   function bind(context) {
     content.html(template(context));
+    $(".tabs").tabs(); // todo: fire an event, and let tabs.js fend for itself
   }
 
   function form2o(form) {
