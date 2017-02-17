@@ -30,7 +30,7 @@ How to create a route service
 
 === Setup
 
-. Download this link:route-service.zip[zip file], which contains source code and jar ready for you to deploy (no building necessary).  Copy the file to folder: `~/pivotal-cloud-foundry-developer-workshop/` (`~` is shorthand for the home directory in Linux, Mac and Unix based operating systems).  You will need to create this directory in your home directory.
+. Download this https://github.com/eitansuez/route-service/releases/download/v1.0/route-service.zip[zip file^], which contains source code and jar ready for you to deploy (no building necessary).  Copy the file to folder: `~/pivotal-cloud-foundry-developer-workshop/` (`~` is shorthand for the home directory in Linux, Mac and Unix based operating systems).  You will need to create this directory in your home directory.
 
 . Extract the the zip file to `~/pivotal-cloud-foundry-developer-workshop/route-service`.
 
