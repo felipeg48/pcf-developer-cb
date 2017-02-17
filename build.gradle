@@ -4,6 +4,7 @@ buildscript {
   }
   dependencies {
     classpath 'org.asciidoctor:asciidoctor-gradle-plugin:1.5.3'
+    classpath 'org.asciidoctor:asciidoctorj-pdf:1.5.0-alpha.11'
   }
 }
 
@@ -23,7 +24,7 @@ asciidoctor {
   asciidoctorj {
     version = '1.5.4.1'
   }
-  backends 'html5'
+  backends 'html5' //,'pdf'
   sourceDir file('docs')
   sources {
     include '*.adoc'
@@ -34,7 +35,7 @@ asciidoctor {
     }
   }
   outputDir file('build')
-  options doctype: 'book'
+  options doctype: 'article'
   extensions {
     docinfo_processor { document ->
       def attrs = document.attributes.findAll { key, value ->
