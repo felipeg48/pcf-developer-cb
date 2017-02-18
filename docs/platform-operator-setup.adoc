@@ -1,6 +1,6 @@
 = Platform Operator Benevolence
 Eitan Suez <esuez@pivotal.io>
-v0.1, 2017:  GCP-specific Lab Instructions
+v0.1, 2017
 :linkcss:
 :docinfo: shared
 :toc: left
