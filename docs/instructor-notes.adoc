@@ -194,11 +194,11 @@ One difficulty here is maintaining a high cpu for over 30 seconds, especially wh
 
 Here we use newrelic.  Again, there's no presentation.  What I like to do with each module that has no presentation is to give a quick overview of the lab, a sort of introduction to the activity they're about to undertake.
 
-Stress that the students should use the managed service in the PWS marketplace (assuming you're using PWS), and that the integration with newrelic transparently takes care of the "account-setup" negotiation between PWS and newrelic.
+Stress that the students should use the managed service in the PWS marketplace (assuming you're using PWS), and that the integration with newrelic transparently takes care of the "account-setup" negotiation between PWS and newrelic (i.e. there's no need to create a newrelic account).
 
-When you click on the "Manage" link for newrelic, you're taken directly to the newrelic dashboard.
+When you click on the "Manage" link for newrelic, you're taken directly to the newrelic dashboard.  I've run into an issue where a previous manual login into a pre-existing newrelic account will prevent this from working properly.  The remedy is to look for and delete cookies associated with the newrelic.com domain.
 
-I've run into an issue where a previous manual login into a pre-existing newrelic account will prevent this from working properly.  The remedy is to look for an delete cookies associated with the newrelic.com domain.
+Finally, it's important to stress in this lab how the integration with newrelic actually works.  Typically one would have to manually bundle the newrelic agent jar file with their app.  Here we see the buildpack doing this for us transparently: that's essentially why we need to restage the application for the integration to work:  because the buildpack downloads and includes the newrelic agent jar file into the newly-created droplet.
 
 
 === Module: Metrics
