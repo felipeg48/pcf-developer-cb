@@ -26,3 +26,8 @@ v0.1, 2017:  Lab Instructions, fork of DNR's original work
 . link:service-broker{outfilesuffix}[Service Broker^]
 . link:continuous-delivery{outfilesuffix}[Continuous Delivery^]
 . link:route-service{outfilesuffix}[Route Service^]
+
+
+'''
+
+link:instructor-notes{outfilesuffix}[Instructor Notes^]
