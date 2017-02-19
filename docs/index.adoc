@@ -1,13 +1,14 @@
 = PCF Developer
 Eitan Suez <esuez@pivotal.io>
-v0.1, 2017:  Lab Instructions, fork of DNR's original work
+v0.1, 2017:  fork of DNR's original work
 :linkcss:
 
-== Kickoff
+== Front Matter
 
-- link:requirements{outfilesuffix}[Requirements^]
-- link:approach{outfilesuffix}[Approach and Methodology^]
-- link:platform-operator-setup{outfilesuffix}[What the Platform Operator has setup for you^]
+- link:meta/requirements{outfilesuffix}[Requirements^]
+- link:meta/approach{outfilesuffix}[Approach and Methodology^]
+- link:meta/platform-operator-setup{outfilesuffix}[What the Platform Operator has setup for you^]
+- link:meta/instructor-notes{outfilesuffix}[Instructor Notes^]
 
 == Application Development
 
@@ -26,8 +27,3 @@ v0.1, 2017:  Lab Instructions, fork of DNR's original work
 . link:service-broker{outfilesuffix}[Service Broker^]
 . link:continuous-delivery{outfilesuffix}[Continuous Delivery^]
 . link:route-service{outfilesuffix}[Route Service^]
-
-
-'''
-
-link:instructor-notes{outfilesuffix}[Instructor Notes^]

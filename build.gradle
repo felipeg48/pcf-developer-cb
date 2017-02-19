@@ -27,7 +27,7 @@ asciidoctor {
   backends 'html5' //,'pdf'
   sourceDir file('docs')
   sources {
-    include '*.adoc'
+    include '**/*.adoc'
   }
   resources {
     from('resources') {

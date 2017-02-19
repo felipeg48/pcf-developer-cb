@@ -227,7 +227,7 @@ The presentation here is straightforward and to the point.  I usually like to co
 
 The presentation here is straightforward.  I like to pull up the service broker api documentation online and show students where they can get to the docs.
 
-For the lab here we provision a vm instance in AWS in advance.  Here's the link:artifacts/mongo.tf[terraform script^] for it.  The output of the script will be the public ip address of the vm, which needs to be communicated to the students (they set an environment variable named MONGODB_HOST).
+For the lab here we provision a vm instance in AWS in advance.  Here's the link:../artifacts/mongo.tf[terraform script^] for it.  The output of the script will be the public ip address of the vm, which needs to be communicated to the students (they set an environment variable named MONGODB_HOST).
 
 I like to review the lab in two parts:
 
@@ -241,7 +241,7 @@ This also gives me the chance to talk about and explain the --guid flag in many 
 
 === Module: Continuous Delivery
 
-With respect to the lab, students here have two options:  they can run a jenkins instance locally on their machine (the hard way), or use a jenkins instance that's already provisioned for them.  In my experience, the latter option is a lot simpler and goes a whole lot smoother.  So encourage students to use your aws-provisioned instance of jenkins.  Here's the link:artifacts/jenkins.tf[terraform script^].
+With respect to the lab, students here have two options:  they can run a jenkins instance locally on their machine (the hard way), or use a jenkins instance that's already provisioned for them.  In my experience, the latter option is a lot simpler and goes a whole lot smoother.  So encourage students to use your aws-provisioned instance of jenkins.  Here's the link:../artifacts/jenkins.tf[terraform script^].
 
 For the presentation, I often go beyond what the slides offer.
 

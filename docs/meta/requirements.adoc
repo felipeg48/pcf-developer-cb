@@ -14,8 +14,9 @@ v0.1, 2017
 
 == Personal Experience
 
-* Understanding of development concepts
-* Experience using a terminal window
+- Background in Software Development
+- At ease with the command-line or "shell"
+- Java/Spring experience is optional
 
 == Pivotal Cloud Foundry Environment
 
@@ -31,22 +32,22 @@ Throughout the labs you will see specific directions for Pivotal Cloud Foundry o
 
 Pivotal Cloud Foundry may be used to complete these labs.  The following dependencies are required:
 
-* Elastic Runtime 1.7 +
+* https://network.pivotal.io/products/elastic-runtime/[PCF Elastic Runtime^] version 1.7 or higher, with the following "tiles" added:
+** https://network.pivotal.io/products/p-mysql[MySQL for PCF^]
+** https://network.pivotal.io/products/pcf-metrics[PCF Metrics^]
+** https://network.pivotal.io/products/p-redis[Redis for PCF^]
 +
 TIP: If using self-signed certificates, under the `Elastic Runtime Tile` → `Settings` → `Networking` page make sure the following options have been checked: `Disable SSL certificate verification for this environment`, `Ignore SSL certificate verification on route services`.
-
-* MySql Tile
-* Metrics Tile
-* Redis Tile
 
 
 === Pivotal Web Services
 
 http://run.pivotal.io[Pivotal Web Services^] may be used to complete these labs.  Simply sign up for an account.
 
+
 === A Note About the Service Broker Lab
 
-The link:service-broker{outfilesuffix}[Service Broker lab] requires access to a MongoDB instance.  Please review that link:service-broker{outfilesuffix}[lab] for alternatives on how to meet that requirement.  Options include using the link:aws-mongo-ami{outfilesuffix}[AWS MongoDB AMI].
+The link:../service-broker{outfilesuffix}[Service Broker lab] requires access to a MongoDB instance.  Please review that lab for alternatives on how to meet that requirement.  Options include using the link:/aws-mongo-ami{outfilesuffix}[AWS MongoDB AMI].
 
 
 == Local Machine
@@ -54,15 +55,18 @@ The link:service-broker{outfilesuffix}[Service Broker lab] requires access to a 
 You will need the ability to install software on your local machine.
 
 * 4GB Memory
-* Installation of `cf` (this will be done in the first lab)
 * Network access to the Pivotal Cloud Foundry environment and internet
-* http://jmeter.apache.org/[Apache JMeter^] also requires http://www.oracle.com/technetwork/java/javase/downloads/index.html[Java^] - Used in the link:application-auto-scaler{outfilesuffix}[Auto Scaler], link:application-performance-monitor{outfilesuffix}[APM] and link:metrics{outfilesuffix}[Metrics] labs
-* https://jenkins.io/[Jenkins^] also requires a http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html[JDK 8^] and https://git-scm.com/[git^] (provisioning a link:aws-jenkins-ami{outfilesuffix}[Jenkins on AWS] is alternative to local install) - Used in Continuous Delivery Lab
+* http://www.oracle.com/technetwork/java/javase/downloads/index.html[Java^] (required by http://jmeter.apache.org/[Apache JMeter^], which is used in the link:../application-auto-scaler{outfilesuffix}[Auto Scaler] lab)
+* A programmer-friendly text editor.  https://atom.io/[Atom^] or https://notepad-plus-plus.org/[Notepad++^] are some options.
+
 
 === Optional
 
 * https://chrome.google.com/webstore/detail/json-formatter/bcjindcccaagfpapjjmafapmmgkkhgoa?hl=en[JSON Formatter for Chrome^]
+* https://curl.haxx.se/[curl^] or https://httpie.org/[httpie^]
 * Windows users may desire a better terminal experience than the _cmd.exe_.  Check out https://conemu.github.io/[ConEmu^].  It provides multiple tabs and search which is helpful during these labs.
+* A Java IDE such as the https://spring.io/tools[Spring Tool Suite] can be useful for reading the implementation of the service broker and route service that we work with in those respective labs
+* The link:../continuous-delivery{outfilesuffix}[Continuous Delivery Lab] provides the option to use a pre-provisioned https://jenkins.io/[Jenkins^] instance or to install everything locally.  If a student chooses the latter option, then they'll also need https://git-scm.com/[git^] and http://maven.apache.org/[Maven^]
 
 == Windows VM
 
