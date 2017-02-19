@@ -10,7 +10,7 @@ v0.1, 2017:  fork of DNR's original work
 - link:meta/setup{outfilesuffix}[Setup^]
 - link:meta/instructor-notes{outfilesuffix}[Instructor Notes^]
 
-== Application Development
+== Main Course
 
 . link:push-to-the-cloud{outfilesuffix}[An introduction to Pivotal Cloud Foundry^] | link:slides/intro.pdf[Slides^]
 . link:log-scale-ha{outfilesuffix}[Logging, Scale and HA^] | link:slides/logging-scale-ha.pdf[Slides^]
