@@ -1,4 +1,4 @@
-= Platform Operator Benevolence
+= Setup
 Eitan Suez <esuez@pivotal.io>
 v0.1, 2017
 :linkcss:
