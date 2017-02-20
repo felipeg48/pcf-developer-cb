@@ -61,20 +61,20 @@ Create the following: Key = `Name`; Value = `{yourname}-mongodb-service-broker`
 Create a security group with the following rules:
 
 .Rule 1
---
+....
 Type = `ssh`
 Protocol = `TCP`
 Port Range = `22`
 Source = `anywhere` (0.0.0.0/0)
---
+....
 
 .Rule 2
---
+....
 Type = `Custom TCP Rule`
 Protocol = `TCP`
 Port Range = `27017`
 Source = `anywhere` (0.0.0.0/0)
---
+....
 
 
 ==== Review Instance Launch

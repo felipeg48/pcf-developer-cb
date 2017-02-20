@@ -1,0 +1,140 @@
+= Amazon Web Services Jenkins AMI
+Eitan Suez <esuez@pivotal.io>
+v0.1, 2017
+:yourname: {{yourname}}
+:jenkins_ip_address: {{jenkins_ip_address}}
+
+A Jenkins VM (Ubuntu 14.04) is available to complete the continuous delivery lab.  The VM is hosted on Amazon Web Services.
+
+== Requirements
+
+Network connectivity and access for Jenkins to reach your Pivotal Cloud Foundry environment (push on your behalf).
+
+== Installed Software
+
+The software listed below has been installed and configured on the VM:
+
+* Jenkins - https://wiki.jenkins-ci.org/display/JENKINS/Governance+Document=GovernanceDocument-License[License^]
+* JDK 1.8 - http://www.oracle.com/technetwork/java/javase/terms/license/index.html[License^]
+* Git - https://git-scm.com/about/free-and-open-source[License^]
+* GitHub Plugin - https://github.com/jenkinsci/github-plugin/blob/master/LICENSE[License^]
+* Cloud Foundry Plugin - https://github.com/jenkinsci/cloudfoundry/blob/master/LICENSE.txt[License^]
+
+
+== Provisioning
+
+You can use the following link:artifacts/jenkins.tf[terraform script^].
+
+Alternatively, you can provision the VM manually by following these directions:
+
+. User must have access to an AWS account (can run from any account)
+. User must have an existing key pair in the account or create one
+. The AMI can be found be searching for `jenkins-continuous-delivery-lab` in the EC2 Dashboard.  Must be in the N. Virginia region.
+
+In the left navbar of the EC2 dashboard, under `Images`,  select `AMIs`. Then, to the left of the search bar, change `Owned by Me` to `Public images`. Search for `jenkins-continuous-delivery-lab`. Click Launch.
+
+[.thumb]
+image::cd-jenkins-search.png[search for ami]
+
+
+=== Provisioning Wizard
+
+When launching, accept defaults except where specified.
+
+==== Choose an Instance Type
+
+* Use `t2.medium` (4 GB memory)
+
+**E-learning Students**: *Please note that, though this instance type is not free-tier eligible, it is necessary for completing the continuous delivery lab and the PCF Developer course.* **Costs associated with its use are negligible.** *Charges cease as soon as the instance is deprovisioned (the steps for deprovisioning are at the end of the lab).*
+
+==== Configure Instance Details
+
+Auto-assign Public IP  = `Enable`
+
+==== Add Storage
+
+Accept defaults
+
+==== Tag Instance
+
+Create the following: Key = `Name`; Value = `{{yourname}}-jenkins`
+
+==== Create a Security Group
+
+Create a security group with the following rules:
+
+.Rule 1
+....
+Type = `ssh`
+Protocol = `TCP`
+Port Range = `22`
+Source = `anywhere` (0.0.0.0/0)
+....
+
+.Rule 2
+....
+Type = `HTTPS`
+Protocol = `TCP`
+Port Range = `443`
+Source = `anywhere` (0.0.0.0/0)
+....
+
+
+==== Review Instance Launch
+
+Select your key-pair an launch the instance.
+
+Once the instance is running, select it in list of EC2 instances.
+
+***Obtain the public IP for use in the lab***.
+
+== Accessing Your Jenkins VM Remotely
+
+=== HTTPS
+
+A self signed certificate is used, so browser warnings are expected.
+
+Access Jenkins via the `https://{{jenkins_ip_address}}/`.
+
+==== Credentials:
+
+**Username:** `pivotal`
+
+**Password:** `keepitsimple`
+
+=== SSH
+
+SSH using your private key, the `ubuntu` user and the public IP address of your VM.
+
+For example:
+
+[source.terminal]
+----
+ssh -i ~/.ssh/my-key-pair.pem ubuntu@{{jenkins_ip_address}}
+----
+
+http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AccessingInstancesLinux.html[Amazon Reference Documentation^]
+
+
+== Managing Jenkins
+
+=== Start Jenkins
+
+[source.terminal]
+----
+sudo service jenkins start
+----
+
+=== Stop Jenkins
+
+[source.terminal]
+----
+sudo service jenkins stop
+----
+
+=== Restart Jenkins
+
+[source.terminal]
+----
+sudo service jenkins restart
+----
