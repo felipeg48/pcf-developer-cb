@@ -133,7 +133,7 @@ image::cd-config.png[Push config]
 
 . Save the config and try running the build by clicking `Build Now`.  Do not proceed past this step until you have a successful build and deployment to Pivotal Cloud Foundry.  Confirm the application is deployed by viewing it in your browser.
 +
-Make sure to view the Build details (Left Side of Screen → `Build History` → `Build #`).
+Make sure to view the Build details (Left Side of Screen -> `Build History` -> `Build #`).
 +
 `Console Output` can be viewed there (for active or completed jobs).  This is very useful for debugging failing builds.
 +
@@ -164,7 +164,7 @@ Commit and push the change to GitHub, wait until the polling detects it, and wat
 cf delete articulate-{{initials}}
 ----
 
-. If provisioned, terminate your AWS Jenkins instance by going to your AWS EC2 dashboard, selecting the Jenkins instance, and clicking Actions →  Instance State →  Terminate.
+. If provisioned, terminate your AWS Jenkins instance by going to your AWS EC2 dashboard, selecting the Jenkins instance, and clicking Actions ->  Instance State ->  Terminate.
 
 == Beyond the Class
 

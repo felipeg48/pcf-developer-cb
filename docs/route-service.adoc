@@ -28,7 +28,7 @@ Don't forget to examine the source code to understand how this route service is 
 
 STS Import Help:
 
-Select File → Import… Then select Maven → Existing Maven Projects. On the Import Maven Project page, browse to the directory where you extracted the zip.  Then push the "Next" button. Click "Finish".
+Select menu:File[Import...] Then select Maven -> Existing Maven Projects. On the Import Maven Project page, browse to the directory where you extracted the zip.  Then push the "Next" button. Click "Finish".
 
 === Route Service Overview
 

@@ -26,9 +26,9 @@ You'll deploy an application that implements the service broker API, register it
 
 STS Import Help:
 
-Select File > Import… Then select Gradle > Gradle Project. On the Import Gradle Project page, browse to the directory where you extracted the zip.  Then push the "Build Model" button.  Select the project.  Click "Finish".
+Select menu:File[Import...] Then select Gradle -> Gradle Project. On the Import Gradle Project page, browse to the directory where you extracted the zip.  Then push the "Build Model" button.  Select the project.  Click "Finish".
 
-The above steps require the `Gradle Support` IDE extension to be installed. To install `Gradle Support` select Help > Dashboard.  This will open a new tab to the Dashboard.  Click on "IDE Extensions" then search for "Gradle".  Select `Gradle Support` or `Gradle (STS Legacy) Support` and click the "Install" button.  Complete the installation wizard and restart STS.
+The above steps require the `Gradle Support` IDE extension to be installed. To install `Gradle Support` select menu:Help[Dashboard].  This will open a new tab to the Dashboard.  Click on "IDE Extensions" then search for "Gradle".  Select `Gradle Support` or `Gradle (STS Legacy) Support` and click the "Install" button.  Complete the installation wizard and restart STS.
 
 === Service Broker API Overview
 
@@ -448,7 +448,7 @@ cf delete-service-broker mongodb-service-broker-{{initials}}
 cf delete mongodb-service-broker
 ----
 
-. If provisioned, terminate your AWS MongoDB instance by going to your AWS EC2 dashboard, selecting the MongoDB instance, and clicking Actions → Instance State → Terminate.
+. If provisioned, terminate your AWS MongoDB instance by going to your AWS EC2 dashboard, selecting the MongoDB instance, and clicking Actions -> Instance State -> Terminate.
 
 
 == Beyond the class

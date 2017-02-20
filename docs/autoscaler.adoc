@@ -106,22 +106,22 @@ Linux and Mac | Windows
 . Expand the content of the JMeter test plan by:
 +
 .. Selecting the `Load Generator` test plan on the left pane.
-.. Going to the menu: `Options` → `Expand All`.
+.. Going to the menu: `Options` -> `Expand All`.
 
 . Under `HTTP Request`, edit the test plan as follows:
 +
 .. Set the value of the `Service Name or IP` field to your application’s fully-qualified hostname (do not include the `http://`).  For example: `jsmith-articulate.cfapps.io`
 .. Set the value of the HTTP Request `Path` field to `/services`
 
-. Save the test plan: `File` → `Save`.
+. Save the test plan: `File` -> `Save`.
 
-. Run the test plan: `Run` → `Start`.
+. Run the test plan: `Run` -> `Start`.
 
 . Use Apps Manager and the `cf` CLI to observe your service scale up and back down based on load.
 +
 NOTE: You may see `articulate` crash when placing load on it in this scenario.  This is okay.  We are running the application with a lower memory setting so that we can scale within quota limits.
 
-. Stop the test plan: `Run` → `Stop`.
+. Stop the test plan: `Run` -> `Stop`.
 
 . Review Autoscale history.
 
