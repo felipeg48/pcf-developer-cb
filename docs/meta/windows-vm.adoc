@@ -1,0 +1,98 @@
+= Windows VM
+Eitan Suez <esuez@pivotal.io>
+v0.1, 2017
+
+A Windows VM is available to complete the labs.  The VM is hosted on Amazon Web Services.  You will access it with remote desktop client.
+
+== Who Should Use?
+
+Please consider using this VM if you have any of the following limitations:
+
+* Your system does not meet the technical requirements
+* You can't install software on your system
+* You have limited network access
+
+== Requirements
+
+* Remote Desktop Client on your system (most operating systems ship with one)
+* Network connectivity and access to reach the Windows VM (RDP uses port 3389)
+
+
+== Provisioning
+
+. User must have access to an AWS account (can run from any account)
+. User must have an existing key pair in the account or create one
+. The AMI can be found be searching for `WinServer08STS` in the EC2 Dashboard.  Must be in the N. Virginia region.
++
+Launch the AMI named `WinServer08STS`. In AWS, in the EC2 dashboard, using the US East (N. Virginia) region, select (or search for the public image) Images > AMIs > WinServer08STS. Click Launch.
++
+NOTE: pick the AMI with the greatest number appended to the AMI Name.  In this case, `WinServer08STS7`
+image::ami.png[search for ami]
+
+. When launching, accept defaults except:
++
+.. Choose an Instance Type > `t2.medium` (4 GB memory)
+.. Configure Instance Details > Auto-assign Public IP > `Enable`
+.. Tag Instance > Key = `Name`; Value = `<your name here-windows>`
+
+. Launch the instance.  Once the instance is running, select it in list of EC2 instances. Obtain the public IP.
+
+. Using your Remote Desktop connect to the Windows VM using the the public IP.
++
+**Username:** `Administrator`
++
+**Password:** `KeepItSimple123`
+
+== Software Installed
+
+The software listed below has been installed and configured on the VM:
+
+* JDK 1.8 - http://www.oracle.com/technetwork/java/javase/terms/license/index.html[License^]
+* Maven - http://www.apache.org/licenses/[License^]
+* git - https://git-scm.com/about/free-and-open-source[License^]
+* curl - http://curl.haxx.se/docs/copyright.html[License^]
+* cf - https://github.com/cloudfoundry/cli/blob/master/LICENSE[License^]
+* Spring Tool Suite - http://www.eclipse.org/org/documents/epl-v10.php[License^]
+* Cygwin - https://cygwin.com/licensing.html[License^]
+* Chrome - https://www.google.com/chrome/browser/privacy/eula_text.html[License^]
+* https://chrome.google.com/webstore/detail/json-formatter/bcjindcccaagfpapjjmafapmmgkkhgoa?hl=en[Json Formatter for Chrome^]
+
+
+== Best Practices
+
+=== Work Directory
+
+As part of the VM there is a `repos` directory.  It is located at `C:\Users\Administrator\repos`.  This is where you will clone repos from GitHub.  This will be referred to as `$REPOS_HOME` throughout the labs.
+
+=== ConEmu
+
+The Windows console is very limited in the sense that it lacks tab support, search and other features one might like in a console/terminal experience.
+
+Therefore, also installed is an alternative to the command prompt known as https://conemu.github.io/[ConEmu^].
+
+We recommend using ConEmu to execute the labs.  You can launch ConEmu from the desktop.  It will open to your `$REPOS_HOME` directory.
+
+// [.thumb]
+// image::initial.png[ConEmu Tab]
+
+
+==== Use Labeled Tabs
+
+As part of the labs you will be starting many processes.  Organizing the processes with tabs makes a ton of sense, otherwise you will have windows everywhere making it difficult to manage.
+
+To label the tab execute the following:
+
+----
+title - <tab label>
+----
+
+For example, creating a tab for the `config-server`.  This is where work done with the `config-server` would take place.
+
+// [.thumb]
+// image::tab.png[ConEmu]
+
+=== Odd Keyboard Behavior?
+
+Sometimes when using Remote Desktop keys (`control`, `command`, `shift`, etc.) may become depressed by accident leading to what seems like very odd behavior on the remote machine.  The problem can typically be resolved by toggling the depressed key(s).  If needed the ***On-Screen Keyboard*** can also be brought up.
+
+Open the ***On-Screen Keyboard*** by clicking the `Start` button, clicking `All Programs`, clicking `Accessories`, clicking `Ease of Access`, and then clicking `On-Screen Keyboard`.
