@@ -18,6 +18,7 @@ After reviewing and modifying the `manifest.yml` file, you can publish the html 
 cf push
 ----
 
+At the moment, a version of this course is published to https://pcfdeveloper.cfapps.io/[this url^].
 
 Thanks.
 / Eitan
