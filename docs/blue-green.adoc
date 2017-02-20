@@ -1,15 +1,6 @@
 = Blue Green
 Eitan Suez <esuez@pivotal.io>
 v0.1, 2017
-:linkcss:
-:docinfo: shared
-:toc: left
-:sectnums:
-:linkattrs:
-:icons: font
-:source-highlighter: highlightjs
-:imagesdir: images
-:experimental:
 :domain_name: {{domain_name}}
 :articulate_hostname: {{articulate_hostname}}
 :articulate_hostname_temp: {{articulate_hostname_temp}}

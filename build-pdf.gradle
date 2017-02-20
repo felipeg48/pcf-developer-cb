@@ -1,0 +1,46 @@
+buildscript {
+  repositories {
+    jcenter()
+  }
+  dependencies {
+    classpath 'org.asciidoctor:asciidoctor-gradle-plugin:1.5.3'
+    classpath 'org.asciidoctor:asciidoctorj-pdf:1.5.0-alpha.11'
+  }
+}
+
+apply plugin: 'org.asciidoctor.convert'
+
+repositories {
+  jcenter()
+}
+
+configurations.asciidoctor {
+  resolutionStrategy {
+    force 'org.asciidoctor:asciidoctorj-groovy-dsl:1.0.0.Alpha2'
+  }
+}
+
+asciidoctor {
+  asciidoctorj {
+    version = '1.5.4.1'
+  }
+  backends 'pdf'
+  sourceDir file('docs')
+  sources {
+    include '**/*.adoc'
+  }
+  attributes 'source-highlighter': 'coderay', imagesdir: '../resources/images', notitle: '',
+    sectnums: '', icons: 'font', experimental: ''
+//    'pdf-stylesdir': 'theme', 'pdf-style': 'custom',
+
+  resources {
+    from('resources') {
+      include 'slides/*.pdf'
+      include 'artifacts/*'
+    }
+  }
+
+  outputDir file('build')
+}
+
+defaultTasks 'asciidoctor'

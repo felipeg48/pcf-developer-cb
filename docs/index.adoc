@@ -1,7 +1,6 @@
 = PCF Developer
 Eitan Suez <esuez@pivotal.io>
 v0.1, 2017:  fork of DNR's original work
-:linkcss:
 
 == Front Matter
 

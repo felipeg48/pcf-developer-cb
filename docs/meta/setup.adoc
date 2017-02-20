@@ -1,15 +1,6 @@
 = Setup
 Eitan Suez <esuez@pivotal.io>
 v0.1, 2017
-:linkcss:
-:docinfo: shared
-:toc: left
-:sectnums:
-:linkattrs:
-:icons: font
-:source-highlighter: highlightjs
-:imagesdir: images
-:experimental:
 
 During this workshop your instructors have assumed the role of Platform Operator.  You can assume that what you're being given is similar to what a new project team would receive upon requesting a fresh environment from whichever group you would ask for such things.
 

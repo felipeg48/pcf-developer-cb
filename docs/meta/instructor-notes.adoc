@@ -1,15 +1,6 @@
 = Instructor Notes
 Eitan Suez <esuez@pivotal.io>
 v0.1, 2017
-:linkcss:
-:docinfo: shared
-:toc: left
-:sectnums:
-:linkattrs:
-:icons: font
-:source-highlighter: highlightjs
-:imagesdir: images
-:experimental:
 
 
 == General Overview
