@@ -26,3 +26,7 @@ v0.1, 2017:  fork of DNR's original work
 . link:service-broker{outfilesuffix}[Service Broker^] | link:slides/service-broker.pdf[Slides^]
 . link:continuous-delivery{outfilesuffix}[Continuous Delivery^] | link:slides/continuous-delivery.pdf[Slides^]
 . link:route-service{outfilesuffix}[Route Service^] | link:slides/route-service.pdf[Slides^]
+
+'''
+
+https://github.com/eitansuez/pcfdev-asciidoc/releases/download/20170219-release/pcfdev-course.zip[Download Course^]
