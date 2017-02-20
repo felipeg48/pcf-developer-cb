@@ -1,0 +1,23 @@
+This repository contains a version of the PCF Developer course, ported to asciidoc.
+
+To generate the course as html:
+
+----
+gradle clean asciidoctor
+----
+
+To generate a PDF version of the course materials:
+
+----
+gradle -b build-pdf.gradle clean asciidoctor
+----
+
+After reviewing and modifying the `manifest.yml` file, you can publish the html version of the course contents to PCF with the following command:
+
+----
+cf push
+----
+
+
+Thanks.
+/ Eitan
