@@ -9,6 +9,7 @@ buildscript {
 }
 
 apply plugin: 'org.asciidoctor.convert'
+apply plugin: 'distribution'
 
 repositories {
   jcenter()
@@ -17,6 +18,15 @@ repositories {
 configurations.asciidoctor {
   resolutionStrategy {
     force 'org.asciidoctor:asciidoctorj-groovy-dsl:1.0.0.Alpha2'
+  }
+}
+
+distributions {
+  main {
+    baseName = 'pcfdev-course'
+    contents {
+      from { 'build/pdf' }
+    }
   }
 }
 
