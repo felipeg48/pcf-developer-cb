@@ -1,0 +1,5 @@
+= TODO
+
+. suppress or otherwise restrict the 'instructor notes' link as this should be hidden from students
+. make the lab-specific notes available to instructors, which among other things, contain answers to the questions posed in each lab
+
