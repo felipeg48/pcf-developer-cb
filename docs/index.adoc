@@ -7,7 +7,6 @@ v0.1, 2017:  fork of DNR's original work
 - link:meta/requirements{outfilesuffix}[Requirements^]
 - link:meta/approach{outfilesuffix}[Approach and Methodology^]
 - link:meta/setup{outfilesuffix}[Setup^]
-- link:meta/instructor-notes{outfilesuffix}[Instructor Notes^]
 
 == Main Course
 
