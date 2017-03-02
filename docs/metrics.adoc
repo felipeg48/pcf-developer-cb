@@ -14,16 +14,16 @@ PCF Metrics provides application metrics for your application directly inside cl
 === PCF Metrics Overview
 
 [alternatives#docref]
-Pivotal Cloud Foundry | Pivotal Web Services
+Pivotal Web Services | Pivotal Cloud Foundry
 
 [#tabs-docref-1.docref]
 --
-. Review the http://docs.pivotal.io/pcf-metrics/using.html[documentation^] on PCF Metrics.
+. Review the http://docs.run.pivotal.io/metrics/using.html[documentation^] on PCF Metrics.
 --
 
 [#tabs-docref-2.docref]
 --
-. Review the http://docs.run.pivotal.io/metrics/using.html[documentation^] on PCF Metrics.
+. Review the http://docs.pivotal.io/pcf-metrics/using.html[documentation^] on PCF Metrics.
 --
 
 === Explore PCF Metrics

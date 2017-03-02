@@ -34,9 +34,19 @@ Read the documentation on https://github.com/cloudfoundry/java-buildpack/blob/ma
 ==== Pivotal Cloud Foundry Instructions
 
 [alternatives#instructions]
-Pivotal Cloud Foundry | Pivotal Web Services
+Pivotal Web Services | Pivotal Cloud Foundry
 
 [#tabs-instructions-1.instructions]
+--
+Create a New Relic Service instance.
+
+[source.terminal]
+----
+cf create-service newrelic standard newrelic
+----
+--
+
+[#tabs-instructions-2.instructions]
 --
 . Signup for a http://newrelic.com/signup?funnel=pivotal-cloud-foundry&partner=Pivotal+Cloud+Foundry&product_id=Standard&promo_code=PVCF60PRO[60 day free trial license^] with New Relic.
 
@@ -49,16 +59,6 @@ This can be found under `Account Settings` from the drop down menu in the upper 
 [source.terminal]
 ----
 cf create-user-provided-service newrelic -p license_key
-----
---
-
-[#tabs-instructions-2.instructions]
---
-Create a New Relic Service instance.
-
-[source.terminal]
-----
-cf create-service newrelic standard newrelic
 ----
 --
 

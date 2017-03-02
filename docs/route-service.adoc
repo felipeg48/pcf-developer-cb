@@ -187,25 +187,25 @@ cf push rate-limiter-app -p ./target/route-service-1.0.0.BUILD-SNAPSHOT.jar -m 5
 . Create a Redis service instance
 +
 [alternatives#redis]
-Pivotal Cloud Foundry | Pivotal Web Services
+Pivotal Web Services | Pivotal Cloud Foundry
 +
 [#tabs-redis-1.redis]
---
-Pivotal provides a redis managed service named "p-redis".
-
-[source.terminal]
-----
-cf create-service p-redis shared-vm redis
-----
---
-+
-[#tabs-redis-2.redis]
 --
 In PWS, the marketplace service for Redis is called "rediscloud".
 
 [source.terminal]
 ----
 cf create-service rediscloud 30mb redis
+----
+--
++
+[#tabs-redis-2.redis]
+--
+Pivotal provides a redis managed service named "p-redis".
+
+[source.terminal]
+----
+cf create-service p-redis shared-vm redis
 ----
 --
 
