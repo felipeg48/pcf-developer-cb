@@ -107,17 +107,17 @@ Optionally use the JMeter script from the link:autoscaler{outfilesuffix}[Applica
 
 _Pivotal Web Services_ users can access the New Relic console via the `Manage` link in Apps Manager:
 
-.Apps Manager `Manage` link
+.New Relic `Manage` link
 [.thumb]
-image::application-performance-monitor-manage.png[Apps Manager]
+image::newrelic-manage.png[Manage New Relic]
 
 [.thumb]
 .`articulate`
-image::application-performance-monitor-articulate.png[Articulate]
+image::application-performance-monitor-articulate.png[Monitor Articulate in New Relic]
 
 [.thumb]
 .`attendee-service`
-image::application-performance-monitor-attendee_service.png[Attendee Service]
+image::application-performance-monitor-attendee_service.png[Monitor Attendee Service]
 
 === Clean up
 
