@@ -2,14 +2,10 @@
 Eitan Suez <esuez@pivotal.io>
 v0.1, 2017:  fork of DNR's original work
 
-== Front Matter
+.Front Matter
+link:meta/requirements{outfilesuffix}[Requirements^] | link:meta/approach{outfilesuffix}[Approach and Methodology^] | link:meta/setup{outfilesuffix}[Setup^]
 
-- link:meta/requirements{outfilesuffix}[Requirements^]
-- link:meta/approach{outfilesuffix}[Approach and Methodology^]
-- link:meta/setup{outfilesuffix}[Setup^]
-
-== Main Course
-
+.Main Course
 [cols="a,a,a",options="header"]
 |===
 | Day 1 | Day 2 | Day 3
