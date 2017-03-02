@@ -363,7 +363,7 @@ cf restart mongodb-service-broker
 
 . Download https://github.com/eitansuez/spring-music/releases/download/v0.1/spring-music.jar[Spring-Music^].  Copy the file to folder: `~/pivotal-cloud-foundry-developer-workshop/spring-music/` (`~` is shorthand for the home directory in Linux, Mac and Unix based operating systems).  You will need to create this directory in your home directory.
 +
-https://github.com/pivotal-enablement/spring-music[Source^] is not required, but you may be curious how it works as you move through the labs.
+http://github.com/cloudfoundry-samples/spring-music[Source^] is not required, but you may be curious how it works as you move through the labs.
 
 . Push `spring-music`
 +
