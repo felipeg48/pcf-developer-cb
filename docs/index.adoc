@@ -10,7 +10,7 @@ v0.1, 2017:  fork of DNR's original work
 
 == Main Course
 
-. link:push-to-the-cloud{outfilesuffix}[An introduction to Pivotal Cloud Foundry^] | link:slides/intro.pdf[Slides^]
+. link:push-to-the-cloud{outfilesuffix}[Push to the Cloud^] | link:slides/intro.pdf[Slides^]
 . link:log-scale-ha{outfilesuffix}[Logging Scale and HA^] | link:slides/logging-scale-ha.pdf[Slides^]
 . link:services{outfilesuffix}[Services^] | link:slides/services.pdf[Slides^]
 . link:manifest{outfilesuffix}[Manifest^]
