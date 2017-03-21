@@ -61,9 +61,7 @@ The main concern here is providing students with a PCF account.  Technically an 
 
 Sometimes we encounter situations where a student has in the past already created such an account, where their free trial has expired.  They can still log in, but are prompted for payment information.  In these situations, instructors can setup a space for the student in question in the Pivotal-Education-Students organization in PWS.  If you do not have access to this organization, contact Pivotal Education.
 
-Some bare bones instructions can be found https://github.com/pivotal-education/content-development-getting-started/blob/master/pws-student-env[here^].
-
-I have created scripts to automate the creation of a space for a student.  See https://github.com/pivotal-education/content-development-getting-started/tree/master/bin[here^].
+Here is a link:../artifacts/create-pes-spaces.sh[shell script^] that automates the creation of a space for a student.  And here's the corresponding link:../artifacts/delete-pes-spaces.sh[cleanup script^] for cleaning up the space (and removing the user from the org) after class is over.
 
 Additional setup is required for the jenkins and service broker labs.  These are explained respectively in each of these modules' notes below.
 
