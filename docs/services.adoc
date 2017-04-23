@@ -1,7 +1,7 @@
 = Services
 Eitan Suez <esuez@pivotal.io>
 v0.1, 2017
-:attendees_endpoint_uri: {{attendees_endpoint_uri}}
+:attendees_app_uri: {{attendees_app_uri}}
 
 
 _Estimated Time: 25 minutes_
@@ -116,7 +116,7 @@ This application implements a RESTful API.  This means that you should be able t
 +
 [source.terminal]
 ----
-http post {{attendees_endpoint_uri}}/attendees firstName=Eitan lastName=Suez emailAddress=esuez@pivotal.io
+http post {{attendees_app_uri}}/attendees firstName=Eitan lastName=Suez emailAddress=esuez@pivotal.io
 ----
 
 
@@ -163,10 +163,10 @@ This will create an interactive prompt.  For the value of `uri`, enter *your `at
 +
 [source.terminal]
 ----
-uri> http://{{attendees_endpoint_uri}}/attendees
+uri> http://{{attendees_app_uri}}/attendees
 ----
 +
-CAUTION: Make sure to specify `http` (this will not work with `https`).
+CAUTION: Make sure to specify `http` (`articulate` was not designed to work with `https`).
 
 . Bind `articulate` to the `attendee-service` user-provided service.
 +
