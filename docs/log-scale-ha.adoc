@@ -245,3 +245,4 @@ cf scale articulate -i 1
 == Beyond the class
 
 * Try the same exercises, but using Apps Manager instead
+* Visit the cloud foundry plugins site at https://plugins.cloudfoundry.org/ and investigate the _Open_ plugin.
