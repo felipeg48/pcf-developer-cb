@@ -2,6 +2,7 @@
 Eitan Suez <esuez@pivotal.io>
 v0.1, 2017
 :api_endpoint: {{api_endpoint}}
+:application_url: {{application_url}}
 
 
 _Estimated Time: 25 minutes_
@@ -101,14 +102,22 @@ Now push the `node` application:
 cf push node --random-route -m 128M
 ----
 
-. View the `node` application in your browser or use `curl`.  The url can be obtained from the `cf push` output or by issuing the command `cf apps`.
+. First, let's find out what our application url is, with the `cf apps` command:
++
+[source.terminal]
+----
+cf apps
+----
++
+Now, visit the `node` application in your browser, or use `curl`:
 +
 [source.terminal]
 .Example:
 ----
-curl node-northeasterly-zygoma.cfapps.io
-Hello Node
+curl {{application_url}}
 ----
++
+The output should be a simple `Hello node` message.
 
 . Repeat steps 3 - 4 for the `php`, `python`, and `ruby` applications.
 +
