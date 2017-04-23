@@ -83,7 +83,7 @@ If working in a Pivotal Cloud Foundry environment that is not PWS, you are likel
 
 [source.terminal]
 ----
-cf create-service p-mysql 100mb-dev attendee-mysql
+cf create-service p-mysql 100mb attendee-mysql
 ----
 --
 
