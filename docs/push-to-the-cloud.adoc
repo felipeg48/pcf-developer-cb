@@ -24,7 +24,7 @@ NOTE: If you are consuming these materials via e-learning and using http://run.p
 
 . http://docs.pivotal.io/pivotalcf/console/dev-console.html[Review the Apps Manager Documentation^].  Knowing where to go for help is essential.
 
-. Login into Pivotal Cloud Foundry with the Apps Manager.
+. Login into Pivotal Cloud Foundry with the Apps Manager.  If using Pivotal Web Services (PWS), the url is:  https://console.run.pivotal.io/[^]
 +
 NOTE: It is common to use self signed certs in educational environments, but doing so will result in warnings from your browser.  These warnings can safely be ignored (proceed through them).
 
