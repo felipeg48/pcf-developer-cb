@@ -105,10 +105,20 @@ cf restart attendee-service
 
 . View the `attendee-service` in a browser.
 +
-You should see response similar to the following (pic is using the https://chrome.google.com/webstore/detail/json-formatter/bcjindcccaagfpapjjmafapmmgkkhgoa?hl=en[JSON Formatter for Chrome^]):
+You should see a response similar to the following (the output in the screenshot is rendered by the https://chrome.google.com/webstore/detail/json-formatter/bcjindcccaagfpapjjmafapmmgkkhgoa?hl=en[JSON Formatter for Chrome^]):
 +
 [.thumb]
 image::attendee_service.png[attendee-service]
++
+The root endpoint of this application is rather uninteresting.  Instead, visit the `/attendees` endpoint.  An http GET to the `attendees` endpoint will fetch all attendees in the database and display them in JSON format. Note that in the response, the `totalElements` is currently 0.
++
+This application implements a RESTful API.  This means that you should be able to submit http POST to the same `attendees` endpoint with a body containing the JSON representation of the `Attendee` model type to create such a record.  This can be done programmatically, or via REST client tools such as https://www.getpostman.com/[Postman^] or command-line tools such as curl or https://httpie.org/[httpie^].  Here's an example using httpie:
++
+[source.terminal]
+----
+http post {{attendees_endpoint_uri}}/attendees firstName=Eitan lastName=Suez emailAddress=esuez@pivotal.io
+----
+
 
 .How does this work?
 ****
@@ -149,11 +159,11 @@ Additionally, how can we easily connect applications together running on the pla
 cf create-user-provided-service attendee-service -p uri
 ----
 +
-This will create an interactive prompt.  For the value of `uri`, enter your `attendee-service` application's `attendees` endpoint:
+This will create an interactive prompt.  For the value of `uri`, enter *your `attendee-service` application*'s `attendees` endpoint:
 +
 [source.terminal]
 ----
-uri> {{attendees_endpoint_uri}}
+uri> http://{{attendees_endpoint_uri}}
 ----
 +
 CAUTION: Make sure to specify `http` (this will not work with `https`).
