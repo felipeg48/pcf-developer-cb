@@ -85,12 +85,16 @@ Next we will push (deploy) several applications.
 +
 The zip file contains four directories; each directory contains an application developed in a different language.
 
-. Open a terminal window and push the `node` application
+. Open a terminal window.  First `cd` into the `node` directory:
 +
 [source.terminal]
 ----
 cd ~/pivotal-cloud-foundry-developer-workshop/demo-apps/node
 ----
++
+The CloudFoundry `push` command assumes that the artifacts for your application are located in the current working directory.
++
+Now push the `node` application:
 +
 [source.terminal]
 ----
