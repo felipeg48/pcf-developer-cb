@@ -163,7 +163,7 @@ This will create an interactive prompt.  For the value of `uri`, enter *your `at
 +
 [source.terminal]
 ----
-uri> http://{{attendees_endpoint_uri}}
+uri> http://{{attendees_endpoint_uri}}/attendees
 ----
 +
 CAUTION: Make sure to specify `http` (this will not work with `https`).
