@@ -38,7 +38,8 @@ The above steps require the `Gradle Support` IDE extension to be installed. To i
 
 ==== About this Broker
 
-This broker is implemented with Spring Boot and leverages the https://github.com/spring-cloud/spring-cloud-cloudfoundry-service-broker[Spring Cloud Service Broker^] project.  This project reduces the effort required to write a service broker in java to the implementation of a handful of spring beans.
+This broker is implemented with Spring Boot, and leverages the
+http://cloud.spring.io/spring-cloud-cloudfoundry-service-broker/[Cloud Foundry Service Broker^] project.  This project reduces the effort required to write a service broker in Java to the implementation of a handful of Spring beans.  This https://spring.io/blog/2016/06/07/introducing-spring-cloud-cloud-foundry-service-broker[blog entry^] by Scott Frederick originally introduced this project to the Spring Cloud in the Summer of 2016.
 
 ==== Implement Catalog Management
 
