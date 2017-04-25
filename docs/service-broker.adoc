@@ -10,7 +10,7 @@ _Estimated Time: 60 minutes_
 
 == Preface
 
-Cloudfoundry is an extensible platform.  Managed services can easily be plugged in and made available in the services marketplace.  In this lab, we'll use a feature known as space-scoped service brokers to register a custom managed service that provisions Mongodb databases for our application.
+Cloudfoundry is an extensible platform.  Managed services can easily be plugged in and made available in the services marketplace.  In this lab, we'll use a feature known as space-scoped service brokers to register a custom managed service that provisions Mongodb databases for applications.
 
 You'll deploy an application that implements the service broker API, register it as a service broker in Cloudfoundry, and then put it to use by instantiating a mongodb instance (with `create-service`), and attaching that resource (with `bind-service`) to an application that will use it to persist album information.
 
@@ -18,7 +18,7 @@ You'll deploy an application that implements the service broker API, register it
 
 === Setup
 
-. Download the following https://github.com/eitansuez/cloudfoundry-mongodb-service-broker/releases/download/v0.1/cloudfoundry-mongodb-service-broker.zip[zip file^], which contains the source code and precompiled jar file, ready for you to deploy (no building necessary).  Copy the file to folder: `~/pivotal-cloud-foundry-developer-workshop/` (`~` is shorthand for the home directory in Linux, Mac and Unix based operating systems).  You will need to create this directory in your home directory.
+. Download the following https://github.com/eitansuez/cloudfoundry-mongodb-service-broker/releases/download/v0.1/cloudfoundry-mongodb-service-broker.zip[zip file^], which contains the source code and precompiled jar file, ready for you to deploy (no building necessary).  Copy the file to folder: `~/pivotal-cloud-foundry-developer-workshop/`.
 
 . Extract the the zip file to `~/pivotal-cloud-foundry-developer-workshop/cloudfoundry-mongodb-service-broker`.
 
@@ -38,7 +38,7 @@ The above steps require the `Gradle Support` IDE extension to be installed. To i
 
 ==== About this Broker
 
-This broker is implemented with Spring Boot and leverages the https://github.com/spring-cloud/spring-cloud-cloudfoundry-service-broker[Spring Cloud Service Broker^] project.  As a result, a lot of the work has been done for us.  In a nutshell, this means that Service Broker endpoints have been mapped (provided) but there a few beans and interfaces we need to implement to complete a broker implementation.
+This broker is implemented with Spring Boot and leverages the https://github.com/spring-cloud/spring-cloud-cloudfoundry-service-broker[Spring Cloud Service Broker^] project.  This project reduces the effort required to write a service broker in java to the implementation of a handful of spring beans.
 
 ==== Implement Catalog Management
 
@@ -113,7 +113,7 @@ NOTE: You can safely ignore the "TIP: Use 'cf restage' to ensure your env variab
 cf start mongodb-service-broker
 ----
 
-. Verify your work.  Call the application `v2/catalog` endpoint through a browser.  Because the application is secured with Basic Auth you will need to provide credentials.
+. Verify your work.  Using an http client (e.g. a browser), visit the application's `v2/catalog` endpoint.  Because the application is secured with Basic Auth you will need to provide credentials.
 +
 **Username:** pivotal
 +
