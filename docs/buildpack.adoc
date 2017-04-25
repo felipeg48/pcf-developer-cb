@@ -82,4 +82,5 @@ cf restage articulate
 === Questions
 
 * What other items are easily customized with the Java Buildpack?
+* How would you go about customizing the java buildpack to use a different version of the new relic agent jar?
 * If you use Java, what items do you think would need customization in your environment?
