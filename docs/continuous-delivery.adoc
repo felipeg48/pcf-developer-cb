@@ -20,7 +20,8 @@ For a brief explanation, click https://en.wikipedia.org/wiki/Continuous_delivery
 
 === Setup Github Repository
 
-. Locate the `Articulate` project on GitHub: https://github.com/pivotal-enablement/articulate[github.com/pivotal-enablement/articulate^]
+. Locate the https://github.com/pivotal-education/pcf-articulate-code[`Articulate` project^] on GitHub
+
 
 . Use the `Fork` button to make your own private copy of the project in your own GitHub account.
 
@@ -143,7 +144,8 @@ image::cd-console.png[Console]
 . In your forked repo, edit the Welcome message for Articulate.
 +
 .. Edit the following file (can be done with a browser):
-https://github.com/{github_username}/articulate/blob/master/src/main/resources/templates/index.html[^]
+https://github.com/{github_username}/pcf-articulate-code/blob/master/src/main/resources/templates/index.html[^]
+
 .. Change the welcome message from `Welcome to Articulate!` to `Welcome to My Articulate Application!`
 Commit and push the change to GitHub, wait until the polling detects it, and watch the magic. Verify the build in Jenkins now succeeds.  Also verify your change in the deployed application with a browser.
 
