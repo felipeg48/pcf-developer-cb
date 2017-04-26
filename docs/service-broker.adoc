@@ -377,7 +377,7 @@ cd ~/pivotal-cloud-foundry-developer-workshop/spring-music/
 +
 [source.terminal]
 ----
-cf push spring-music -p ./spring-music.war -m 512M --random-route
+cf push spring-music -p ./spring-music.jar -m 512M --random-route
 ----
 
 . View `spring-music` in a browser.  Click on the icon:info-circle[] button on the top right of the screen.  Notice that there are no services attached and `spring-music` is using an embedded database.
