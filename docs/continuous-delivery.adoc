@@ -126,7 +126,7 @@ Fill in the following fields:
 +
 Advanced Settings:
 +
-* `Application Path` = `target/articulate-0.1.jar`
+* `Application Path` = `target/articulate-0.0.1-SNAPSHOT.jar`
 +
 [.thumb]
 image::cd-config.png[Push config]
