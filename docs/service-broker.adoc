@@ -10,7 +10,7 @@ _Estimated Time: 60 minutes_
 
 == Preface
 
-Cloudfoundry is an extensible platform.  Managed services can easily be plugged in and made available in the services marketplace.  In this lab, we'll use a feature known as space-scoped service brokers to register a custom managed service that provisions Mongodb databases for applications.
+Cloudfoundry is an extensible platform.  Managed services can easily be plugged in and made available in the services marketplace.  In this lab, we'll use a feature known as _space-scoped service brokers_ to register a custom managed service that provisions Mongodb databases for applications.
 
 You'll deploy an application that implements the service broker API, register it as a service broker in Cloudfoundry, and then put it to use by instantiating a mongodb instance (with `create-service`), and attaching that resource (with `bind-service`) to an application that will use it to persist album information.
 
