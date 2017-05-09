@@ -122,7 +122,7 @@ http post {{attendees_app_uri}}/attendees firstName=Eitan lastName=Suez emailAdd
 
 .How does this work?
 ****
-. Read about how twelve-factor apps handle http://12factor.net/backing-services[backing services^] and http://12factor.net/config[configuration^]>.
+. Read about how twelve-factor apps handle http://12factor.net/backing-services[backing services^] and http://12factor.net/config[configuration^].
 . Read about https://docs.pivotal.io/pivotalcf/devguide/deploy-apps/environment-variable.html#VCAP-SERVICES[VCAP_SERVICES^].
 . View the environment for `attendee-service`.
 +
