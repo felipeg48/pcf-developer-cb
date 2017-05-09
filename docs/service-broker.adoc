@@ -4,6 +4,7 @@ v0.1, 2017
 :initials: {{initials}}
 :service_broker_app_url: {{service_broker_app_url}}
 :mongodb_ip: {{mongodb_ip}}
+:mongodb_password: {{mongodb_password}}
 
 
 _Estimated Time: 60 minutes_
@@ -18,7 +19,7 @@ You'll deploy an application that implements the service broker API, register it
 
 === Setup
 
-. Download the following https://github.com/eitansuez/cloudfoundry-mongodb-service-broker/releases/download/v0.1/cloudfoundry-mongodb-service-broker.zip[zip file^], which contains the source code and precompiled jar file, ready for you to deploy (no building necessary).  Copy the file to folder: `~/pivotal-cloud-foundry-developer-workshop/`.
+. Download the following https://github.com/eitansuez/cloudfoundry-mongodb-service-broker/releases/download/v0.2/cloudfoundry-mongodb-service-broker-0.2.zip[zip file^], which contains the source code and precompiled jar file, ready for you to deploy (no building necessary).  Copy the file to folder: `~/pivotal-cloud-foundry-developer-workshop/`.
 
 . Extract the the zip file to `~/pivotal-cloud-foundry-developer-workshop/cloudfoundry-mongodb-service-broker`.
 
@@ -344,16 +345,19 @@ A MongoDB instance can be obtained in the following ways:
 .. Use a MongoDB instance in your environment
 .. Provision a link:aws-mongo-ami{outfilesuffix}[MongoDB instance on AWS]
 +
-Make sure to obtain the IP address of your MongoDB instance before moving forward.  The broker will attempt to connect to MongoDB  on port 27017.
-+
-NOTE: MongoDB security configuration should not be enabled (`security.authorization = false`).
+You'll need to communicate the mongo db hostname (or ip address) and password that the service broker will use via environment variables:
 +
 [source.terminal]
 ----
 cf set-env mongodb-service-broker MONGODB_HOST {{mongodb_ip}}
 ----
 +
-_You can safely ignore the "TIP: Use 'cf restage' to ensure your env variable changes take effect" message._
+..and..
++
+[source.terminal]
+----
+cf set-env mongodb-service-broker MONGODB_PASSWORD {{mongodb_password}}
+----
 
 . Restart the application.
 +
