@@ -35,16 +35,8 @@ resource "aws_security_group" "mongo_sg" {
   }
 }
 
-data "aws_ami" "mongo_ami" {
-  filter {
-    name = "name"
-    values = ["mongodb-service-broker-lab"]
-  }
-  owners = ["347546166198"]
-}
-
 resource "aws_instance" "mongo" {
-  ami = "${data.aws_ami.mongo_ami.id}"
+  ami = "ami-ee2694f8"
   instance_type = "t2.large"
   associate_public_ip_address = true
   vpc_security_group_ids = ["${aws_security_group.mongo_sg.id}"]

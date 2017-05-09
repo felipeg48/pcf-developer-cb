@@ -27,10 +27,12 @@ Alternatively, you can provision the VM manually by following these directions:
 
 . User must have an existing key pair in the account or create one
 
-. The AMI can be found be searching for `mongodb-service-broker-lab` in the EC2 Dashboard.  Must be in the N. Virginia region. Make sure you search under `Public Images`
+. Bitnami publishes AWS AMIs for MongoDB.  Visit the https://aws.amazon.com/marketplace/[AWS Marketplace^] and search for "mongodb" and "bitnami".
 
-In the left navbar of the EC2 dashboard, under `Images`,  select `AMIs`. Then, to the left of the search bar, change `Owned by Me` to `Public images`. Search for `mongodb-service-broker-lab`. Click Launch.
-
+. You should land on this page: https://aws.amazon.com/marketplace/pp/B01M1EBY7B?qid=1494291808884&sr=0-2&ref_=srh_res_product_image[^].  Note the AMI id: `ami-ee2694f8`
++
+In the left navbar of the EC2 dashboard, under `Images`,  select `AMIs`. Then, to the left of the search bar, change `Owned by Me` to `Public images`. Search for the above AMI ID. Click Launch.
++
 [.thumb]
 image::service-broker-aws-mongo-ami-search.png[search for ami]
 
@@ -83,18 +85,22 @@ Select your key-pair and launch the instance.
 
 Once the instance is running, select it in list of EC2 instances. ***Obtain the public IP for use in the lab***.
 
+IMPORTANT: Once your VM is running, in the EC2 console, right-click "Instance Settings" -> "Get System Log", and then fish for the "application password" from the logs.  You'll need this password to authenticate to mongodb
+
+
 == Accessing Your Mongo VM Remotely
 
-SSH using your private key, the `ubuntu` user and the public IP address of your VM.
+SSH using your private key, the `bitnami` user and the public IP address of your VM.
 
 For example:
 
 [source.terminal]
 ----
-ssh -i ~/.ssh/my-key-pair.pem ubuntu@53.91.185.0
+ssh -i ~/.ssh/my-key-pair.pem bitnami@53.91.185.0
 ----
 
 http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AccessingInstancesLinux.html[Amazon Reference Documentation^]
+
 
 == Managing MongoDB
 
@@ -102,23 +108,24 @@ http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AccessingInstancesLinux.html[
 
 [source.terminal]
 ----
-sudo service mongod start
+sudo /opt/bitnami/ctlscript.sh start
 ----
 
 === Stop MongoDB
 
 [source.terminal]
 ----
-sudo service mongod stop
+sudo /opt/bitnami/ctlscript.sh stop
 ----
 
 === Restart MongoDB
 
 [source.terminal]
 ----
-sudo service mongod restart
+sudo /opt/bitnami/ctlscript.sh restart
 ----
 
+See https://docs.bitnami.com/aws/infrastructure/mongodb/[here^] for more information.
 
 == The Mongo Shell
 
@@ -127,6 +134,14 @@ The `mongo` shell is also loaded on the VM.  It can be accessed in the terminal 
 [source.terminal]
 ----
 mongo
+----
+
+Once in the shell, you'll have to authenticate.  The username is `root`, and the password is the one you previously obtain from the VM system log:
+
+[source,bash]
+----
+use admin
+db.auth('root', '<password>')
 ----
 
 https://docs.mongodb.org/manual/mongo/[Mongo Shell Reference^]
