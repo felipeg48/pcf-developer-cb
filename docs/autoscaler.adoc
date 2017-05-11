@@ -12,9 +12,7 @@ So you can deploy your app, you can scale it.  But what if we wish to automate s
 
 In this exercise we'll introduce a load against our application, and watch it automatically scale up to multiple instances, and then automatically scale back down to a specified minimum.  Enjoy.
 
-== Exercises
-
-=== Setup
+== Setup
 
 . Ensure the `articulate` application has one application instance running.
 +
@@ -23,7 +21,7 @@ In this exercise we'll introduce a load against our application, and watch it au
 cf scale articulate -i 1
 ----
 
-=== Provision and Bind an Autoscaler Service Instance
+== Provision and Bind an Autoscaler Service Instance
 
 . Read the documentation about https://docs.pivotal.io/pivotalcf/1-7/appsman-services/autoscaler/autoscale-configuration.html[App Autoscaling^].
 
@@ -57,7 +55,7 @@ NOTE: You can ignore the "TIP: Use 'cf restage articulate' to ensure your env va
 cf restart articulate
 ----
 
-=== Configuring Autoscaling Service Instance
+== Configuring Autoscaling Service Instance
 
 . View `articulate` in Apps Manager.
 +
@@ -81,7 +79,17 @@ image::autoscaler-edit.png[Edit]
 
 . Return to Apps Manager and observe the number of instances increase from `1` to `2`.
 
-=== Generate Load and Observe the Results
+== Generate Load and Observe the Results
+
+One popular option for generating a load against a web site is by using the apache load-testing tool http://jmeter.apache.org/[JMeter^].  Instructions for JMeter are outlined below.
+
+[NOTE]
+====
+Another option is to use a PWS marketplace service named _Load Impact_.  One advantage of using Load Impact is that you don't have to download and install any software to your laptop in order to conduct a load test:  it's all done via a web interface.  Further, the load test itself is run from the cloud:  the test specification can specify what geographic location will serve as the origin of the load test.  If you feel like trying Load Impact instead of JMeter, head on over to the PWS Marketplace in your Apps Manager, and create an instance of that service, then follow the instructions for creating a test.
+====
+
+
+=== Generating a Load with JMeter
 
 . Download http://jmeter.apache.org/download_jmeter.cgi[Apache JMeter^].  It will be used to generate load.  Review the JMeter http://jmeter.apache.org/usermanual/get-started.html[getting started^] directions.
 +
@@ -118,8 +126,6 @@ Linux and Mac | Windows
 . Run the test plan: `Run` -> `Start`.
 
 . Use Apps Manager and the `cf` CLI to observe your service scale up and back down based on load.
-+
-NOTE: You may see `articulate` crash when placing load on it in this scenario.  This is okay.  We are running the application with a lower memory setting so that we can scale within quota limits.
 
 . Stop the test plan: `Run` -> `Stop`.
 
@@ -128,7 +134,13 @@ NOTE: You may see `articulate` crash when placing load on it in this scenario.  
 [.thumb]
 image::autoscaler-events.png[History]
 
-=== Clean up
+[NOTE]
+====
+An even better option for monitoring the state of your application, including your application instances and their CPU usage, is to install the cf cli plugin *cf top*.  Head on over to the cloud foundry https://plugins.cloudfoundry.org/[plugins catalog^], locate the plugin named 'top' and install it.  It's definitely worth your time.
+====
+
+
+== Clean up
 
 . Unbind the `autoscaler` service instance.
 +
@@ -159,7 +171,7 @@ cf restart articulate
 ----
 
 
-=== Questions
+== Questions
 
 * How do you handle autoscaling today?
 * What 12 factor principles are important when it comes to scaling?
