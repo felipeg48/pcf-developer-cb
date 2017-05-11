@@ -27,6 +27,7 @@ link:meta/requirements{outfilesuffix}[Requirements^] | link:meta/approach{outfil
 . link:service-broker{outfilesuffix}[Service Broker^] / link:slides/service-broker.pdf[Slides^]
 . link:continuous-delivery{outfilesuffix}[Continuous Delivery^] / link:slides/continuous-delivery.pdf[Slides^]
 . link:route-service{outfilesuffix}[Route Service^] / link:slides/route-service.pdf[Slides^]
+. link:cftasks{outfilesuffix}[CF Tasks^]
 |===
 
 '''

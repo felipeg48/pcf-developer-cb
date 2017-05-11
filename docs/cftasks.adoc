@@ -1,0 +1,186 @@
+= CF Tasks
+
+== Preface
+
+`attendee-service` is configured to automatically create a database schema on startup. You can verify this by inspecting the source of the `attendee-service` project.
+
+Study the file `src/main/resources/application.yml`, and note how it contains the setting `generate-ddl`:
+
+[source,yaml]
+----
+spring:
+  application:
+    name: attendee-service
+  jpa:
+    generate-ddl: true
+----
+
+This setting ensures that when the application starts, the schema will be auto generated from the JPA domain definition.
+
+In this lab, we'll turn off this feature, and instead learn how to run a "one-off" task that will create the needed schema for us explicitly, as a separate step.
+
+== Setup
+
+. Edit the `application.yml` file and set `generate-ddl` to false.  Rebuild the application jar file with:
++
+[source.terminal]
+----
+mvn clean package
+----
+
+. Do whatever's necessary to delete your existing attendee-service application.
+
+. Delete the mysql database you'd originally created for the attendee-service application using the command `cf delete-service`
+
+. Now, install the `mysql` cf cli plugin from the https://plugins.cloudfoundry.org/[cloudfoundry plugins web site^].  This will add the command 'mysql' to your cf cli.
+
+. Recreate your attendees database, perhaps like this:
++
+[source.terminal]
+----
+cf create-service cleardb spark attendee-db
+----
++
+Validate that the service was created by invoking the `cf services` command.
+
+. Push attendee service once more.  Assuming you have a manifest file for `attendee-service` that looks similar to this:
++
+[source,yaml]
+----
+---
+applications:
+- name: attendee-service
+  path: target/attendee-service-0.0.1-SNAPSHOT.jar
+  memory: 512M
+  random-route: true
+  services:
+  - attendee-db
+----
++
+Invoke your `cf push` command from within the `attendee-service` base directory:
++
+[source.terminal]
+----
+cf push
+----
+
+. Now, invoke the `cf mysql` command, which should produce output similar to this:
++
+[source,bash]
+----
+MySQL databases bound to an app:
+
+attendee-db
+----
+
+. Let's check that the database has no tables at this time:
++
+[source.terminal]
+----
+cf mysql attendee-db
+----
++
+then:
++
+[source,bash]
+----
+mysql> show tables;
+----
++
+And ensure that the output shows that no tables exist at this time.
+
+In fact, let's go further:
+
+. Tail the logs for `attendee-service`
++
+[source.terminal]
+----
+cf logs attendee-service
+----
+
+. In a browser, visit the `attendees/` endpoint and verify that you get an error, and verify that the logs contain an error message complaining that the attendees table does not exit.
+
+== Run a "one-off" task to generate the schema
+
+Familiarize yourself with Cloud Foundry tasks by reviewing the https://docs.cloudfoundry.org/devguide/using-tasks.html[documentation^].
+
+It turns out that our spring boot application already has the knowledge for creating our schema.  That knowledge is embedded in the spring data jpa libraries.  The idea is simple:
+
+- we'll run a spring-boot app not as a web service, but as a task by turning off the spring-boot property `spring.main.web-environment`
+- next, for this run, we'll turn on the `spring.jpa.generate-ddl` property
+- we'll specify a start command for our task that leverages everything that's already inside our droplet:  the jdk and our spring boot application
+
+Here's the command we want to run:
+
+[source.terminal]
+----
+cf run-task attendee-service '.java-buildpack/open_jdk_jre/bin/java \
+    -Dspring.jpa.generate-ddl=true \
+    -Dspring.profiles.active=cloud \
+    -Dspring.main.web-environment=false \
+    -cp . org.springframework.boot.loader.JarLauncher'
+----
+
+You'll see output similar to this:
+
+----
+Creating task for app attendee-service in org eitan-org / space eitan-space as esuez@pivotal.io...
+OK
+
+Task has been submitted successfully for execution.
+task name:   fb9e9533
+task id:     1
+----
+
+Run the 'cf tasks' command to check on the status of our task:
+
+[source.terminal]
+----
+cf tasks attendee-service
+----
+
+The output should resemble this:
+
+[bash.small]
+----
+id   name       state       start time                      command
+1    fb9e9533   SUCCEEDED   Thu, 11 May 2017 02:45:15 UTC   .java-buildpack/open_jdk_jre/bin/java \
+    -Dspring.jpa.generate-ddl=true \
+    -Dspring.profiles.active=cloud \
+    -Dspring.main.web-environment=false \
+    -cp . org.springframework.boot.loader.JarLauncher
+----
+
+Note that the state is `SUCCEEDED`.
+
+Let's now verify that our table has been created:
+
+[source.terminal]
+----
+cf mysql attendee-db
+----
+
+and:
+
+[source,bash]
+----
+mysql> show tables;
+----
+
+..should show:
+
+----
++------------------------------+
+| Tables_in_ad_12f26b7197bb693 |
++------------------------------+
+| attendee                     |
++------------------------------+
+1 row in set (0.03 sec)
+----
+
+Now, attempt to revisit the `attendees` endpoint once more, and you'll see that the call succeeds.
+
+
+Congratulations, you've just run a one-off task inside cloudfoundry!
+
+Acknowledgements to Liu Dapeng and his https://github.com/verydapeng/cloud-foundry-task-spring[published example^].
