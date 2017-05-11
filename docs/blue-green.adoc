@@ -6,7 +6,7 @@ v0.1, 2017
 :articulate_hostname_temp: {{articulate_hostname_temp}}
 
 
-_Estimated Time: 25 minutes_
+_Estimated Time: 30 minutes_
 
 == Preface
 
