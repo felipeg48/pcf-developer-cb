@@ -13,9 +13,8 @@ Don't forget to take the time to read through the excellent documentation on man
 
 In this lab you'll reverse-engineer an application manifest file from one of the running applications you deployed in the last lab.  That's a pretty convenient feature.
 
-== Exercises
 
-=== Create an application manifest
+== Reverse-Engineer a manifest from a running application
 
 . Read about https://docs.pivotal.io/pivotalcf/devguide/deploy-apps/manifest.html[application manifests^]
 
@@ -53,7 +52,7 @@ cf push
 cf app attendee-service
 ----
 
-==== Questions
+=== Questions
 
 * Assuming you have application running with a bound service (MySQL).  You `push` the application again with a manifest, but said service is not specified in the manifest.  Is the service still bound to the application?
 * What are some `cf` commands that don't have to be explicitly made when using manifests?
@@ -71,3 +70,33 @@ cf app attendee-service
 ----
 cf push
 ----
+
+
+== Create a manifest file by hand
+
+Now that we have a manifest file for the `attendee-service` application, it'd be nice to also have one for `articulate`.
+
+. Navigate to the `articulate` application directory:
++
+[source.terminal]
+----
+cd ~/pivotal-cloud-foundry-developer-workshop/articulate/
+----
+
+. This time, try to write the manifest by hand.  It's good practice, especially if you're not familiar with the yaml format.  Remember, yaml files are indented with two spaces, and should not have any tabs.
++
+Use the https://docs.pivotal.io/pivotalcf/devguide/deploy-apps/manifest.html[manifest documentation^] as a reference.
+
+* Review the various manifest property options.  Which should you specify?
+* You'll likely need to set the application name, path, what else?
+* Also, make sure to specify the service binding directly in the manifest.  That will save you the step of having to manually `bind-service` if you ever redeploy the application from scratch, or to a new space.
+
+. Once you're satisfied with your `manifest.yml`, test it with a `cf push` and see if it properly deploys your application as before.
+
+There's much more to manifest files.  You can..
+
+- define multiple applications in a single manifest file
+- setup one manifest file per environment, and use the -f flag with the `cf push` command to specify which to use
+- there's even a mechanism for manifest files to inherit settings from another file
+
+Congratulations!  You've completed this lab.
