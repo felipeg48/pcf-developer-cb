@@ -2,7 +2,7 @@
 
 == Preface
 
-`attendee-service` is configured to automatically create a database schema on startup. You can verify this by inspecting the source of the `attendee-service` project.
+`attendee-service` is configured to automatically create a database schema on startup. You can verify this by inspecting the https://github.com/eitansuez/attendee-service[source code^] of the `attendee-service` project.
 
 Study the file `src/main/resources/application.yml`, and note how it contains the setting `generate-ddl`:
 
@@ -20,6 +20,8 @@ This setting ensures that when the application starts, the schema will be auto g
 In this lab, we'll turn off this feature, and instead learn how to run a "one-off" task that will create the needed schema for us explicitly, as a separate step.
 
 == Setup
+
+. If necessary, get a copy of the https://github.com/eitansuez/attendee-service[source code^] for `attendee-service` (clone or download)
 
 . Edit the `application.yml` file and set `generate-ddl` to false.  Rebuild the application jar file with:
 +
