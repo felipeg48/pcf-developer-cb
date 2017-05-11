@@ -36,7 +36,8 @@ asciidoctor {
   outputDir file('build')
   attributes toc: 'left', sectnums: '', icons: 'font', experimental: '',
    linkcss: '', linkattrs: '', docinfo: 'shared', imagesdir: 'images',
-   'source-highlighter': 'highlightjs'
+   'source-highlighter': 'highlightjs', highlightjsdir: 'highlight',
+   'allow-uri-read': ''
 
   extensions {
     docinfo_processor { document ->
