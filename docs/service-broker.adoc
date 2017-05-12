@@ -19,7 +19,7 @@ You'll deploy an application that implements the service broker API, register it
 
 === Setup
 
-. Download the following https://github.com/eitansuez/cloudfoundry-mongodb-service-broker/releases/download/v0.2/cloudfoundry-mongodb-service-broker-0.2.zip[zip file^], which contains the source code and precompiled jar file, ready for you to deploy (no building necessary).  Copy the file to folder: `~/pivotal-cloud-foundry-developer-workshop/`.
+. Download the following https://github.com/eitansuez/cloudfoundry-mongodb-service-broker/releases/download/v0.3/cloudfoundry-mongodb-service-broker-0.3.zip[zip file^], which contains the source code and precompiled jar file, ready for you to deploy (no building necessary).  Copy the file to folder: `~/pivotal-cloud-foundry-developer-workshop/`.
 
 . Extract the the zip file to `~/pivotal-cloud-foundry-developer-workshop/cloudfoundry-mongodb-service-broker`.
 
