@@ -73,7 +73,7 @@ cd ~/pivotal-cloud-foundry-developer-workshop/articulate/
 +
 [source.terminal]
 ----
-cf push articulate-v2 -p ./articulate-0.1.jar -m 512M -n {{articulate_hostname_temp}} --no-start
+cf push articulate-v2 -p ./articulate-0.2.jar -m 512M -n {{articulate_hostname_temp}} --no-start
 ----
 
 . Bind `articulate-v2` to the `attendee-service` user provided service.
@@ -244,7 +244,7 @@ Let's start again with deploying articulate in a blue-green fashion, but this ti
 ---
 applications:
 - name: articulate
-  path: target/articulate-0.0.1-SNAPSHOT.jar
+  path: target/articulate-0.0.2-SNAPSHOT.jar
   memory: 768M
   random-route: true
   services:

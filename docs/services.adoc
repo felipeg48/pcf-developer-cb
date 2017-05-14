@@ -31,7 +31,7 @@ image::services.png[Services]
 +
 NOTE: If your browser warns you about downloading this file please proceed to download it.
 +
-https://github.com/pivotal-enablement/attendee-service[Source^] is not required, but you may be curious how it works as you move through the labs.
+https://github.com/eitansuez/attendee-service[Source^] is not required, but you may be curious how it works as you move through the labs.
 
 . Push the `attendee-service` application.
 +
@@ -148,7 +148,7 @@ For example, consider your Oracle RAC cluster.  How can we connect our applicati
 
 Additionally, how can we easily connect applications together running on the platform?
 
-`articulate's` default configuration for the `attendee-service` `uri` is `http://localhost:8181/attendees`.  The subsequent steps will allow you to override the default configuration with your own.
+`articulate's` default configuration for the `attendee-service` `uri` is `http://localhost:8181/`.  The subsequent steps will allow you to override the default configuration with your own.
 
 . Read about http://docs.pivotal.io/pivotalcf/devguide/services/user-provided.html[user-provided service instances^].
 
@@ -159,14 +159,12 @@ Additionally, how can we easily connect applications together running on the pla
 cf create-user-provided-service attendee-service -p uri
 ----
 +
-This will create an interactive prompt.  For the value of `uri`, enter *your `attendee-service` application*'s `attendees` endpoint:
+This will create an interactive prompt.  For the value of `uri`, enter *your `attendee-service` application*'s base url:
 +
 [source.terminal]
 ----
-uri> http://{{attendees_app_uri}}/attendees
+uri> https://{{attendees_app_uri}}/
 ----
-+
-CAUTION: Make sure to specify `http` (`articulate` was not designed to work with `https`).
 
 . Bind `articulate` to the `attendee-service` user-provided service.
 +
