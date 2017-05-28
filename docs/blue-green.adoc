@@ -255,14 +255,12 @@ applications:
 +
 [source.terminal]
 ----
-cf blue-green-deploy articulate -f manifest.yaml
+cf blue-green-deploy articulate
 ----
 
 Observe what this command does:
 
-. it deploys articulate using a different application name:  `articulate-new`.  This is similar to what we did by hand when we chose to use the '-v2' suffix for the application name.  Here the plugin uses the '-new' suffix.
-
-. the application hostname also mirrors this naming convention: articulate-new
+. it deploys articulate using a different application name and host name:  `articulate-new`
 
 Once the new version of the app is running..
 
@@ -273,6 +271,15 @@ Once the new version of the app is running..
 
 All this is accomplished via the invocation of a single command!
 
-And we can take this a step further, by passing a smoke-test script to the `blue-green-deploy` command to determine if the newly-deployed application passes certain smoke tests as a condition to switching over to it.
+We can take this a step further:  by passing a smoke-test script to the `blue-green-deploy` command, the plugin will run the smoke tests and proceed to upgrade the application only on the condition that the smoke tests passed (returned with an exit code of 0). The plugin passes the fully-qualified domain name of the newly-deployed application as an argument to the smoke-test.
+
+Here's an updated blue-green deployment command that uses a simple health-check test for articulate:
+
+[source.terminal]
+----
+cf blue-green-deploy articulate --smoke-test ./test-health.sh
+----
+
+See the https://github.com/eitansuez/articulate[articulate project source code on github^] for the complete details.
 
 **Congratulations!** You have completed this lab.
