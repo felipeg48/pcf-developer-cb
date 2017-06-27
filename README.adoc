@@ -13,7 +13,7 @@ Since it uses the common build, you must `cd` into the `build` directory and the
   * `ant install-docs` - creates lab instructions and the handout in `build\target\pcf-developer-XXX.RELEASE` (XXX is the release id)
   * `ant install-labs` - creates a zip of the labs in `build\target\pcf-developer-XXX.RELEASE\Student Files`
   
-Run `ant` on its own for a list of targets and see the [Common Build Wiki](https://github.com/pivotal-education/common-build/wiki).
+Run `ant` on its own for a list of targets and see the https://github.com/pivotal-education/common-build/wiki[Common Build Wiki^].
 
 ## Using Gradle Build
 
@@ -36,7 +36,5 @@ After reviewing and modifying the `manifest.yml` file, you can publish the html 
 cf push
 ----
 
-At the moment, a version of this course is published to https://pcfdeveloper.cfapps.io/[this url^].
+At the moment, Eitan's version of this course is published to https://pcfdeveloper.cfapps.io/[this url^].
 
-Thanks.
-/ Eitan
