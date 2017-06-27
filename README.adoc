@@ -1,7 +1,8 @@
 This repository contains a version of the PCF Developer course with the following changes:
 
   * Lab instructions have been ported to asciidoc (thanks Eitan)
-  * It uses the common-build
+  * Presentation slides have been expanded from Dave's originals and use the same template as our Spring and Gemfire courses
+  * It uses the `common-build`
   * It is self-contained as far as possible
 
 ## Using Common Build
@@ -9,7 +10,7 @@ This repository contains a version of the PCF Developer course with the followin
 Since it uses the common build, you must `cd` into the `build` directory and then the following ant targets are available:
 
   * `ant lab-docs` - builds the lab instructions as HTML and PDF in `build\lab-instructions\target\generated-docs`
-  * `ant handouts` - 
+  * `ant handouts` - builds the studnet handou (PDF copy of the prsentation slides) in `build\slides\target`
   * `ant install-docs` - creates lab instructions and the handout in `build\target\pcf-developer-XXX.RELEASE` (XXX is the release id)
   * `ant install-labs` - creates a zip of the labs in `build\target\pcf-developer-XXX.RELEASE\Student Files`
   
