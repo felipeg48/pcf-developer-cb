@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+
+<!-- * * * * * * AUTO-GENERATED: DO NOT MODIFY THIS FILE  * * * * * * -->
+
+<!-- Used to pull all the XML files into a single file for processing -->
+
+<!DOCTYPE book PUBLIC '-//OASIS//DTD DocBook XML V4.4//EN'
+     'http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd'
+[
+<!ENTITY lab_push_to_the_cloud                    SYSTEM "push-to-the-cloud.xml">
+<!ENTITY lab_log_scale_ha                         SYSTEM "log-scale-ha.xml">
+<!ENTITY lab_services                             SYSTEM "services.xml">
+<!ENTITY lab_manifest                             SYSTEM "manifest.xml">
+<!ENTITY lab_asg                                  SYSTEM "asg.xml">
+<!ENTITY lab_log_drain                            SYSTEM "log-drain.xml">
+<!ENTITY lab_blue_green                           SYSTEM "blue-green.xml">
+<!ENTITY lab_autoscaler                           SYSTEM "autoscaler.xml">
+<!ENTITY lab_apm                                  SYSTEM "apm.xml">
+<!ENTITY lab_metrics                              SYSTEM "metrics.xml">
+<!ENTITY lab_buildpack                            SYSTEM "buildpack.xml">
+<!ENTITY lab_service_broker                       SYSTEM "service-broker.xml">
+<!ENTITY lab_continuous_delivery                  SYSTEM "continuous-delivery.xml">
+<!ENTITY lab_route_service                        SYSTEM "route-service.xml">
+<!ENTITY lab_cftasks                              SYSTEM "cftasks.xml">
+<!ENTITY course_version                           "1.11.a.RELEASE">
+]>
+
+<book>
+    <bookinfo>
+        <title>PCF Developer - Lab Documentation</title>
+    </bookinfo>
+    <toc />
+
+    <!-- Section: intro -->
+
+    <!-- Section: main -->
+
+    <!-- Day: 1 -->
+    &lab_push_to_the_cloud;
+    &lab_log_scale_ha;
+    &lab_services;
+    &lab_manifest;
+
+    <!-- Section: main -->
+
+    <!-- Day: 2 -->
+    &lab_asg;
+    &lab_log_drain;
+    &lab_blue_green;
+    &lab_autoscaler;
+    &lab_apm;
+    &lab_metrics;
+
+    <!-- Section: main -->
+    &lab_buildpack;
+    &lab_service_broker;
+    &lab_continuous_delivery;
+    &lab_route_service;
+    &lab_cftasks;
+
+    <!-- Section: finish -->
+</book>
