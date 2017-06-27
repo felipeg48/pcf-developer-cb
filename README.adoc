@@ -18,7 +18,7 @@ Run `ant` on its own for a list of targets and see the https://github.com/pivota
 
 ## Using Gradle Build
 
-In addition to using rhe common-build, Eitan's build cripts are retained for the present.
+In addition to using rhe common-build, Eitan's build scripts are retained for the present.
 To generate the course as html:
 
 ----
