@@ -35,35 +35,6 @@
     </bookinfo>
     <toc />
 
-    <!-- Section: intro -->
-    &lab_requirements;
-    &lab_approach;
-    &lab_setup;
-
-    <!-- Section: main -->
-
-    <!-- Day: 1 -->
-    &lab_push_to_the_cloud;
-    &lab_log_scale_ha;
-    &lab_services;
-    &lab_manifest;
-
-    <!-- Section: main -->
-
-    <!-- Day: 2 -->
-    &lab_asg;
-    &lab_log_drain;
-    &lab_blue_green;
-    &lab_autoscaler;
-    &lab_apm;
-    &lab_metrics;
-
-    <!-- Section: main -->
-    &lab_buildpack;
-    &lab_service_broker;
-    &lab_continuous_delivery;
-    &lab_route_service;
-    &lab_cftasks;
-
-    <!-- Section: finish -->
+    <!-- Section: instructor -->
+    &lab_instructor_notes;
 </book>
