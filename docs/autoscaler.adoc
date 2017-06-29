@@ -72,7 +72,7 @@ image::autoscaler-manage.png[Manage]
 .. Click 'Save'
 +
 [.thumb]
-image:autoscaler-view-edit.png[Dashboard]
+image::autoscaler-view-edit.png[Dashboard]
 
 . Return to Apps Manager and observe the number of instances increase from `1` to `2`.
 
@@ -128,7 +128,7 @@ Linux and Mac | Windows
 
 . Review Autoscale history:
 
-image:autoscaler-events.png[alt="History",title="History"]
+image::autoscaler-events.png[alt="History",title="History"]
 
 [NOTE]
 ====
