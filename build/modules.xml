@@ -1,0 +1,169 @@
+<?xml version="1.0"?>
+
+<!--
+  // Course modules file.  Specifies what presentations and labs are used and
+  // in what order.  Tries to be clever matching presentation names to the
+  // correspondng lab projects and cbook XML lab instruction files to reduce 
+  // the amount of XML you have to write.
+  //
+  // This file is used to:
+  //   1. Automatically generates the lab.xml required to build the lab-notes
+  //      using Docbook
+  //   2. Modifies the <modules> element in the master POM and
+  //   3. Generate the workingsets.properties used by STS.
+  //   4. Generate numbered presentation slides with a common-prefix
+  //
+  // For full details see: http://tinyurl.com/nvvpgff
+  //   https://github.com/S2EDU/Miscellaneous-
+  //                -Training-tasks/blob/master/empty-course/MODULES-README.md
+  //
+  // Each unit in the course is a module.  So is a chapter in the lab-documentation and
+  // so is a shared lab such as rewards-common.
+  //
+  // All <module> elements MUST be in a <section>. The section name is used only as
+  // documentation. Each section defines presentation numbering starting from the
+  // value in first attribute:  <section name="mvc" first=01"/>
+  //
+  // Typical modules are
+  //    A shared-project for other labs
+  //        <module lab="rewards-common"/>
+  //    A documentation chapter, no lab or presentation 
+  //        <module labdocs="reference-domain"/>
+  //    Just a presentation, no lab
+  //        <module lab="no">sw-introduction.odp</module>
+  //    Lab name and presentation name are different.  Docbook file must match one or
+  //    the other (see relaxed matching criteria below)
+  //        <module lab="rewards-online">sw-development-environment.odp</module>
+  //    Typical case.  Lab and Docbook names derived from presentation name
+  //        <module>sw-mvc-getting-started.odp</module>
+  //     Explicit case - everything defined
+  //        <module lab="web-security-1" labdocs="Web_Security"sw-security.odp</module>
+  //
+  // There is no need to put the XML suffix in the labdocs attribute.
+  //
+  // Matching is done by normalising the presentation name (and any explicit lab or
+  // labdocs attributes) to a short-form. The short form is derived as follows:
+  //   1. Take a file name, drop the file type suffix
+  //   2. Force to lower-case
+  //   3. Drop any course prefix (if using - the examples use sw-)
+  //   4. Drop any numbering prefix like 05-some-topic
+  //   5. Drop the prefix "Lab"
+  //   6. Replace underscores by hyphens
+  //
+  // NOTE:This algorithm does not (yet) convert camel case to hyphenated form - such as
+  // Lab_RewardsOnline to rewards-online.
+  //
+  // The lab-projects and Docbook files on disk are discovered and their names also
+  // normalized.  A match is then attempted.
+  //
+  // Under this scheme the following will all match:
+  //    sw-getting-started.odp
+  //    Lab_Getting_Started.xml
+  //    Getting_Started.xml
+  //    getting-started-lab
+  //    getting-started-start
+  //    getting-started-solution
+  //
+  // The lab and ladocs attributes may take other values, and modules supports other
+  // attributes:
+  //
+  //   <module presentation="no|optional" labdocs="no|false|file-name"
+  //           lab="no|false|optional|file-name" optional="yes|true" day="n"
+  //           ignore="true|yes" working-set="pattern">presentation-file-name</module>
+  //
+  -->
+  
+<!--
+  // Root element attributes:
+  //   title         - Course title used by lab instructions.
+  //   prefix        - Added to all slides.
+  //   ignore-prefix - Prefix or prefixes to ignore in file and directory names
+  //                   when normalizing to the short form.
+  //                   Sprecify multiple prefixes as a comma-separated list.
+  -->
+<modules title="PCF Developer" course-location=".." prefix="pcf" ignore-prefix="mss,cs">
+
+    <!--
+      // OPTIONAL:
+      //  Specify units from another course. Multiple <Course> elements are supported
+      //
+      //  Attributes:
+      //   name       - name of course (keep it short)
+      //   location   - path to course root directory. Not recommended as it is
+      //                   not portable to other users if checked-in.
+      //   locationProperty
+      //              - name of a property that indicates course location. Do not
+      //                  use ${...} (this is not an Ant file). Just specify the Ant
+      //                  property name.  Define the property in build.properties in 
+      //                  your home directory.  Takes precedence over location if both
+      //                  are specified.
+      -->
+
+     <!-- Instructor information -->
+     <section name="instructor" first="00">
+         <module labdocs="instructor-notes"/>
+         <module labdocs="aws-mongo-terraform"/>
+         <module labdocs="aws-jenkins-ami"/>
+     </section>
+
+    <!--
+      // A cover.pdf and copyright.pdf will automatically be added to the front
+      // before this section. These are from the docs/covers directory by default.
+      -->
+    <section name="intro" first="00">
+        <module labdocs="requirements"/>
+        <module labdocs="approach"/> -->
+        <!-- <module labdocs="setup"/> -->
+        <module lab="no">00-introduction.ppt</module>
+    </section>
+    
+    <!-- Section names and numbering are just for documentation. -->
+    <section name="day1" first="10">
+        <!-- Day 1 Morning -->
+        <module day="1" lab="no">10-overview.ppt</module>
+        <module lab="no">11-concepts.ppt</module>
+        <module lab="no" labdocs="push-to-the-cloud">12-getting-started-cli.ppt</module>
+        
+        <!-- Day 1 Afternoon -->
+        <module lab="no" labdocs="log-scale-ha-no-tabs">13-logging-scale-ha.ppt</module>
+        <module lab="no" labdocs="services-no-tabs">14-services.ppt</module>
+    </section>
+
+    <section name="day2" first="20">
+        <!-- Day 2 Morning -->
+        <module lab="no" labdocs="manifest">15-manifests-env-vars.ppt</module>
+        <module day="2"  lab="no" labdocs="asg">20-app-security-grps.ppt</module>
+        <module lab="no" labdocs="log-drain">21-log-drain.ppt</module>
+        <module lab="no" labdocs="blue-green">22-blue-green.ppt</module>
+
+        <!-- Day 2 Afternoon -->
+        <module lab="no">23-microservices.ppt</module>
+        <module lab="no" labdocs="autoscaler-no-tabs">24-autoscaler.ppt</module>
+        <module lab="no" labdocs="apm-no-tabs">25-app-perf-mgmt.ppt</module>
+        <module lab="no" labdocs="metrics-no-tabs"/>
+    </section>
+
+    <section name="day3" first="30">
+        <!-- Day 3 Morning -->
+        <module lab="no" labdocs="buildpack">30-buildpacks.ppt</module>
+        <module lab="no" labdocs="service-broker">31-service-broker.ppt</module>
+        <!-- Day 3 Afternoon -->
+        <module lab="no" labdocs="continuus-delivery">32-continuous-delivery.ppt</module>
+        <module lab="no" labdocs="route-service">33-route-service.ppt</module>
+        <module lab="no" labdocs="cftasks">40-adv-topics.ppt</module>
+    </section>
+    
+    <!-- Other optional material. -->
+    <section name="finish" first="50">
+        <module lab="no">50-completed.ppt</module>
+        <module lab="no">60-installation-overview.ppt</module>
+    </section>
+
+    <!-- Appendices -->
+    <section name="appendix" first="99">
+         <module labdocs="aws-mongo-terraform"/>
+         <module labdocs="aws-jenkins-ami"/>
+         <module labdocs="certification"/>
+"/>
+    </section>
+</modules>

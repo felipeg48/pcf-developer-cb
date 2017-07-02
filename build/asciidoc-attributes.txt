@@ -1,0 +1,53 @@
+appendix-caption			| Appendix
+asciidoctor				| 
+asciidoctor-version			| 1.5.4
+attribute-missing			| skip
+attribute-undefined			| drop-line
+backend					| docbook5
+backend-docbook5			| 
+backend-docbook5-doctype-article	| 
+basebackend				| docbook
+basebackend-docbook			| 
+basebackend-docbook-doctype-article	| 
+caution-caption				| Caution
+docdate					| 2017-06-27
+docdatetime				| 2017-06-27 00:37:48 AEST
+docdir					| /Users/paulchapman/Work/training/course-builds/cloud-foundry/pcf-developer-cb/build
+docfile					| /Users/paulchapman/Work/training/course-builds/cloud-foundry/pcf-developer-cb/lab-instructions/instructions/services.adoc
+docname					| services
+doctime					| 00:37:48 AEST
+doctype					| article
+doctype-article				| 
+example-caption				| Example
+figure-caption				| Figure
+filetype				| xml
+filetype-xml				| 
+iconfont-remote				| 
+iconsdir				| /icons
+imagesdir				| 
+important-caption			| Important
+last-update-label			| Last updated
+localdate				| 2017-06-27
+localdatetime				| 2017-06-27 00:37:48 AEST
+localtime				| 00:37:48 AEST
+manname-title				| NAME
+max-include-depth			| 64
+note-caption				| Note
+outfilesuffix				| .xml
+pagewidth				| 425
+prewrap					| 
+safe-mode-level				| 1
+safe-mode-name				| safe
+safe-mode-safe				| 
+sectids					| 
+stylesdir				| .
+stylesheet				| 
+table-caption				| Table
+tip-caption				| Tip
+toc-placement				| auto
+toc-title				| Table of Contents
+untitled-label				| Untitled
+user-home				| /Users/paulchapman
+version-label				| Version
+warning-caption				| Warning
+webfonts				| 

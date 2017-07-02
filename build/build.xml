@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  //
+  // Master Build File for Course.
+  //
+  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - --> 
+
+<!-- Performs all tasks to build and package this course. -->
+<project name="pcf-developer" default="help" basedir=".">
+
+    <!-- Root directory of this course - all course content are relative. -->
+    <property name="project.root.dir" value=".."/>
+
+    <!-- Build directory of this course (and this Ant project). -->
+    <property name="project.build.dir" value="."/>
+
+    <!-- User home not set correctly when running on a Windows VM -->
+    <property environment="env"/>
+
+    <condition property="user.home.dir" value="${env.HOMEDRIVE}${env.HOMEPATH}">
+        <os family="windows" />
+    </condition>
+
+    <condition property="user.home.dir" value="${user.home}">
+        <not><os family="windows"/></not>
+    </condition>
+
+    <!-- Developer specific properties: _must_ specify 'course.build.dir' -->
+    <property file="${user.home.dir}/build.properties"/>
+
+    <!-- Backwards compatibility -->
+    <property name="common-build.dir" value="${course.build.dir}"/>
+
+    <!-- Course specific properties. -->
+    <property file="${project.build.dir}/build.properties"/>
+
+    <target name="before-zip-slides">
+        <copy file="${lab.docs.dir}/meta/instructor-notes.adoc"
+              toDir="${target.instructor.files}"/>
+    </target>
+
+    <target name="after-zip-labs">
+        <copy file="${labs.nodeps.zip}" toDir="${target.student.files}"/>
+        <delete dir="${manual.installation.dir}"/>
+    </target>
+
+    <!-- Simply import and use main build file -->
+    <import file="${common.build.dir}/build.xml"/>
+
+</project>

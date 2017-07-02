@@ -1,0 +1,402 @@
+/* -- Styles for Site Published by Common-Build uses a modified
+   -- stylesheet for Lab Instructions generated from Docbook
+
+  Pivotal Color Chart
+
+  #4D4D4D;    Text Gray         77, 77, 77
+  #00786E;    Pivotal Green      0,120,110
+  #33928A;    Alt Green         51,146,138
+  #3EA7BC;    Light Blue        62,167,188
+  #F27C3A;    Orange           242,124, 58
+  #AEBF2F;    Light Green      174,191, 47
+  #007CA2;    Blue               0,124,162
+  #705D8B;    Purple           112, 93,139
+
+*/
+body {
+   text-align: justify;
+   margin-right: 2em;
+   margin-left: 2em;
+   /*font-family: Verdana, Arial, helvetica, sans-serif;*/
+   font-family: 'Source Sans Pro', 'SourceSansPro', sans-serif;
+   color #4D4D4D: 
+   font-size: 14pt;
+}
+
+/** - - - - - - - - - - - - - HEADINGS & TITLES - - - - - - - - - - - - - **/
+/* Style of page heading (where the two logos are) */
+.defaultHeadingStyle {
+    background-color: #243641;
+    height: 100px;
+
+    /* To remove (hide) logos, uncomment these two lines 
+    float: right; 
+    visibility: hidden; */
+}
+
+/* Customize page heading */
+.headingStyle {
+}
+
+/* Logo at top-left of page - typically "Pivotal" */
+/* If need be, change the padding-top to line up the logos */
+.logoLeft {
+    border:none;
+    padding-top: 25px;
+    margin-left: 20px;
+    float: left;
+}
+
+/* Logo at top-right of page - typically the product/software such as Spring,
+   Gemfire or Cloud Foundry. */
+/* If need be, change the padding-top to line up the logos */
+.logoRight {
+    border:none;
+    float:right;
+    padding-top:10px;
+    padding-right:30px;
+}
+
+/* Override pivotal-ui.css */
+.title {
+	font-size: 100%;
+}
+
+/* Indent entire content */
+div.chapter {
+    padding-left: 15em;
+    padding-right: 10em;
+    max-width: 85em;
+}
+
+.firstname, .surname {
+	font-size: 12px;
+}
+
+/* Headings */
+h1, h2, h3, h4, h6, H6    {
+    color: #000000;
+    margin-top: 0px;
+    padding-top: 14px;
+    margin-bottom: 0px;
+}
+
+/* Page (chapter) heading - typically the Lab name */
+.pane {
+  padding-top: 60px;
+  padding-bottom: 60px;
+  padding-left: 15em;
+}
+
+/* Page header background*/
+.bg-dark-2 {
+  background-color: #243641 !important;
+}
+
+/* Page header text*/
+h1, h1.title { 
+    font-size: 42px;
+    color: white;
+    font-weight: 600;
+    width: 23em;
+    text-align: left;
+}
+
+/* Section heading */
+h2 { 
+    color: #F27C3A; /* Pivotal Orange */
+    font-size: 1.75em;
+    font-weight: bold;
+}
+
+h2.title {
+    font-size: 1.75em;
+    margin-bottom: 8px;
+}
+
+h2.subtitle {
+    margin-bottom: 20px;
+}
+
+h3, h3.title {
+    font-size: 1.60em; font-weight: bold; 
+}
+
+h4, h4.title { 
+    font-size: 1.5em; color: grey;
+}
+
+h5, h5.title {
+    font-size: 1.5em; font-style: italic; color: grey;
+}
+
+h6, h6.title { 
+    font-size: 1.5em; font-style: italic;  color: grey;
+}
+
+.title .interfacename,
+.title .literal,
+.title .classname {
+    font-size: 130%;
+}
+
+/* Currently unused */
+.navheader {
+	border: none;
+}
+
+/** - - - - - - - - - - - - - PREFORMATTED TEXT - - - - - - - - - - - - - **/
+pre {
+    font-size: 110%;
+    padding: 5px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #CCCCCC;
+    background-color: #FFFFE7;  /*#F4F4F4;*/
+    color: #705D8B;
+    width: 100%;
+    text-align: left;
+}
+
+pre.programlisting {
+    background-color: #FFFFE7;
+    color: #705D8B;
+}
+
+.programlisting .interfacename,
+.programlisting .literal,
+.programlisting .classname {
+    font-size: 95%;
+}
+
+/* everything in a <lineannotation/> is displayed in a coloured, comment-like font */
+.programlisting * .lineannotation,
+.programlisting * .lineannotation * {
+	color: green;
+}
+
+/** - - - - - - - - - - - - - - - - LINKS - - - - - - - - - - - - - - - - **/
+/* Links in page's navigation footer have own styles - see below */
+a {
+    font-size: 110%;
+	color: #003399;
+}
+
+a:active {
+    color: #003399;
+    color: yellow;
+}
+
+a:visited {
+    color: #888888;
+}
+
+/**  - - - - - - - - - - - - - - - CONTENT - - - - - - - - - - - - - - -  **/
+
+dt {
+	font-size: 100%;
+}
+
+blockquote {
+    margin-right: 0px;
+    font-size: 90%;
+}
+
+p, dl, dt, dd, blockquote {
+    margin-bottom: 3px;
+    margin-top: 3px;
+    padding-top: 0px;
+}
+
+ol, ul {
+    margin-top: 6px;
+    margin-bottom: 6px;
+    font-size: 90%;
+}
+
+ol p, ul p {
+    font-size: 100%;
+}
+
+/* Paul C 30-May-2013 - Start */
+/* Remove ol so it's items are properly numbered */
+ul li {
+    list-style: disc;
+}
+/* Paul C 30-May-2013 - End */
+
+p.releaseinfo {
+    font-size: 100%;
+    font-weight: bold;
+    padding-top: 10px;
+}
+
+p.pubdate {
+    font-size: 120%;
+    font-weight: bold; 
+}
+
+hr {
+    width: 100%;
+    height: 1px;
+    background-color: #CCCCCC;
+    border-width: 0px;
+    padding: 0px;
+}
+
+.variablelist { 
+    padding-top: 10px; 
+    padding-bottom: 10px; 
+    margin: 0;
+}
+
+.term { 
+    font-weight:bold;
+}
+
+.mediaobject {
+    padding-top: 30px; 
+    padding-bottom: 30px; 
+}
+
+.legalnotice {
+    font-size: 12px;
+    font-style: italic;
+}
+
+.sidebar {
+    float: right;
+    margin: 10px 0px 10px 30px;
+    padding: 10px 20px 20px 20px;
+    width: 33%;
+    border: 1px solid black;
+    background-color: #F4F4F4;
+    font-size: 14px;
+}
+
+.property {
+	font-family: "Courier New", Courier, monospace;
+}
+
+/* Paul C 30-May-2013 - Start */ 
+code, td code, tt, .literal, a code {
+    font-size: 95%;
+    font-family: "Courier New", Courier, monospace;
+    color: #007CA2;  /* Pivotal Blue */
+    background: transparent;
+}
+
+img {    
+  max-width: 99%;
+  max-height: 99%;
+}
+
+.errortext {
+    color: darkred;
+    font-style: italic;
+    font-family: monospace;
+}
+
+.toc {
+    font-size: 110%;
+}
+/* Paul C 30-May-2013 - End*/ 
+
+/**  - - - - - - - - - - - - - - - TABLES - - - - - - - - - - - - - - -  **/
+
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border: 1px black;
+    empty-cells: hide;
+    margin: 10px 0px 30px 50px;
+    width: 90%;
+}
+
+div.table {
+	margin: 30px 0px 30px 0px;
+	border: 1px dashed gray;
+	padding: 10px;
+}
+
+div .table-contents table {
+	border: 1px solid black;
+}
+
+div.table > p.title {
+	padding-left: 10px;
+}
+
+table[summary^="Note"],
+table[summary^="Warning"],
+table[summary^="Tip"] {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border: 1px black;
+    empty-cells: hide;    
+    margin: 10px 0px 10px -20px;
+    width: 100%;
+}
+
+td {
+    padding: 4pt;
+    font-size: 80%;
+}
+
+td, th, span {
+}
+
+div.warning td {
+	text-align: justify;
+}
+
+div.note * td,
+div.tip * td,
+div.warning * td,
+div.calloutlist * td {
+	text-align: justify;
+	font-size: 100%;
+}
+
+
+/** - - - - - - - - - - - - - FOOTER NAVIGATION - - - - - - - - - - - - - **/
+/* Navigation at bottom of page */
+.navfooter {
+	border: none;
+}
+
+div.navfooter table {
+	border: dashed gray;
+	border-width: 1px 1px 1px 1px;
+	background-color: #243641;   /* dark gray, like header */
+	color: white;
+}
+
+table[summary^="Navigation header"] tbody tr th[colspan^="3"] {
+}
+
+/* Navigation at bottom of each page */
+table[summary^="Navigation footer"] {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border: 1px black;
+    empty-cells: hide;    
+    margin: 0px;
+    width: 100%;
+}
+
+/* Footer table */
+td[width^="40%"], td[width^="20%"] {
+	color: #FFFFFF;
+	font-size: 100%;
+
+}
+
+a[accesskey^="h"],
+a[accesskey^="n"],
+a[accesskey^="u"],
+a[accesskey^="p"] {
+    font-size: 110%;
+	color: #FFFFFF;
+}
