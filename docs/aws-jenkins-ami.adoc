@@ -4,11 +4,13 @@ v0.1, 2017
 :yourname: {{yourname}}
 :jenkins_ip_address: {{jenkins_ip_address}}
 
-A Jenkins VM (Ubuntu 14.04) is available to complete the continuous delivery lab.  The VM is hosted on Amazon Web Services.
+A Jenkins VM (Ubuntu 14.04) is available to complete the continuous delivery lab.
+The VM is hosted on Amazon Web Services.
 
 == Requirements
 
-Network connectivity and access for Jenkins to reach your Pivotal Cloud Foundry environment (push on your behalf).
+Network connectivity and access for Jenkins to reach your Pivotal Cloud Foundry
+environment (push on your behalf).
 
 == Installed Software
 
@@ -29,9 +31,12 @@ Alternatively, you can provision the VM manually by following these directions:
 
 . User must have access to an AWS account (can run from any account)
 . User must have an existing key pair in the account or create one
-. The AMI can be found be searching for `jenkins-continuous-delivery-lab` in the EC2 Dashboard.  Must be in the N. Virginia region.
+. The AMI can be found be searching for `jenkins-continuous-delivery-lab` in the EC2
+  Dashboard.  Must be in the N. Virginia region.
 
-In the left navbar of the EC2 dashboard, under `Images`,  select `AMIs`. Then, to the left of the search bar, change `Owned by Me` to `Public images`. Search for `jenkins-continuous-delivery-lab`. Click Launch.
+In the left navbar of the EC2 dashboard, under `Images`,  select `AMIs`. Then, to the
+left of the search bar, change `Owned by Me` to `Public images`. Search for
+`jenkins-continuous-delivery-lab`. Click Launch.
 
 [.thumb]
 image::cd-jenkins-search.png[search for ami]
@@ -45,7 +50,11 @@ When launching, accept defaults except where specified.
 
 * Use `t2.medium` (4 GB memory)
 
-**E-learning Students**: *Please note that, though this instance type is not free-tier eligible, it is necessary for completing the continuous delivery lab and the PCF Developer course.* **Costs associated with its use are negligible.** *Charges cease as soon as the instance is deprovisioned (the steps for deprovisioning are at the end of the lab).*
+**E-learning Students**: *Please note that, though this instance type is not free-tier
+eligible, it is necessary for completing the continuous delivery lab and the PCF
+Developer course.* **Costs associated with its use are negligible.** *Charges cease
+as soon as the instance is deprovisioned (the steps for deprovisioning are at the end
+of the lab).*
 
 ==== Configure Instance Details
 

@@ -1,0 +1,187 @@
+= Application Performance Monitoring
+Eitan Suez <esuez@pivotal.io>
+v0.1, 2017
+
+
+_Estimated Time: 25 minutes_
+
+== Preface
+
+In the previous labs, we learned how to setup log analysis for our application, and how to autoscale our app.  We also must be able to monitor it.  Configuring your application for monitoring becomes effortless with integration from monitoring tools such as newrelic and appdynamics.  In this lab, we'll use the newrelic managed service to setup application performance monitoring for our app.
+
+== Exercises
+
+=== Setup
+
+. APM solutions cause applications to consume more memory.  Increase the memory limit for each application.
++
+[source.terminal]
+----
+cf scale articulate -m 768M -i 1
+----
++
+and
++
+[source.terminal]
+----
+cf scale attendee-service -m 768M -i 1
+----
+
+=== Provision a New Relic Service Instance
+
+Read the documentation on https://github.com/cloudfoundry/java-buildpack/blob/master/docs/framework-new_relic_agent.md[New Relic integration^] with the Java Buildpack.
+
+Do _ONE_ of the following:
+
+[alternatives#instructions]
+
+==== _Option A:_ Pivotal Web Services
+
+[#tabs-instructions-1.instructions]
+--
+New Relic is integrated directly into the PWS Marketplace.  Simply create a New Relic
+service instance using the App Manager or using `cf`:
+
+[source.terminal]
+----
+cf create-service newrelic standard newrelic
+----
+--
+
+==== _Option B:_ Pivotal Cloud Foundry
+
+[#tabs-instructions-2.instructions]
+--
+If using your own PCF Foundation, you need to first get a New Relic account.
+
+. Signup for a http://newrelic.com/signup?funnel=pivotal-cloud-foundry&partner=Pivotal+Cloud+Foundry&product_id=Standard&promo_code=PVCF60PRO[60 day free trial license^] with New Relic.
+
+. Obtain `license key`.
++
+This can be found under `Account Settings` from the drop down menu in the upper right corner of the page.
+
+. Create a user provided service instance - it _must_ be called "newrelic".  This command
+will create an interactive prompt for the license-key:
++
+[source.terminal]
+----
+cf create-user-provided-service newrelic -p license_key
+----
+--
+
+
+===  Bind the New Relic Service Instance
+
+. Bind the `newrelic` service instance to `articulate`.
++
+[source.terminal]
+----
+cf bind-service articulate newrelic
+----
+
+. Restage `articulate`.
++
+[source.terminal]
+----
+cf restage articulate
+----
+
+. Bind the `newrelic` service instance to `attendee-service`.
++
+[source.terminal]
+----
+cf bind-service attendee-service newrelic
+----
+
+. Restage `attendee-service`.
++
+[source.terminal]
+----
+cf restage attendee-service
+----
+
+==== Questions
+
+* Why must `articulate` & `attendee-service` be restaged as oppose to restarted?
+
+=== Create Some Web Traffic and View in New Relic
+
+. Refresh the `articulate` `Service` web page multiple times.
++
+Optionally use the JMeter script from the link:autoscaler{outfilesuffix}[Application Autoscaler lab].
+
+. Observe and explore the performance metrics in the New Relic console under the `APM` tab.
+
+_Pivotal Web Services_ users can access the New Relic console via the `Manage` link in Apps Manager:
+
+.New Relic `Manage` link
+[.thumb]
+image::newrelic-manage.png[Manage New Relic]
+
+[.thumb]
+.`articulate`
+image::application-performance-monitor-articulate.png[Monitor Articulate in New Relic]
+
+[.thumb]
+.`attendee-service`
+image::application-performance-monitor-attendee_service.png[Monitor Attendee Service]
+
+=== Clean up
+
+. Unbind `newrelic` service instance.
++
+[source.terminal]
+----
+cf unbind-service articulate newrelic
+----
++
+..and:
++
+[source.terminal]
+----
+cf unbind-service attendee-service newrelic
+----
+
+. Delete `newrelic` service instance.
++
+[source.terminal]
+----
+cf delete-service newrelic
+----
+
+. Scale back down to our original settings.
++
+[source.terminal]
+----
+cf scale articulate -m 512M -i 1
+----
++
+..and:
++
+[source.terminal]
+----
+cf scale attendee-service -m 512M -i 1
+----
+
+. Restage applications.
++
+[source.terminal]
+----
+cf restage articulate
+----
++
+..and:
++
+[source.terminal]
+----
+cf restage attendee-service
+----
+
+
+=== Questions
+
+* How do you manage APM tools today?  How is this different?
+
+== Beyond the Class
+
+Pivotal Cloud Foundry offers a marketplace experience with both https://docs.pivotal.io/newrelic/index.html[New Relic^] and https://docs.pivotal.io/appdynamics/index.html[App Dynamics^].  Try it with your Pivotal Cloud Foundry installation.

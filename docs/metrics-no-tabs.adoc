@@ -1,0 +1,39 @@
+= Metrics
+Eitan Suez <esuez@pivotal.io>
+v0.1, 2017
+
+
+_Estimated Time: 25 minutes_
+
+== Preface
+
+PCF Metrics provides application metrics for your application directly inside cloudfoundry.  It's an innovative tool that combines application events, metrics (cpu, memory, network), and logs into a powerful view that can help you monitor and gain insight into your application's behavior over time.  In this lab you'll take a little time to explore PCF Metrics and its user interface.
+
+== Exercises
+
+=== PCF Metrics Overview
+
+[alternatives#docref]
+Pivotal Web Services | Pivotal Cloud Foundry
+
+[#tabs-docref-1.docref]
+--
+. Review the http://docs.run.pivotal.io/metrics/using.html[documentation^] on PCF Metrics.
+--
+
+[#tabs-docref-2.docref]
+--
+. Review the http://docs.pivotal.io/pcf-metrics/using.html[documentation^] on PCF Metrics.
+--
+
+=== Explore PCF Metrics
+
+. Log into PCF Metrics and explore the views for `articulate`.
+
+. Generate some traffic to `articulate` and observe the effects.
+
+Optionally use the JMeter script from the link:autoscaler{outfilesuffix}[Application Autoscaler lab] to generate some traffic.
+
+=== Questions
+
+* What might a spike in memory indicate?

@@ -1,0 +1,207 @@
+= Services
+Eitan Suez <esuez@pivotal.io>
+v0.1, 2017
+:attendees_app_uri: {{attendees_app_uri}}
+
+
+_Estimated Time: 25 minutes_
+
+== Preface
+
+Up until now, we've focused on the deployment of applications.  But as we know, applications often use backing services: databases, message brokers, and other applications' services (to name a few).
+
+In this lab, you'll have the opportunity to experiment with both managed services and user-provided services:  you'll create a mysql backing service to persist information about attendees, and you'll create a user-provided service to allow one application to consume the services of another without hard-coding its route.
+
+In the process, you'll learn new cf commands:  `create-service`, `create-user-provided-service`, and `bind-service`.  Don't forget:  `cf help` is there to help us understand how to invoke each command.
+
+
+== Exercises
+
+=== Review `articulate` dependencies
+
+`articulate` exposes functionality to add attendees on the _Services_ page.  However, `articulate` doesn't do this alone.  It makes REST calls to the `attendee-service` application. To learn more about services, let's provision the `attendee-service` application.
+
+[.thumb]
+image::services.png[Services]
+
+
+=== Push the `attendee-service` application
+
+. https://github.com/eitansuez/attendee-service/releases/download/v0.1/attendee-service-0.1.jar[Download^] the `attendee-service` application.  Copy the file to folder: `~/pivotal-cloud-foundry-developer-workshop/attendee-service/` (`~` is shorthand for the home directory in Linux, Mac and Unix based operating systems).  You will need to create this directory in your home directory.
++
+NOTE: If your browser warns you about downloading this file please proceed to download it.
++
+https://github.com/eitansuez/attendee-service[Source^] is not required, but you may be curious how it works as you move through the labs.
+
+. Push the `attendee-service` application.
++
+[source.terminal]
+----
+cd ~/pivotal-cloud-foundry-developer-workshop/attendee-service/
+----
++
+..and:
++
+[source.terminal]
+----
+cf push attendee-service -p ./attendee-service-0.1.jar -m 512M --random-route
+----
++
+Does `attendee-service` start up correctly?  Why not?
+
+=== Add a Managed Service
+
+. Review the http://docs.pivotal.io/pivotalcf/devguide/services/managing-services.html[documentation^] on managing service instances
+. Review what services are available in the marketplace.
++
+[source.terminal]
+----
+cf marketplace
+----
+
+. There exist two distinct Cloud Foundry managed services that provision MySQL databases:
+
+.. http://docs.pivotal.io/p-mysql/[p-mysql^] is a Pivotal product, and
+.. http://docs.run.pivotal.io/marketplace/services/cleardb.html[cleardb^] is a company that specializes in cloud-based MySQL instances
++
+[alternatives#create_service]
+Pivotal Web Services | Pivotal Cloud Foundry
++
+[#tabs-create_service-1.create_service]
+--
+Pivotal Web Services offers the _cleardb_ managed service in its marketplace.
+
+[source.terminal]
+----
+cf create-service cleardb spark attendee-mysql
+----
+--
++
+[#tabs-create_service-2.create_service]
+--
+If working in a Pivotal Cloud Foundry environment that is not PWS, you are likely to have the _p-mysql_ managed service.
+
+[source.terminal]
+----
+cf create-service p-mysql 100mb attendee-mysql
+----
+--
+
+. Now we need to bind the application with the service instance.
++
+[source.terminal]
+----
+cf bind-service attendee-service attendee-mysql
+----
++
+NOTE: You can ignore the _TIP: Use 'cf restage attendee-service' to ensure your env variable changes take effect_ message at this time.
+
+. Restart the application.
++
+[source.terminal]
+----
+cf restart attendee-service
+----
+
+. View the `attendee-service` in a browser.
++
+You should see a response similar to the following (the output in the screenshot is rendered by the https://chrome.google.com/webstore/detail/json-formatter/bcjindcccaagfpapjjmafapmmgkkhgoa?hl=en[JSON Formatter for Chrome^]):
++
+[.thumb]
+image::attendee_service.png[attendee-service]
++
+The root endpoint of this application is rather uninteresting.  Instead, visit the `/attendees` endpoint.  An http GET to the `attendees` endpoint will fetch all attendees in the database and display them in JSON format. Note that in the response, the `totalElements` is currently 0.
++
+This application implements a RESTful API.  This means that you should be able to submit http POST to the same `attendees` endpoint with a body containing the JSON representation of the `Attendee` model type to create such a record.  This can be done programmatically, or via REST client tools such as https://www.getpostman.com/[Postman^] or command-line tools such as curl or https://httpie.org/[httpie^].  Here's an example using httpie:
++
+[source.terminal]
+----
+http post {{attendees_app_uri}}/attendees firstName=Eitan lastName=Suez emailAddress=esuez@pivotal.io
+----
+
+
+.How does this work?
+****
+. Read about how twelve-factor apps handle http://12factor.net/backing-services[backing services^] and http://12factor.net/config[configuration^].
+. Read about https://docs.pivotal.io/pivotalcf/devguide/deploy-apps/environment-variable.html#VCAP-SERVICES[VCAP_SERVICES^].
+. View the environment for `attendee-service`.
++
+[source.terminal]
+----
+cf env attendee-service
+----
+. Different languages/frameworks will have various ways to read environment variables.  `attendee-service` takes advantage of a https://github.com/cloudfoundry/java-buildpack[Java Buildpack^] feature called https://github.com/cloudfoundry/java-buildpack-auto-reconfiguration[Auto-Reconfiguration^] that will automatically re-write bean definitions to connect with services bound to an application.
+****
+
+
+==== Questions
+
+* After binding a service to an application why is the application restarted/restaged?
+* In this case, why could we `restart` vs `restage`?
+
+
+=== Add a User-Provided Service Instance
+
+In the enterprise, not all services will be provisioned by Pivotal Cloud Foundry.
+
+For example, consider your Oracle RAC cluster.  How can we connect our applications running on Pivotal Cloud Foundry to these external systems?
+
+Additionally, how can we easily connect applications together running on the platform?
+
+`articulate's` default configuration for the `attendee-service` `uri` is `http://localhost:8181/`.  The subsequent steps will allow you to override the default configuration with your own.
+
+. Read about http://docs.pivotal.io/pivotalcf/devguide/services/user-provided.html[user-provided service instances^].
+
+. Create a user-provided service instance.
++
+[source.terminal]
+----
+cf create-user-provided-service attendee-service -p uri
+----
++
+This will create an interactive prompt.  For the value of `uri`, enter *your `attendee-service` application*'s base url:
++
+[source.terminal]
+----
+uri> https://{{attendees_app_uri}}/
+----
+
+. Bind `articulate` to the `attendee-service` user-provided service.
++
+[source.terminal]
+----
+cf bind-service articulate attendee-service
+----
++
+NOTE: You can ignore the _TIP: Use 'cf restage articulate' to ensure your env variable changes take effect_ message at this time.
+
+. Restart the application.
++
+[source.terminal]
+----
+cf restart articulate
+----
+
+. Refresh the `articulate` _Services_ page.  You can now see the `attendee-service` listed under `Services`.
++
+[.thumb]
+image::articulate_attendee.png[articulate attendee]
+
+. Review the environment.
++
+[source.terminal]
+----
+cf env articulate
+----
+
+. Add some attendees.
++
+NOTE: If you can't add attendees, review the `articulate` logs and the user-provided service instance configuration.
+
+==== Questions
+
+* From an application perspective, are managed services instances different from user-provided service instances?
+
+== Beyond the class
+
+* Use https://github.com/cloudfoundry-samples/spring-music[Spring Music^] and a User Provided Service Instance to connect to a database (MySQL or Oracle) in your environment.

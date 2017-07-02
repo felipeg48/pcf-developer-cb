@@ -343,7 +343,8 @@ A MongoDB instance can be obtained in the following ways:
 +
 .. Your instructor will provision MongoDB and provide connectivity details to you
 .. Use a MongoDB instance in your environment
-.. Provision a link:aws-mongo-ami{outfilesuffix}[MongoDB instance on AWS]
+.. Provision a link:aws-mongodb-terraform{outfilesuffix}[MongoDB instance on AWS] (see
+   the Appendix)
 +
 You'll need to communicate the mongo db hostname (or ip address) and password that the service broker will use via environment variables:
 +
@@ -453,7 +454,10 @@ cf delete-service-broker mongodb-service-broker-{{initials}}
 cf delete mongodb-service-broker
 ----
 
-. If provisioned, terminate your AWS MongoDB instance by going to your AWS EC2 dashboard, selecting the MongoDB instance, and clicking Actions -> Instance State -> Terminate.
+. If provisioned by you, terminate your AWS MongoDB instance by going to your AWS EC2
+  dashboard, selecting the MongoDB instance, and clicking Actions -> Instance State ->
+  Terminate.  The VM should stop, change to "Terminated" status and will eventually be
+  removed from your list of VMs (removal may not happen immediately).
 
 
 == Beyond the class

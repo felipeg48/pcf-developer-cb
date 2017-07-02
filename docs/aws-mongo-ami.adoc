@@ -3,11 +3,13 @@ Eitan Suez <esuez@pivotal.io>
 v0.1, 2017
 :yourname: {{yourname}}
 
-A MongoDB VM (Ubuntu 14.04) is available to complete the service broker lab.  The VM is hosted on Amazon Web Services.
+A MongoDB VM (Ubuntu 14.04) is available to complete the service broker lab.  The VM 
+is hosted on Amazon Web Services.
 
 == Requirements
 
-Network connectivity and access to reach the Mongo VM (uses port `27017`) from your Pivotal Cloud Foundry environment
+Network connectivity and access to reach the Mongo VM (uses port `27017`) from your
+Pivotal Cloud Foundry environment.  PWS woks fine.
 
 
 == Installed Software
@@ -27,11 +29,17 @@ Alternatively, you can provision the VM manually by following these directions:
 
 . User must have an existing key pair in the account or create one
 
-. Bitnami publishes AWS AMIs for MongoDB.  Visit the https://aws.amazon.com/marketplace/[AWS Marketplace^] and search for "mongodb" and "bitnami".
+. Bitnami publishes AWS AMIs for MongoDB. 
+  Visit the https://aws.amazon.com/marketplace/[AWS Marketplace^] and
+  search for "mongodb" and "bitnami".
 
-. You should land on this page: https://aws.amazon.com/marketplace/pp/B01M1EBY7B?qid=1494291808884&sr=0-2&ref_=srh_res_product_image[^].  Note the AMI id: `ami-ee2694f8`
+. You should land on this page:
+  https://aws.amazon.com/marketplace/pp/B01M1EBY7B?qid=1494291808884&sr=0-2&ref_=srh_res_product_image[^].
+  Note the AMI id: `ami-ee2694f8`
 +
-In the left navbar of the EC2 dashboard, under `Images`,  select `AMIs`. Then, to the left of the search bar, change `Owned by Me` to `Public images`. Search for the above AMI ID. Click Launch.
+In the left navbar of the EC2 dashboard, under `Images`,  select `AMIs`. Then, to the
+left of the search bar, change `Owned by Me` to `Public images`. Search for the above
+AMI ID. Click Launch.
 +
 [.thumb]
 image::service-broker-aws-mongo-ami-search.png[search for ami]
@@ -44,7 +52,11 @@ When launching, accept defaults except where specified.
 
 * Use `t2.large` (8 GB memory).
 
-**E-learning Students**: *Please note that, though this instance type is not free-tier eligible, it is necessary for completing the service broker lab and the PCF Developer course.* **Costs associated with its use are negligible.** *Charges cease as soon as the instance is deprovisioned (the steps for deprovisioning are at the end of the lab).*
+**E-learning Students**: *Please note that, though this instance type is not
+free-tier eligible, it is necessary for completing the service broker lab and
+the PCF Developer course.* **Costs associated with its use are negligible.**
+*Charges cease as soon as the instance is deprovisioned (the steps for
+deprovisioning are at the end of the lab).*
 
 ==== Configure Instance Details
 
@@ -83,9 +95,12 @@ Source = `anywhere` (0.0.0.0/0)
 
 Select your key-pair and launch the instance.
 
-Once the instance is running, select it in list of EC2 instances. ***Obtain the public IP for use in the lab***.
+Once the instance is running, select it in list of EC2 instances.
+***Obtain the public IP for use in the lab***.
 
-IMPORTANT: Once your VM is running, in the EC2 console, right-click "Instance Settings" -> "Get System Log", and then fish for the "application password" from the logs.  You'll need this password to authenticate to mongodb
+IMPORTANT: Once your VM is running, in the EC2 console, right-click "Instance Settings"
+-> "Get System Log", and then look for the "application password" from the logs.
+You'll need this password to authenticate to mongodb
 
 
 == Accessing Your Mongo VM Remotely
@@ -129,14 +144,16 @@ See https://docs.bitnami.com/aws/infrastructure/mongodb/[here^] for more informa
 
 == The Mongo Shell
 
-The `mongo` shell is also loaded on the VM.  It can be accessed in the terminal by doing the following:
+The `mongo` shell is also loaded on the VM.  It can be accessed in the terminal by
+doing the following:
 
 [source.terminal]
 ----
 mongo
 ----
 
-Once in the shell, you'll have to authenticate.  The username is `root`, and the password is the one you previously obtain from the VM system log:
+Once in the shell, you'll have to authenticate.  The username is `root`, and the
+password is the one you previously obtain from the VM system log:
 
 [source,bash]
 ----

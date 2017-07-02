@@ -9,15 +9,26 @@ _Estimated Time: 25 minutes_
 
 == Preface
 
-This lab incorporates many preliminary steps.  You'll be learning about and accessing the "Apps Manager" for the first time.  You'll download and install the _cf_ command line tool (the CLI), and use it to login to a Pivotal Cloud Foundry instance.  You'll also learn about the concept of the cf _target_.
+This lab incorporates many preliminary steps.
+You'll be learning about and accessing the "Apps Manager" for the first time.
 
-You'll deploy your first set of simple applications to cloudfoundry with the `cf push` command.
+If necessary, you'll download and install the _cf_ command line tool (the CLI), and use
+it to login to a Pivotal Cloud Foundry instance.  You'll also learn about the concept
+of the cf _target_.
 
-Although this lab is an introduction to Pivotal Cloud Foundry, you'll learn a great deal in a fairly short span of time.  Enjoy.
+You'll deploy your first set of simple applications to cloudfoundry with the
+`cf push` command.
 
-== Exercises
+Although this lab is an introduction to Pivotal Cloud Foundry, you'll learn a great deal
+in a fairly short span of time.
+
+Enjoy.
+
+== Setup
 
 === Download the `cf` CLI
+
+_If you have already done this, skip to the next section_.
 
 Endpoint and credential information for accessing Apps Manager will be provided by your instructor.  Apps Manager is a web application that helps you manage your applications, but it is also the place to download the `cf` CLI.  The next set of steps walk you through just that.
 
@@ -55,6 +66,8 @@ cf login --help
 
 === Login to Pivotal Cloud Foundry with the `cf` CLI
 
+_If you have already done this, skip to the next section_.
+
 . Continue to follow directions for logging in with the `cf` CLI.  You can copy and paste the `cf login` command directly from Apps Manager.
 +
 [source.terminal]
@@ -73,8 +86,12 @@ cf target
 
 .What Just Happened?
 ****
-You have logged into Pivotal Cloud Foundry from two different clients (Apps Manager and the `cf` CLI).  You have installed the `cf` CLI and targeted a Pivotal Cloud Foundry instance.  You are ready to `push` apps.
+You have logged into Pivotal Cloud Foundry from two different clients (Apps Manager
+and the `cf` CLI).  You have installed the `cf` CLI and targeted a Pivotal Cloud Foundry
+instance.  You are ready to deploy (`push`) applications.
 ****
+
+== Exercises
 
 === Pushing apps
 

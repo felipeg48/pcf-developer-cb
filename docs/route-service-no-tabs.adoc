@@ -1,0 +1,298 @@
+= Route Service
+Eitan Suez <esuez@pivotal.io>
+v0.1, 2017
+:ratelimiter_baseurl: {{ratelimiter_baseurl}}
+:domain_name: {{domain_name}}
+:attendee_service_hostname: {{attendee_service_hostname}}
+
+
+_Estimated Time: 25 minutes_
+
+== Preface
+
+Route services can be put to use in many ways:  to cache responses from back-end services, to control access to an application, to audit how an application is accessed, and more.
+
+In this lab you'll deploy a route service that will allow you to rate-limit access to the attendee-service application.  In the process you'll learn yet more cf CLI commands, namely the `create-user-provided-service` command with a new flag (`-r`), and the `bind-route-service` command.
+
+Don't forget to examine the source code to understand how this route service is implemented.
+
+== Exercises
+
+=== Setup
+
+. Download this https://github.com/eitansuez/route-service/releases/download/v1.0/route-service.zip[zip file^], which contains source code and jar ready for you to deploy (no building necessary).  Copy the file to folder: `~/pivotal-cloud-foundry-developer-workshop/` (`~` is shorthand for the home directory in Linux, Mac and Unix based operating systems).  You will need to create this directory in your home directory.
+
+. Extract the the zip file to `~/pivotal-cloud-foundry-developer-workshop/route-service`.
+
+. OPTIONAL STEP - Import applications into your IDE such as https://spring.io/tools[Spring Tool Suite^] (STS).
+
+STS Import Help:
+
+Select menu:File[Import...] Then select Maven -> Existing Maven Projects. On the Import Maven Project page, browse to the directory where you extracted the zip.  Then push the "Next" button. Click "Finish".
+
+=== Route Service Overview
+
+. Review the documentation on
+http://docs.pivotal.io/pivotalcf/services/route-services.html[Route Services.^]
+
+=== Scenario
+
+Route services can be used for a number of things such as logging, transformations, security and rate limiting.
+
+Our `rate-limiter-app` application will do a couple of things.  It will log incoming and outgoing requests.  It will also impose a rate limit.  No more than 3 requests per 15 seconds.  Rate limited requests will be returned with a https://httpstatuses.com/429[HTTP status code 429^] (too many requests).  Rate limiting is very common in the API space.  Rate limiting protects your API from being overrun. The `rate-limiter-app` application will keep its state in Redis.
+
+The `attendee-service` service exposes a RESTful API, so we will front it with our `rate-limiter-app`.
+
+=== Implementing `rate-limiter-app`
+
+. Review the following file: `~/pivotal-cloud-foundry-developer-workshop/route-service/src/main/java/org/cloudfoundry/example/Controller.java`.
++
+[source,java]
+----
+@RestController
+final class Controller {
+    static final String FORWARDED_URL = "X-CF-Forwarded-Url";
+
+    static final String PROXY_METADATA = "X-CF-Proxy-Metadata";
+
+    static final String PROXY_SIGNATURE = "X-CF-Proxy-Signature";
+
+    private final static  Logger logger = LoggerFactory.getLogger(Controller.class);
+
+    private final RestOperations restOperations;
+
+    private RateLimiter rateLimiter;
+
+    @Autowired
+    Controller(RestOperations restOperations,  RateLimiter rateLimiter) {
+        this.restOperations = restOperations;
+        this.rateLimiter = rateLimiter;
+    }
+
+    @RequestMapping(headers = {FORWARDED_URL, PROXY_METADATA, PROXY_SIGNATURE})
+    ResponseEntity<?> service(RequestEntity<byte[]> incoming) {
+        logger.debug("Incoming Request: {}", incoming);
+        if(rateLimiter.rateLimitRequest(incoming)){
+            logger.debug("Rate Limit imposed");
+        	return new ResponseEntity<>(HttpStatus.TOO_MANY_REQUESTS);
+        };
+        RequestEntity<?> outgoing = getOutgoingRequest(incoming);
+        logger.debug("Outgoing Request: {}", outgoing);
+
+        return this.restOperations.exchange(outgoing, byte[].class);
+    }
+
+    private static RequestEntity<?> getOutgoingRequest(RequestEntity<?> incoming) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.putAll(incoming.getHeaders());
+        URI uri = headers.remove(FORWARDED_URL).stream()
+            .findFirst()
+            .map(URI::create)
+            .orElseThrow(() -> new IllegalStateException(String.format("No %s header present", FORWARDED_URL)));
+
+        return new RequestEntity<>(incoming.getBody(), headers, incoming.getMethod(), uri);
+    }
+}
+----
++
+.What's happening?
+****
+
+The `service` method is where the `rate-limiter-app` application handles incoming requests.
+
+. Any request with the `X-CF-Forwarded-Url`, `X-CF-Proxy-Metadata`, and `X-CF-Proxy-Signature` headers gets handled by the `service` method.
+
+. Log the `incoming` request.
+
+. Check the `rateLimiter` to see if the number of requests has exceeded the rate limit threshold. If the threshold is exceeded return a HTTP status code 429 (too many requests). If the threshold is not exceeded remove the `FORWARDED_URL` header, log the `outgoing` request, and send the `outgoing` request to the downstream application.
+****
+
+. Review the following file: `~/pivotal-cloud-foundry-developer-workshop/route-service/src/main/java/org/cloudfoundry/example/RateLimiter.java`.
++
+[source,java]
+----
+@Component
+public class RateLimiter {
+    private final static  Logger logger = LoggerFactory.getLogger(RateLimiter.class);
+    private final String KEY = "host";
+
+    @Autowired
+    private StringRedisTemplate redisTemplate;
+
+    @Scheduled(fixedRate = 15000)
+    public void resetCounts() {
+        redisTemplate.delete(KEY);
+        logger.debug("Starting new 15 second interval");
+    }
+
+    public boolean rateLimitRequest(RequestEntity<?> incoming)  {
+        String forwardUrl = incoming.getHeaders().get(Controller.FORWARDED_URL).get(0);
+        URI uri;
+        try {
+            uri = new URI(forwardUrl);
+        } catch (URISyntaxException e) {
+            logger.error("error parsing url", e);
+            return false;
+        }
+
+        String host = uri.getHost();
+        String value = (String)redisTemplate.opsForHash().get(KEY, host);
+          int requestsPerInterval = 1;
+
+        if (value == null){
+            redisTemplate.opsForHash().put(KEY, host, "1");
+        }
+        else{
+            requestsPerInterval = Integer.parseInt(value) + 1;
+            redisTemplate.opsForHash().increment(KEY, host, 1);
+        }
+
+        if(requestsPerInterval > 3)
+            return true;
+        else
+            return false;
+    }
+}
+----
++
+.What's happening?
+****
+The `rateLimitRequest` method determines whether a request should be rate limited.
+
+. Increment the request count by host.
+. Return `true` if request should be rate limited (`requestsPerInterval > 3`).
+. Return `false` if request should not be rate limited (`requestsPerInterval <= 3`).
+
+The `resetCounts` method deletes the Redis `KEY` every 15 seconds, which resets the counts by deleting all the state.
+****
++
+NOTE: This is an example implementation for lab purposes only. A proper rate limiting service would need to uniquely identify the client. That can be accomplished via an API key, the `X-Forwarded-For` header, or other approaches.
+
+=== Push `rate-limiter-app`
+
+. Push `rate-limiter-app`:
++
+[source.terminal]
+----
+cd ~/pivotal-cloud-foundry-developer-workshop/route-service/
+----
++
+..and:
++
+[source.terminal]
+----
+cf push rate-limiter-app -p ./target/route-service-1.0.0.BUILD-SNAPSHOT.jar -m 512M --random-route --no-start
+----
+
+. Create a Redis service instance
++
+[alternatives#redis]
+Pivotal Web Services | Pivotal Cloud Foundry
++
+[#tabs-redis-1.redis]
+--
+In PWS, the marketplace service for Redis is called "rediscloud".
+
+[source.terminal]
+----
+cf create-service rediscloud 30mb redis
+----
+--
++
+[#tabs-redis-2.redis]
+--
+Pivotal provides a redis managed service named "p-redis".
+
+[source.terminal]
+----
+cf create-service p-redis shared-vm redis
+----
+--
+
+. Bind the service instance.
++
+[source.terminal]
+----
+cf bind-service rate-limiter-app redis
+----
+
+. Start the application.
++
+[source.terminal]
+----
+cf start rate-limiter-app
+----
+
+=== Create a Route Service and Bind it to a Route
+
+. Create a user provided service.  Let's call it `rate-limiter-service`.
++
+[source.terminal]
+----
+cf create-user-provided-service rate-limiter-service -r {{ratelimiter_baseurl}}
+----
+
+. Bind the `rate-limiter-service` to the `attendee-service` route.
++
+[source.terminal]
+----
+cf bind-route-service {{domain_name}} rate-limiter-service --hostname {{attendee_service_hostname}}
+----
+
+=== Observe the effects of the `rate-limiter-app`
+
+. Tail the logs of the `rate-limiter-app` application.
++
+[source.terminal]
+----
+cf logs rate-limiter-app
+----
+
+. Choose a client of your preference, but one that can show HTTP status code.  Hit an `attendee-service` endpoint (e.g. `/attendees`) several times and see if you can get the rate limit to trigger.  Observe the logs.
++
+Pic below is using Chrome with the Developer Tools.
++
+[.thumb]
+image::rate_limit.png[Rate Limit]
+
+=== Questions
+
+* What are the key headers used to implement route services (Service Instance Responsibilities)?
+* How would you apply route services in your environment?
+
+=== Clean up
+
+. Unbind the route service.
++
+[source.terminal]
+----
+cf unbind-route-service {{domain_name}} rate-limiter-service --hostname {{attendee_service_hostname}}
+----
+
+. Delete `rate-limiter-service` service instance.
++
+[source.terminal]
+----
+cf delete-service rate-limiter-service
+----
+
+. Unbind `redis` service instance from the app.
++
+[source.terminal]
+----
+cf unbind-service rate-limiter-app redis
+----
+
+. Delete the `redis` service instance.
++
+[source.terminal]
+----
+cf delete-service redis
+----
+
+. Delete the `rate-limiter-app` app.
++
+[source.terminal]
+----
+cf delete rate-limiter-app
+----

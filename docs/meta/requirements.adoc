@@ -11,56 +11,99 @@ v0.1, 2017
 
 == Pivotal Cloud Foundry Environment
 
-You will need a Pivotal Cloud Foundry environment to execute the labs.  You may use a Pivotal Cloud Foundry instance or http://run.pivotal.io[Pivotal Web Services^].
+You will need a Pivotal Cloud Foundry environment to execute the labs.  You may use
+a Pivotal Cloud Foundry instance or http://run.pivotal.io[Pivotal Web Services^].
 
-If taking the course via e-learning, Pivotal Web Services is recommended, unless you have access to another Pivotal Cloud Foundry instance (typically already provisioned by your company).  It is not recommended that you provision a personal Pivotal Cloud Foundry environment to complete the labs.  The setup and installation of Pivotal Cloud Foundry is beyond the scope of this course.
+If taking the course via e-learning, Pivotal Web Services is recommended, unless
+you have access to another Pivotal Cloud Foundry instance (typically already
+provisioned by your company).  It is not recommended that you provision a personal
+Pivotal Cloud Foundry environment to complete the labs.  The setup and installation
+of Pivotal Cloud Foundry is beyond the scope of this course.
 
-If taking the course via instructor led training your instructor will provide guidance on the environment to use.
+If taking the course via instructor-led training, your instructor will provide
+guidance on the environment to use.
 
-Throughout the labs you will see specific directions for Pivotal Cloud Foundry or Pivotal Web Services.  Make sure follow the directions for the applicable environment.
+NOTE: If taking this course via e-learning, use a Pivotal Cloud Foundry account that
+your admin has setup for you (choose the `org` and `space` that works for you)
+or use http://run.pivotal.io/[Pivotal Web Services^].
 
-=== Pivotal Cloud Foundry
+Throughout the labs you will see specific directions for Pivotal Cloud Foundry or
+Pivotal Web Services.  _Make sure to follow the directions for the right environment_.
 
-Pivotal Cloud Foundry may be used to complete these labs.  The following dependencies are required:
+=== Option A: Pivotal Cloud Foundry
 
-* https://network.pivotal.io/products/elastic-runtime/[PCF Elastic Runtime^] version 1.7 or higher, with the following "tiles" added:
+Pivotal Cloud Foundry may be used to complete these labs.  The following dependencies
+are required:
+
+* https://network.pivotal.io/products/elastic-runtime/[PCF Elastic Runtime^] version
+1.7 or higher, with the following "tiles" added:
 ** https://network.pivotal.io/products/p-mysql[MySQL for PCF^]
 ** https://network.pivotal.io/products/pcf-metrics[PCF Metrics^]
 ** https://network.pivotal.io/products/p-redis[Redis for PCF^]
-+
-TIP: If using self-signed certificates, under the `Elastic Runtime Tile` → `Settings` → `Networking` page make sure the following options have been checked: `Disable SSL certificate verification for this environment`, `Ignore SSL certificate verification on route services`.
+
+TIP: If using self-signed certificates, under the `Elastic Runtime Tile` +->+ `Settings`
++->+ `Networking` page make sure the following options have been checked:
+`Disable SSL certificate verification for this environment` and
+`Ignore SSL certificate verification on route services`.
 
 
-=== Pivotal Web Services
+=== Option B: Pivotal Web Services
 
-http://run.pivotal.io[Pivotal Web Services^] may be used to complete these labs.  Simply sign up for an account.
+http://run.pivotal.io[Pivotal Web Services^] may be used to complete these labs.
+Simply sign up for an account.
 
 
 === A Note About the Service Broker Lab
 
-The link:../service-broker{outfilesuffix}[Service Broker lab] requires access to a MongoDB instance.  Please review that lab for alternatives on how to meet that requirement.  Options include using the link:/aws-mongo-ami{outfilesuffix}[AWS MongoDB AMI].
+The link:../service-broker{outfilesuffix}[Service Broker lab] requires access to
+a MongoDB instance.  Please review that lab for alternatives on how to meet that
+requirement.  Options include using the
+link:/aws-mongo-terraform{outfilesuffix}[AWS MongoDB AMI].
 
 
 == Local Machine
 
-You will need the ability to install software on your local machine.
+Minimum specification
 
 * 4GB Memory
+* 1G free disk space - if running MS Windows, 1G on your C: drive is preferred.
 * Network access to the Pivotal Cloud Foundry environment and internet
-* http://www.oracle.com/technetwork/java/javase/downloads/index.html[Java^] (required by http://jmeter.apache.org/[Apache JMeter^], which is used in the link:../application-auto-scaler{outfilesuffix}[Auto Scaler] lab)
-* A programmer-friendly text editor.  https://atom.io/[Atom^] or https://notepad-plus-plus.org/[Notepad++^] are some options.
 
+You will need the ability to install software on your local machine. The following
+should be installed _prior_ to the course:
+
+* http://www.oracle.com/technetwork/java/javase/downloads/index.html[Java JDK^] is
+  required for a couple of the labs
+* Apache JMeter is provided for you and is required by the Auto Scaler Lab.
+  (or download the most recent version go http://jmeter.apache.org/[here^])
+* A programmer-friendly text editor.  https://atom.io/[Atom^] or
+  https://notepad-plus-plus.org/[Notepad++^] (for Windows only) are popular options
 
 === Optional
 
-* https://chrome.google.com/webstore/detail/json-formatter/bcjindcccaagfpapjjmafapmmgkkhgoa?hl=en[JSON Formatter for Chrome^]
-* https://curl.haxx.se/[curl^] or https://httpie.org/[httpie^]
-* Windows users may desire a better terminal experience than the _cmd.exe_.  Check out https://conemu.github.io/[ConEmu^].  It provides multiple tabs and search which is helpful during these labs.
-* A Java IDE such as the https://spring.io/tools[Spring Tool Suite] can be useful for reading the implementation of the service broker and route service that we work with in those respective labs
-* The link:../continuous-delivery{outfilesuffix}[Continuous Delivery Lab] provides the option to use a pre-provisioned https://jenkins.io/[Jenkins^] instance or to install everything locally.  If a student chooses the latter option, then they'll also need https://git-scm.com/[git^] and http://maven.apache.org/[Maven^]
+* JSON Viewer (browser plugin)
+** https://chrome.google.com/webstore/detail/json-formatter/bcjindcccaagfpapjjmafapmmgkkhgoa?hl=en[JSON Formatter for Chrome^]
+** https://jsonview.com/[JSON Formatter for Firefox^] - you can download it
+  directly from https://addons.mozilla.org/en-US/firefox/addon/jsonview[Mozilla^]
+* Command Line HTTP client
+** Mac and Linux users already have `curl`.  Windows Users can find an installer in the
+   lab materials (or download the latest version https://curl.haxx.se/[here^]).
+** Alternatively, https://httpie.org/[HTTPie^] is a nicer client if you prefer.
+* Windows users may desire a better terminal experience than the _cmd.exe_.
+** Consider using Powershell (open a CMD windows and type "powershell" at the prompt).
+** Or use https://conemu.github.io/[ConEmu^].  It provides multiple tabs and search
+   which is helpful during these labs.
+* A Java IDE such as the https://spring.io/tools[Spring Tool Suite^] can be useful for
+  reading the implementation of the service broker and route service that we work with
+  in those respective labs
+* The link:../continuous-delivery{outfilesuffix}[Continuous Delivery Lab] provides the
+  option to use a pre-provisioned https://jenkins.io/[Jenkins^] instance or to install
+  everything locally.  If a you choose the latter option, then they'll also need
+  https://git-scm.com/[git^] and http://maven.apache.org/[Maven^]
 
 == Windows VM
 
-An alternative to installing and configuring the software on your local machine is to use the Windows VM.
+An alternative to installing and configuring the software on your local machine is to
+use our Windows VM.
 
 If using the Windows VM see these link:windows-vm{outfilesuffix}[requirements].

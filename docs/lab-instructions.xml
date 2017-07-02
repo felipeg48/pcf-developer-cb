@@ -2,63 +2,66 @@
 
 <!-- * * * * * * AUTO-GENERATED: DO NOT MODIFY THIS FILE  * * * * * * -->
 
-<!-- Used to pull all the XML files into a single file for processing -->
+<!-- Used to pull multiple XML files into a single file for processing -->
 
 <!DOCTYPE book PUBLIC '-//OASIS//DTD DocBook XML V4.4//EN'
      'http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd'
 [
 <!ENTITY lab_instructor_notes                     SYSTEM "instructor-notes.xml">
+<!ENTITY lab_aws_mongo_terraform                  SYSTEM "aws-mongo-terraform.xml">
+<!ENTITY lab_aws_jenkins_ami                      SYSTEM "aws-jenkins-ami.xml">
 <!ENTITY lab_requirements                         SYSTEM "requirements.xml">
 <!ENTITY lab_approach                             SYSTEM "approach.xml">
-<!ENTITY lab_setup                                SYSTEM "setup.xml">
 <!ENTITY lab_push_to_the_cloud                    SYSTEM "push-to-the-cloud.xml">
-<!ENTITY lab_log_scale_ha                         SYSTEM "log-scale-ha.xml">
-<!ENTITY lab_services                             SYSTEM "services.xml">
+<!ENTITY lab_log_scale_ha_no_tabs                 SYSTEM "log-scale-ha-no-tabs.xml">
+<!ENTITY lab_services_no_tabs                     SYSTEM "services-no-tabs.xml">
 <!ENTITY lab_manifest                             SYSTEM "manifest.xml">
 <!ENTITY lab_asg                                  SYSTEM "asg.xml">
 <!ENTITY lab_log_drain                            SYSTEM "log-drain.xml">
 <!ENTITY lab_blue_green                           SYSTEM "blue-green.xml">
-<!ENTITY lab_autoscaler                           SYSTEM "autoscaler.xml">
-<!ENTITY lab_apm                                  SYSTEM "apm.xml">
-<!ENTITY lab_metrics                              SYSTEM "metrics.xml">
+<!ENTITY lab_autoscaler_no_tabs                   SYSTEM "autoscaler-no-tabs.xml">
+<!ENTITY lab_apm_no_tabs                          SYSTEM "apm-no-tabs.xml">
+<!ENTITY lab_metrics_no_tabs                      SYSTEM "metrics-no-tabs.xml">
 <!ENTITY lab_buildpack                            SYSTEM "buildpack.xml">
 <!ENTITY lab_service_broker                       SYSTEM "service-broker.xml">
 <!ENTITY lab_continuous_delivery                  SYSTEM "continuous-delivery.xml">
 <!ENTITY lab_route_service                        SYSTEM "route-service.xml">
 <!ENTITY lab_cftasks                              SYSTEM "cftasks.xml">
+<!ENTITY lab_aws_mongo_terraform                  SYSTEM "aws-mongo-terraform.xml">
+<!ENTITY lab_aws_jenkins_ami                      SYSTEM "aws-jenkins-ami.xml">
+<!ENTITY lab_certification                        SYSTEM "certification.xml">
 <!ENTITY course_version                           "1.11.a.RELEASE">
 ]>
 
 <book>
     <bookinfo>
-        <title>PCF Developer - Lab Documentation</title>
+        <title>PCF Developer - Lab Instructions</title>
     </bookinfo>
     <toc />
 
     <!-- Section: intro -->
     &lab_requirements;
     &lab_approach;
-    &lab_setup;
 
-    <!-- Section: main -->
+    <!-- Section: day1 -->
 
     <!-- Day: 1 -->
     &lab_push_to_the_cloud;
-    &lab_log_scale_ha;
-    &lab_services;
-    &lab_manifest;
+    &lab_log_scale_ha_no_tabs;
+    &lab_services_no_tabs;
 
-    <!-- Section: main -->
+    <!-- Section: day2 -->
+    &lab_manifest;
 
     <!-- Day: 2 -->
     &lab_asg;
     &lab_log_drain;
     &lab_blue_green;
-    &lab_autoscaler;
-    &lab_apm;
-    &lab_metrics;
+    &lab_autoscaler_no_tabs;
+    &lab_apm_no_tabs;
+    &lab_metrics_no_tabs;
 
-    <!-- Section: main -->
+    <!-- Section: day3 -->
     &lab_buildpack;
     &lab_service_broker;
     &lab_continuous_delivery;
@@ -66,4 +69,9 @@
     &lab_cftasks;
 
     <!-- Section: finish -->
+
+    <!-- Section: appendix -->
+    &lab_aws_mongo_terraform;
+    &lab_aws_jenkins_ami;
+    &lab_certification;
 </book>

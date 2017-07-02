@@ -1,0 +1,318 @@
+= Logging, Scale, and HA
+Eitan Suez <esuez@pivotal.io>
+v0.1, 2017
+
+
+_Estimated Time: 30 minutes_
+
+== Preface
+
+In this lab, we build on the foundation we've picked up from the first lab.  We introduce new commands that are essential for developers working with cloudfoundry.  You'll learn how to tail logs, view application events, and scale an application with ease.  The last portion of the lab focuses on demonstrating one of the high availability characteristics of the cloud foundry platform:  automatic restart of a failed application instance.  Enjoy.
+
+== Exercises
+
+=== Push the `articulate` application
+
+. https://github.com/eitansuez/articulate/releases/download/v0.2/articulate-0.2.jar[Download^] the `articulate` application.  Copy the file to folder: `~/pivotal-cloud-foundry-developer-workshop/articulate/` (`~` is shorthand for the home directory in Linux, Mac and Unix based operating systems).  You will need to create this directory in your home directory.
++
+NOTE: If your browser warns you about downloading this file please proceed to download it.
++
+https://github.com/eitansuez/articulate[Source^] is not required, but you may be curious how it works as you move through the labs.
+
+. Push the `articulate` application.
++
+[source.terminal]
+----
+ 
+$> cd ~/pivotal-cloud-foundry-developer-workshop/articulate/
+$> cf push articulate -p ./articulate-0.2.jar -m 512M --random-route --no-start
+ 
+----
++
+Notice how this time, we use the `-p` flag to tell the `cf` command what file to upload.
+
+
+=== Access `articulate` logs
+
+Before continuing this lab, review the documentation on
+http://docs.pivotal.io/pivotalcf/devguide/deploy-apps/streaming-logs.html[application logging^].
+This details the different types of messages you will see in the logs (otherwise you won't
+understand what you are seeing).
+
+NOTE: Viewing logs in real-time is termed "tailing" (a Unix term, named after the Unix `tail` command).
+
+. Tail the logs of the `articulate` application.
++
+[source.terminal]
+----
+cf logs articulate
+----
++
+NOTE: Tailing the logs requires an _incoming_ Websocket connection.  If using PWS, this
+will probably be blocked by your company's firewall.  If `cf logs` fails to run, go to
+the App Manager in your browser, open the articulate application and view the logs in
+the Logs tab.  On the top-right there is an icon with a "Go" arrow in (which pops up
+`tail logs` when you mouse over it - see below). Click to start tailing mode.
+Once log-tailing is enabled the "Go" arrow changes to a "Pause" icon.
++
+[.thumb]
+image::app-manage-tail-logs.png["Log Tailing in App Manager",align="center"]
+
+. Open _another_ terminal window and start the `articulate` application.  Compare
+the output from the start command with the logging output.
++
+[source.terminal]
+----
+cf start articulate
+----
+
+. Open a browser and view the `articulate` application.  Read about our demo application.
++
+[.thumb]
+image::ha-articulate.png[Articulate]
+
+. Observe the log output when the `articulate` web page is refreshed.  More logs are added!
+
+. Stop tailing logs
++
+[alternatives#tail_logs_stop]
+Do ONE of the following:
++
+[#tabs-tail_logs_stop-1.tail_logs_stop]
++
+.. *Command Line*
++
+Go to the terminal tailing the logs (where you ran `cf logs`) and send an interrupt (kbd:[Ctrl+C])
+[#tabs-tail_logs_stop-1.tail_logs_stop]
++
+.. *App Manager*
++
+Click the "Pause" button at top-right of the logging tab.
+
+
+==== Questions
+
+* Where should your application write logs?
+* What are some of the different origin codes seen in the log?
+* How does this change how you access logs today?  At scale?
+
+=== Access `articulate` events
+
+Events for the application can also be used to complement the logs in determining what has occurred with an application.
+
+[source.terminal]
+----
+cf events articulate
+----
+
+Events can also be seen in the Overview tab when using the App Manager.
+
+=== Scale `articulate`
+
+Let's scale the application up and down again and watch this happening in the logs.
+
+NOTE: If viewing logs in your browser, you will have to search manually for log lines containing `API` (Cloud
+Controller logs) and `CELL` (Diego Cell logs).
+
+==== Scale up
+
+. Start tailing the logs again.
++
+[alternatives#tail_logs_scaleup]
+Do ONE of the following:
++
+[#tabs-tail_logs_scaleup-1.tail_logs_scaleup]
+.. *mac, linux, powershell*
++
+--
+[source.terminal]
+----
+cf logs articulate | grep "API\|CELL"
+----
+
+We are using `grep` to only show matching log lines from the
+https://docs.pivotal.io/pivotalcf/concepts/architecture/cloud-controller.html[Cloud Controller^]
+and https://docs.pivotal.io/pivotalcf/concepts/architecture/#diego-cell[Diego Cell^] components.
+--
++
+[#tabs-tail_logs_scaleup-2.tail_logs_scaleup]
+.. *windows*
++
+--
+[source.terminal]
+----
+cf logs articulate | findstr "API CELL"
+----
+
+We are using `findstr` to only show matching log lines from the
+https://docs.pivotal.io/pivotalcf/concepts/architecture/cloud-controller.html[Cloud Controller^]
+and https://docs.pivotal.io/pivotalcf/concepts/architecture/#diego-cell[Diego Cell^] components.
+--
++
+[#tabs-tail_logs_scaleup-3.tail_logs_scaleup]
+.. *App Manager*
++
+View `articulate` in the App Manager in your browser and enable log-tailing as described
+above.
++
+You will need to search for `API` and `CELL` log messages manually.
+
+. In _another_ terminal window scale `articulate`.
++
+[source.terminal]
+----
+cf scale articulate -m 1G
+----
+
+. Observe log output.  You should see something like this:
++
+[source.terminal]
+----
+2017-06-30T17:35:40.958+10:00 [API/7] [OUT] Updated app with guid cdce3ca3-d452-43d5-a339-34726892a3bf ({"memory"=>900})
+2017-06-30T17:35:41.945+10:00 [API/7] [OUT] Updated app with guid cdce3ca3-d452-43d5-a339-34726892a3bf ({"state"=>"STOPPED"})
+2017-06-30T17:35:44.190+10:00 [API/6] [OUT] Updated app with guid cdce3ca3-d452-43d5-a339-34726892a3bf ({"state"=>"STARTED"})
+2017-06-30T17:35:44.717+10:00 [CELL/0] [OUT] Creating container
+2017-06-30T17:35:45.299+10:00 [CELL/0] [OUT] Successfully created container
+2017-06-30T17:35:48.441+10:00 [CELL/0] [OUT] Starting health monitoring of container
+----
+
+. Stop tailing the logs.
+
+. Scale `articulate` back to our original settings.
++
+[source.terminal]
+----
+cf scale articulate -m 512M
+----
+
+==== Scale out
+
+. Browse to the `Scale and HA` page of the `articulate` application.
++
+[.thumb]
+image::scale_ha.png[Scale and HA]
++
+Review the `Application Environment Information`.
+
+. Press the `Refresh` button multiple times.  All requests are going to one application instance.
+
+. Start tailing the logs again.
++
+Do ONE of the following:
++
+[alternatives#tail_logs_scaleout]
+.. *mac, linux, powershell*
++
+[#tabs-tail_logs_scaleout-1.tail_logs_scaleout]
+--
+[source.terminal]
+----
+cf logs articulate | grep 'API\|CELL'
+----
+--
++
+[#tabs-tail_logs_scaleout-2.tail_logs_scaleout]
+.. *windows*
++
+--
+[source.terminal]
+----
+cf logs articulate | findstr "API CELL"
+----
+--
+[#tabs-tail_logs_scaleup-3.tail_logs_scaleup]
+.. *App Manager*
++
+View  `articulate` in the App Manager in your browser and enable log-tailing as described
+above.
++
+You will need to search for `API` and `CELL` log messages manually.
+
+. In another terminal window, scale the `articulate` application.
++
+[source.terminal]
+----
+cf scale articulate -i 3
+----
+
+. Observe log output.  Then stop tailing the logs.
+
+. Return to `articulate` in a web browser.  Press the `Refresh` button several times. Observe the `Addresses` and `Instance Index` changing.
+
+_Notice how quickly the new application instances are provisioned and subsequently load balanced!_
+
+==== Questions
+
+* What is the difference between scaling out versus scaling up?
+
+=== High Availability
+
+Pivotal Cloud Foundry has https://blog.pivotal.io/pivotal-cloud-foundry/products/the-four-levels-of-ha-in-pivotal-cf[4 levels of HA^] (High Availability) that keep your applications and the underlying platform running.  In this section, we will demonstrate one of them.  Failed application instances will be recovered.
+
+. At this time you should be running multiple instances of `articulate`.  Confirm this with the following command:
++
+[source.terminal]
+----
+cf app articulate
+----
+
+. Return to `articulate` in a web browser (`Scale and HA` page).  Press the `Refresh` button. Confirm the application is running.
+
+. Kill the app.  Press the `Kill` button!
+
+. Check the state of the app through the `cf` CLI.
++
+[source.terminal]
+----
+cf app articulate
+----
++
+Sample output below (notice the `requested state` vs actual `state`).  In this case, Pivotal Cloud Foundry had already detected the failure and is starting a new instance.
++
+----
+requested state: started
+instances: 3/3
+usage: 512M x 3 instances
+urls: articulate.pcfi1.fe.gopivotal.com
+last uploaded: Mon Mar 21 20:27:57 UTC 2016
+stack: cflinuxfs2
+buildpack: java-buildpack=v3.5.1-offline-http://github.com/pivotal-cf/pcf-java-buildpack.git#d6c19f8 java-main open-jdk-like-jre=1.8.0_65 open-jdk-like-memory-calculator=2.0.1_RELEASE spring-auto-reconfiguration=1.10.0_RELEASE
+
+     state      since                    cpu     memory           disk           details
+#0   starting   2016-03-21 04:16:23 PM   0.0%    692K of 512M     93.4M of 1G
+#1   running    2016-03-21 03:28:58 PM   0.5%    410.4M of 512M   158.8M of 1G
+#2   running    2016-03-21 04:15:57 PM   23.9%   357.8M of 512M   158.8M of 1G
+----
++
+Repeat this command as necessary until `state` = `running`.
+
+. In your browser, `Refresh` the `articulate` application.
++
+The app is back up!
++
+A new, healthy app instance has been automatically provisioned to replace the failing one.
+
+. View which instance was killed.
++
+[source.terminal]
+----
+cf events articulate
+----
+
+. Scale `articulate` back to our original settings.
++
+[source.terminal]
+----
+cf scale articulate -i 1
+----
+
+==== Questions
+
+* How do you recover failing application instances today?
+* What effect does this have on your application design?
+* How could you determine if your application has been crashing?
+
+== Beyond the class
+
+* Try the same exercises, but using Apps Manager instead
+* Visit the cloud foundry plugins site at https://plugins.cloudfoundry.org/ and investigate the _Open_ plugin.
