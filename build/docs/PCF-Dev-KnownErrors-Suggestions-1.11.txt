@@ -1,0 +1,41 @@
+         PCF DEVELOPER 1.11.a: SUGGESTIONS, KNOWN ERRORS, WORKAROUNDS
+         ------------------------------------------------------------
+
+* INSTALLATION *
+
+The labs consist of predefined applications, so there is nothing to build or
+compile (except for the Service Broker lab - and it is minimal there).  This is a
+course for developers but does not require much coding.  The audience can thus
+be using any language supported by PCF and no particular language knowledge is assumed.
+You should make this point clear up-front.
+
+The main example (Actuate) is a Java application, but no Java knowledge is expected.
+
+The lab-instructions originally assumed students would download everything they needed
+as they went along, but this is not always possible (especially when teaching onsite
+where Internet access is restricted for corporate security reasons).
+
+All the lab resources are provided in a single zip file (along with the slides PDF
+and lab-instructions).  However the notes still say "Download ..." in several
+places.  You should make clear this is optional.
+
+
+* SLIDES *
+
+None known, yet!
+
+
+* LABS *
+
+None known, yet!
+
+
+* Instructor Forum *
+
+Latest copies of courseware and discussions can be found at:
+
+https://groups.google.com/a/pivotal.io/forum/?hl=en-GB#!forum/pivotal-instructors-forum
+
+---
+PIVOTAL EDUCATION
+1 July 2017
