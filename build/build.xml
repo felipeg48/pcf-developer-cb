@@ -34,10 +34,12 @@
     <!-- Course specific properties. -->
     <property file="${project.build.dir}/build.properties"/>
 
+<!--
     <target name="before-zip-slides">
         <copy file="${lab.docs.dir}/meta/instructor-notes.adoc"
               toDir="${target.instructor.files}"/>
     </target>
+-->
 
     <target name="after-zip-labs">
         <copy file="${labs.nodeps.zip}" toDir="${target.student.files}"/>

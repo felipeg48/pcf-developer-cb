@@ -81,7 +81,7 @@
   //                   when normalizing to the short form.
   //                   Sprecify multiple prefixes as a comma-separated list.
   -->
-<modules title="PCF Developer" course-location=".." prefix="pcf" ignore-prefix="mss,cs">
+<modules title="PCF Developer" course-location=".." prefix="pcf">
 
     <!--
       // OPTIONAL:
@@ -161,6 +161,7 @@
 
     <!-- Appendices -->
     <section name="appendix" first="99">
+         <module labdocs="windows-vm"/>
          <module labdocs="aws-mongo-terraform"/>
          <module labdocs="aws-jenkins-ami"/>
          <module labdocs="certification"/>
