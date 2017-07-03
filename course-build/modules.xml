@@ -149,7 +149,7 @@
         <module lab="no" labdocs="service-broker">31-service-broker.ppt</module>
         <!-- Day 3 Afternoon -->
         <module lab="no" labdocs="continuus-delivery">32-continuous-delivery.ppt</module>
-        <module lab="no" labdocs="route-service">33-route-service.ppt</module>
+        <module lab="no" labdocs="route-service-no-tabs">33-route-service.ppt</module>
         <module lab="no" labdocs="cftasks">40-adv-topics.ppt</module>
     </section>
     

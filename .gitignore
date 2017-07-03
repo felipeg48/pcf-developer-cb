@@ -2,9 +2,11 @@ target/
 .~lock.*
 *.bak
 ant*
+jenkins-1.642.4.war
 
 .gradle
 .gradletasknamecache
+build/
 
 # Ignore auto-generated files #
 docs/lab-instructions.xml
