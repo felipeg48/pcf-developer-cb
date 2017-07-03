@@ -174,22 +174,20 @@ NOTE: This is an example implementation for lab purposes only. A proper rate lim
 +
 [source.terminal]
 ----
-cd ~/pivotal-cloud-foundry-developer-workshop/route-service/
-----
-+
-..and:
-+
-[source.terminal]
-----
-cf push rate-limiter-app -p ./target/route-service-1.0.0.BUILD-SNAPSHOT.jar -m 512M --random-route --no-start
+
+$> cd ~/pivotal-cloud-foundry-developer-workshop/route-service/
+$> cf push rate-limiter-app -p ./target/route-service-1.0.0.BUILD-SNAPSHOT.jar -m 512M --random-route --no-start
+
 ----
 
-. Create a Redis service instance
+. Create a Redis service instance.  Do ONE of the following:
 +
-[alternatives#redis]
-Pivotal Web Services | Pivotal Cloud Foundry
-+
+//[alternatives#redis]
+//Pivotal Web Services | Pivotal Cloud Foundry
+//+
 [#tabs-redis-1.redis]
+*_Option A:_ Pivotal Web Services*
++
 --
 In PWS, the marketplace service for Redis is called "rediscloud".
 
@@ -200,6 +198,8 @@ cf create-service rediscloud 30mb redis
 --
 +
 [#tabs-redis-2.redis]
+*_Option B:_ Pivotal Cloud Foundry*
++
 --
 Pivotal provides a redis managed service named "p-redis".
 

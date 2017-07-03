@@ -33,8 +33,7 @@ Read the documentation on https://github.com/cloudfoundry/java-buildpack/blob/ma
 
 Do _ONE_ of the following:
 
-[alternatives#instructions]
-
+//[alternatives#instructions]
 ==== _Option A:_ Pivotal Web Services
 
 [#tabs-instructions-1.instructions]

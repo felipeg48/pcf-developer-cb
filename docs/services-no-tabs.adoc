@@ -62,12 +62,15 @@ cf marketplace
 . There exist two distinct Cloud Foundry managed services that provision MySQL databases:
 
 .. http://docs.pivotal.io/p-mysql/[p-mysql^] is a Pivotal product, and
-.. http://docs.run.pivotal.io/marketplace/services/cleardb.html[cleardb^] is a company that specializes in cloud-based MySQL instances
+.. http://docs.run.pivotal.io/marketplace/services/cleardb.html[cleardb^] is a
+   company that specializes in cloud-based MySQL instances
 +
-[alternatives#create_service]
-Pivotal Web Services | Pivotal Cloud Foundry
+//[alternatives#create_service]
+//Pivotal Web Services | Pivotal Cloud Foundry
 +
 [#tabs-create_service-1.create_service]
+*_Option A:_ Pivotal Web Services*
++
 --
 Pivotal Web Services offers the _cleardb_ managed service in its marketplace.
 
@@ -78,6 +81,8 @@ cf create-service cleardb spark attendee-mysql
 --
 +
 [#tabs-create_service-2.create_service]
+*_Option B:_ Pivotal Cloud Foundry*
++
 --
 If working in a Pivotal Cloud Foundry environment that is not PWS, you are likely to have the _p-mysql_ managed service.
 
