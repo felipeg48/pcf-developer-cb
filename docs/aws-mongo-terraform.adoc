@@ -12,8 +12,8 @@ you already have access to a running MongoDB system.
 
 We will be using https://www.terraform.io[Terraform] (from Hashicorp) to create our VM.
 
-You should have a file called `mongo.tf` as part of your materials.  Put
-this in a convenient working directory.
+You should have a file called `mongo.tf` as part of your lab files in
+`pivotal-cloud-foundry-developer-workshop/terraform`.
 
 Go to https://www.terraform.io, download and install the software.  Ensure that
 `terraform` is on your `PATH`.
@@ -93,7 +93,7 @@ new VM.  This is the `MONGODB_HOST` they need for the Service Btoker lab.
 
 Return to EC2 dashboard and view your instance.  Wait for it to finish starting up.
 
-Select your VM, and in the Actions dropdown -> Instance Settings -> Get System Log.
+Select your VM, and in the Actions dropdown +->+ Instance Settings +->+ Get System Log.
 Scan the log for "Setting Bitnami application password to".  See here for more
 details: https://docs.bitnami.com/aws/faq/#how-to-find-application-credentials.
 This is the `MONGODB_PASSWORD` needed for the lab.
@@ -103,8 +103,9 @@ This is the `MONGODB_PASSWORD` needed for the lab.
 This is all you need to do to finish the Service Broker Lab.
 
 Once you have finished the lab, you can get rid of the VM by going to your AWS EC2
-dashboard, selecting the MongoDB instance, and clicking `Actions` -> `Instance State` ->
-`Terminate`.  The VM should stop, change to "Terminated" status and will eventually be
+dashboard, selecting the MongoDB instance, and clicking
+`Actions` +->+ `Instance State` +->+ `Terminate`.
+The VM should stop, change to "Terminated" status and will eventually be
 removed from your list of VMs (The VM will shutdown and eventually be removed from your
 list of VMs (removal may not happen immediately)emoval may not happen immediately)
 

@@ -13,18 +13,25 @@ In this lab, we build on the foundation we've picked up from the first lab.  We 
 
 === Push the `articulate` application
 
-. https://github.com/eitansuez/articulate/releases/download/v0.2/articulate-0.2.jar[Download^] the `articulate` application.  Copy the file to folder: `~/pivotal-cloud-foundry-developer-workshop/articulate/` (`~` is shorthand for the home directory in Linux, Mac and Unix based operating systems).  You will need to create this directory in your home directory.
+1. The `articulate` application, `articulate-0.2.jar`, should be in your lab files
+   under `demo-apps`.  If so, jump to step (3)
+
+2. Alternatively, you can 
+   https://github.com/eitansuez/articulate/releases/download/v0.2/articulate-0.2.jar[Download^]
+   the `articulate` JAR, create `pivotal-cloud-foundry-developer-workshop/demo-apps/articulate/`
+   directory and copy the JAR there.
 +
 NOTE: If your browser warns you about downloading this file please proceed to download it.
-+
-https://github.com/eitansuez/articulate[Source^] is not required, but you may be curious how it works as you move through the labs.
 
-. Push the `articulate` application.
+3. The https://github.com/eitansuez/articulate[Source^] is not required, but you may be
+   curious how it works as you move through the labs.
+
+4. Push the `articulate` application.
 +
 [source.terminal]
 ----
  
-$> cd ~/pivotal-cloud-foundry-developer-workshop/articulate/
+$> cd ~/pivotal-cloud-foundry-developer-workshop/demo-apps/articulate/
 $> cf push articulate -p ./articulate-0.2.jar -m 512M --random-route --no-start
  
 ----
@@ -276,7 +283,8 @@ usage: 512M x 3 instances
 urls: articulate.pcfi1.fe.gopivotal.com
 last uploaded: Mon Mar 21 20:27:57 UTC 2016
 stack: cflinuxfs2
-buildpack: java-buildpack=v3.5.1-offline-http://github.com/pivotal-cf/pcf-java-buildpack.git#d6c19f8 java-main open-jdk-like-jre=1.8.0_65 open-jdk-like-memory-calculator=2.0.1_RELEASE spring-auto-reconfiguration=1.10.0_RELEASE
+buildpack: java-buildpack=v3.5.1-offline-http://github.com/pivotal-cf/pcf-java-buildpack.git#d6c19f8 java-main
+    open-jdk-like-jre=1.8.0_65 open-jdk-like-memory-calculator=2.0.1_RELEASE spring-auto-reconfiguration=1.10.0_RELEASE
 
      state      since                    cpu     memory           disk           details
 #0   starting   2016-03-21 04:16:23 PM   0.0%    692K of 512M     93.4M of 1G

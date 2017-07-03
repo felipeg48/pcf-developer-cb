@@ -10,7 +10,7 @@
 <!ENTITY lab_instructor_notes                     SYSTEM "instructor-notes.xml">
 <!ENTITY lab_aws_mongo_terraform                  SYSTEM "aws-mongo-terraform.xml">
 <!ENTITY lab_aws_jenkins_ami                      SYSTEM "aws-jenkins-ami.xml">
-<!ENTITY course_version                           "1.11.a.RELEASE">
+<!ENTITY course_version                           "1.11.a.RC1">
 ]>
 
 <book>

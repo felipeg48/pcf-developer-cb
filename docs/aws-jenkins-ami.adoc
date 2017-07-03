@@ -25,7 +25,8 @@ The software listed below has been installed and configured on the VM:
 
 == Provisioning
 
-You can use the following link:artifacts/jenkins.tf[terraform script^].
+You can use the following `jenkins.tf` terraform script in you lab-files, in
+`pivotal-cloud-foundry-developer-workshop/terraform`.
 
 Alternatively, you can provision the VM manually by following these directions:
 

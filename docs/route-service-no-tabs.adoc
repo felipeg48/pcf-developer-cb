@@ -20,15 +20,21 @@ Don't forget to examine the source code to understand how this route service is 
 
 === Setup
 
-. Download this https://github.com/eitansuez/route-service/releases/download/v1.0/route-service.zip[zip file^], which contains source code and jar ready for you to deploy (no building necessary).  Copy the file to folder: `~/pivotal-cloud-foundry-developer-workshop/` (`~` is shorthand for the home directory in Linux, Mac and Unix based operating systems).  You will need to create this directory in your home directory.
+. `route-service.zip` is included in your lab files. It contains source code and a jar
+   ready for you to deploy (no building necessary).
+** If you don't have this file, download it from https://github.com/eitansuez/route-service/releases/download/v1.0/route-service.zip[zheee^], 
+   and copy it to `pivotal-cloud-foundry-developer-workshop/`
 
-. Extract the the zip file to `~/pivotal-cloud-foundry-developer-workshop/route-service`.
+. Extract the the zip file to `pivotal-cloud-foundry-developer-workshop/route-service`.
 
 . OPTIONAL STEP - Import applications into your IDE such as https://spring.io/tools[Spring Tool Suite^] (STS).
 
-STS Import Help:
+*STS Import Help*
 
-Select menu:File[Import...] Then select Maven -> Existing Maven Projects. On the Import Maven Project page, browse to the directory where you extracted the zip.  Then push the "Next" button. Click "Finish".
+* Select menu:File[Import...]
+* Then select `Maven` +->+ `Existing Maven Projects`.
+* On the `Import Maven Project` page, browse to the directory where you extracted the zip. 
+* Then push the `Next` button, and then click `Finish`.
 
 === Route Service Overview
 
@@ -45,22 +51,19 @@ The `attendee-service` service exposes a RESTful API, so we will front it with o
 
 === Implementing `rate-limiter-app`
 
-. Review the following file: `~/pivotal-cloud-foundry-developer-workshop/route-service/src/main/java/org/cloudfoundry/example/Controller.java`.
+. Review the following file: `~/pivotal-cloud-foundry-developer-workshop/ route-service/src/main/java/org/cloudfoundry/example/Controller.java`.
 +
 [source,java]
 ----
 @RestController
 final class Controller {
     static final String FORWARDED_URL = "X-CF-Forwarded-Url";
-
     static final String PROXY_METADATA = "X-CF-Proxy-Metadata";
-
     static final String PROXY_SIGNATURE = "X-CF-Proxy-Signature";
 
     private final static  Logger logger = LoggerFactory.getLogger(Controller.class);
 
     private final RestOperations restOperations;
-
     private RateLimiter rateLimiter;
 
     @Autowired
@@ -107,7 +110,7 @@ The `service` method is where the `rate-limiter-app` application handles incomin
 . Check the `rateLimiter` to see if the number of requests has exceeded the rate limit threshold. If the threshold is exceeded return a HTTP status code 429 (too many requests). If the threshold is not exceeded remove the `FORWARDED_URL` header, log the `outgoing` request, and send the `outgoing` request to the downstream application.
 ****
 
-. Review the following file: `~/pivotal-cloud-foundry-developer-workshop/route-service/src/main/java/org/cloudfoundry/example/RateLimiter.java`.
+. Review the following file: `pivotal-cloud-foundry-developer-workshop/ route-service/src/main/java/org/cloudfoundry/example/RateLimiter.java`.
 +
 [source,java]
 ----
@@ -161,7 +164,7 @@ The `rateLimitRequest` method determines whether a request should be rate limite
 
 . Increment the request count by host.
 . Return `true` if request should be rate limited (`requestsPerInterval > 3`).
-. Return `false` if request should not be rate limited (`requestsPerInterval <= 3`).
+. Return `false` if request should not be rate limited (`requestsPerInterval` +<=+ `3`).
 
 The `resetCounts` method deletes the Redis `KEY` every 15 seconds, which resets the counts by deleting all the state.
 ****
@@ -184,12 +187,14 @@ cd ~/pivotal-cloud-foundry-developer-workshop/route-service/
 cf push rate-limiter-app -p ./target/route-service-1.0.0.BUILD-SNAPSHOT.jar -m 512M --random-route --no-start
 ----
 
-. Create a Redis service instance
+. Create a Redis service instance.  Do ONE of the following:
 +
-[alternatives#redis]
-Pivotal Web Services | Pivotal Cloud Foundry
-+
+//[alternatives#redis]
+//Pivotal Web Services | Pivotal Cloud Foundry
+//+
 [#tabs-redis-1.redis]
+*_Option A:_ Pivotal Web Services*
++
 --
 In PWS, the marketplace service for Redis is called "rediscloud".
 
@@ -200,6 +205,8 @@ cf create-service rediscloud 30mb redis
 --
 +
 [#tabs-redis-2.redis]
+*_Option B:_ Pivotal Cloud Foundry*
++
 --
 Pivotal provides a redis managed service named "p-redis".
 

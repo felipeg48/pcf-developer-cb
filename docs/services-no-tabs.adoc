@@ -27,24 +27,27 @@ image::services.png[Services]
 
 === Push the `attendee-service` application
 
-. https://github.com/eitansuez/attendee-service/releases/download/v0.1/attendee-service-0.1.jar[Download^] the `attendee-service` application.  Copy the file to folder: `~/pivotal-cloud-foundry-developer-workshop/attendee-service/` (`~` is shorthand for the home directory in Linux, Mac and Unix based operating systems).  You will need to create this directory in your home directory.
+. The attendee-service JAR, `attendee-service-0.1.jar` is in you lab files under
+  `demo-apps`.  If so, jump to step (3)
+
+. Alternatively, you can 
+  https://github.com/eitansuez/attendee-service/releases/download/v0.1/attendee-service-0.1.jar[Download^]
+  the `attendee-service` application, create `pivotal-cloud-foundry-developer-workshop/demo-apps/attendee-service/`
+  directory and copy the JAR there.
 +
 NOTE: If your browser warns you about downloading this file please proceed to download it.
-+
-https://github.com/eitansuez/attendee-service[Source^] is not required, but you may be curious how it works as you move through the labs.
+
+. The application https://github.com/eitansuez/attendee-service[Source^] is not required,
+  but you may be curious how it works as you move through the labs.
 
 . Push the `attendee-service` application.
 +
 [source.terminal]
 ----
-cd ~/pivotal-cloud-foundry-developer-workshop/attendee-service/
-----
-+
-..and:
-+
-[source.terminal]
-----
-cf push attendee-service -p ./attendee-service-0.1.jar -m 512M --random-route
+
+$> cd .../pivotal-cloud-foundry-developer-workshop/demo-apps/attendee-service/
+
+$> cf push attendee-service -p ./attendee-service-0.1.jar -m 512M --random-route
 ----
 +
 Does `attendee-service` start up correctly?  Why not?

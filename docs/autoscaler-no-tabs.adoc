@@ -78,17 +78,30 @@ image::autoscaler-view-edit.png[Dashboard]
 
 == Generate Load and Observe the Results
 
-One popular option for generating a load against a web site is by using the apache load-testing tool http://jmeter.apache.org/[JMeter^].  Instructions for JMeter are outlined below.
+One popular option for generating a load against a web site is by using the Apache
+load-testing tool http://jmeter.apache.org/[JMeter^].  Instructions for JMeter are
+outlined below.
 
 [NOTE]
 ====
-Another option is to use a PWS marketplace service named _Load Impact_.  One advantage of using Load Impact is that you don't have to download and install any software to your laptop in order to conduct a load test:  it's all done via a web interface.  Further, the load test itself is run from the cloud:  the test specification can specify what geographic location will serve as the origin of the load test.  If you feel like trying Load Impact instead of JMeter, head on over to the PWS Marketplace in your Apps Manager, and create an instance of that service, then follow the instructions for creating a test.
+Another option is to use a PWS marketplace service named _Load Impact_.  One advantage
+of using Load Impact is that you don't have to download and install any software to
+your laptop in order to conduct a load test:  it's all done via a web interface.
+Further, the load test itself is run from the cloud:  the test specification can
+specify what geographic location will serve as the origin of the load test.  If
+you feel like trying Load Impact instead of JMeter, head on over to the PWS
+Marketplace in your Apps Manager, and create an instance of that service, then
+follow the instructions for creating a test.
 ====
 
 
 === Generating a Load with JMeter
 
-. Download http://jmeter.apache.org/download_jmeter.cgi[Apache JMeter^].  It will be used to generate load.  Review the JMeter http://jmeter.apache.org/usermanual/get-started.html[getting started^] directions.
+. You should already have `apache-jmeter-XXX.zip` in your lab files, where XXX is the
+  version number.  (if you prefer you can download the latest
+  http://jmeter.apache.org/download_jmeter.cgi[Apache JMeter^] for yourself).
+  It will be used to generate load.  Review the JMeter
+  http://jmeter.apache.org/usermanual/get-started.html[getting started^] directions.
 
 . Do _ONE_ of the following:
 +
@@ -108,27 +121,27 @@ Another option is to use a PWS marketplace service named _Load Impact_.  One adv
 .. Start JMeter by double clicking the following file in Windows Explorer: `{jmeter_basedir}/bin/jmeter.bat`
 --
  
-. Download the link:artifacts/load-gen.jmx[load-gen.jmx] file.
+. In your lab files you will find a JMeter configuration file: `load-gen.jmx`.
 
-. Open the load-gen.jmx file with the JMeter GUI.
+. Import the `load-gen.jmx` file with the JMeter GUI (`File` +->+ `Open`).
 
 . Expand the content of the JMeter test plan by:
 +
 .. Selecting the `Load Generator` test plan on the left pane.
-.. Going to the menu: `Options` -> `Expand All`.
+.. Going to the menu: `Options` +->+ `Expand All`.
 
 . Under `HTTP Request`, edit the test plan as follows:
 +
 .. Set the value of the `Service Name or IP` field to your application’s fully-qualified hostname (do not include the `http://`).  For example: `jsmith-articulate.cfapps.io`
 .. Set the value of the HTTP Request `Path` field to `/services`
 
-. Save the test plan: `File` -> `Save`.
+. Save the test plan: `File` +->+ `Save`.
 
-. Run the test plan: `Run` -> `Start`.
+. Run the test plan: `Run` +->+ `Start`.
 
 . Use Apps Manager and the `cf` CLI to observe your service scale up and back down based on load.
 
-. Stop the test plan: `Run` -> `Stop`.
+. Stop the test plan: `Run` +->+ `Stop`.
 
 . Review Autoscale history:
 

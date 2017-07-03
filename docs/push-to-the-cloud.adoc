@@ -97,22 +97,37 @@ instance.  You are ready to deploy (`push`) applications.
 
 Next we will push (deploy) several applications.
 
-. Download the link:artifacts/demo-apps.zip[demo applications].  Copy the file to folder: `~/pivotal-cloud-foundry-developer-workshop` (`~` is shorthand for the home directory in Linux, Mac and Unix based operating systems).  You will need to create this directory in your home directory.
+. You should have been given a zip file containing most of the lab files needed by
+  this course: `pcf-developer-XXX-labs.zip` (where `XXX` indicates the version
+  of the course).
 
-. Extract the zip file to `~/pivotal-cloud-foundry-developer-workshop/demo-apps`.
+. Unzip this file and copy `pivotal-cloud-foundry-developer-workshop` somewhere
+  convenient.  We recommend:
+** *Unix, Linux:* copy it to you home directory: `~/pivotal-cloud-foundry-developer-workshop/`
+** *Windows:* Copy it to the root of you `C:\` drive: `C:\pivotal-cloud-foundry-developer-workshop\`
 +
-The zip file contains four directories; each directory contains an application developed in a different language.
+NOTE: From now on in these notes, we will simply refer to the 
+      `pivotal-cloud-foundry-developer-workshop` directory.
+
+. In `pivotal-cloud-foundry-developer-workshop` you will find a `demo-apps` directory.
++
+It contains four sub-directories; each directory contains an application developed in
+a different language.
 
 . Open a terminal window.  First `cd` into the `node` directory:
 +
 [source.terminal]
 ----
-cd ~/pivotal-cloud-foundry-developer-workshop/demo-apps/node
+cd .../pivotal-cloud-foundry-developer-workshop/demo-apps/node
 ----
 +
-The CloudFoundry `push` command assumes that the artifacts for your application are located in the current working directory.
+The CloudFoundry `push` command assumes that the artifacts for your application are
+located in the current working directory.
 +
-Now push the `node` application:
+IMPORTANT: `node` _must_ be your current directory, not `demo-apps`.  This is a
+           common-mistake.
+
+. Now push the `node` application:
 +
 [source.terminal]
 ----
@@ -138,11 +153,13 @@ The output should be a simple `Hello node` message.
 
 . Repeat steps 3 - 4 for the `php`, `python`, and `ruby` applications.
 +
-NOTE: Make sure you `cd` into each directory before pushing.
+IMPORTANT: _Make sure you `cd` into each directory before pushing_.
 
 .What Just Happened?
 ****
-You just deployed four applications each based on a different language and runtime.  Pivotal Cloud Foundry is a polyglot platform, meaning it supports multiple languages and does so in a pluggable way (via buildpacks)!
+You just deployed four applications each based on a different language and runtime.
+Pivotal Cloud Foundry is a polyglot platform, meaning it supports multiple languages
+and does so in a pluggable way (via buildpacks)!
 ****
 
 ==== Questions
@@ -166,17 +183,32 @@ You have interfaced with Pivotal Cloud Foudry from two separate clients (`cf` an
 
 . Delete the applications you just pushed.
 +
-This is very important for resource constrained environments.
-+
 [source.terminal]
 ----
 cf delete node
 ----
 +
-Repeat for `php`, `python`, and `ruby` applications.
+WARNING: This is very important for resource constrained environments.
+         On PWS, all your application instances together may only use 2G of
+         memory, after which you will not be able to push.  Stop some previous
+        applications if necessary to reclaim memory.
++
+Repeat to delete the `php`, `python`, and `ruby` applications.
 
-== Beyond the class
+
+== Spring Music
 
 Check out the Cloud Foundry https://github.com/cloudfoundry-samples[sample applications^].
 
 https://github.com/cloudfoundry-samples/spring-music[Spring Music^] is a favorite.
+
+. `spring-music.war` is also included in your lab files (under `demo-apps`)
+   Push it to Cloud Foundry.  To keep the memory usage down specify 512M.
++
+NOTE: Remember to use `--random-route` or the `-n <hostname>` to ensure a unique URL.
+
+. Once it is running, view it in the App Manager.
+
+. Finally stop and delete the application.
+
+

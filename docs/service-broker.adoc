@@ -27,7 +27,7 @@ You'll deploy an application that implements the service broker API, register it
 
 STS Import Help:
 
-Select menu:File[Import...] Then select Gradle -> Gradle Project. On the Import Gradle Project page, browse to the directory where you extracted the zip.  Then push the "Build Model" button.  Select the project.  Click "Finish".
+Select menu:File[Import...] Then select Gradle +->+ Gradle Project. On the Import Gradle Project page, browse to the directory where you extracted the zip.  Then push the "Build Model" button.  Select the project.  Click "Finish".
 
 The above steps require the `Gradle Support` IDE extension to be installed. To install `Gradle Support` select menu:Help[Dashboard].  This will open a new tab to the Dashboard.  Click on "IDE Extensions" then search for "Gradle".  Select `Gradle Support` or `Gradle (STS Legacy) Support` and click the "Install" button.  Complete the installation wizard and restart STS.
 
@@ -367,25 +367,24 @@ cf set-env mongodb-service-broker MONGODB_PASSWORD {{mongodb_password}}
 cf restart mongodb-service-broker
 ----
 
-. Download https://github.com/eitansuez/spring-music/releases/download/v0.1/spring-music.jar[Spring-Music^].  Copy the file to folder: `~/pivotal-cloud-foundry-developer-workshop/spring-music/` (`~` is shorthand for the home directory in Linux, Mac and Unix based operating systems).  You will need to create this directory in your home directory.
+. You used `spring-music.jar` in the first lab.  We are going to use it again.
 +
-http://github.com/cloudfoundry-samples/spring-music[Source^] is not required, but you may be curious how it works as you move through the labs.
+http://github.com/cloudfoundry-samples/spring-music[Source^] is not required, but you
+may be curious how it works as you move through the rest of this lab.
 
 . Push `spring-music`
 +
 [source.terminal]
 ----
-cd ~/pivotal-cloud-foundry-developer-workshop/spring-music/
-----
-+
-..and:
-+
-[source.terminal]
-----
-cf push spring-music -p ./spring-music.jar -m 512M --random-route
+
+$> cd .../pivotal-cloud-foundry-developer-workshop/demo-apps/spring-music/
+
+$> cf push spring-music -p ./spring-music.jar -m 512M --random-route
 ----
 
-. View `spring-music` in a browser.  Click on the icon:info-circle[] button on the top right of the screen.  Notice that there are no services attached and `spring-music` is using an embedded database.
+. View `spring-music` in a browser.  Click on the icon:info-circle[] button on the
+  top right of the screen.  Notice that there are no services attached and
+  `spring-music` is using an embedded (in-memory) database.
 +
 [.thumb]
 image::service-broker-spring-music-initial.png[Spring Music - Embedded DB]
@@ -455,7 +454,7 @@ cf delete mongodb-service-broker
 ----
 
 . If provisioned by you, terminate your AWS MongoDB instance by going to your AWS EC2
-  dashboard, selecting the MongoDB instance, and clicking Actions -> Instance State ->
+  dashboard, selecting the MongoDB instance, and clicking Actions +->+ Instance State +->+
   Terminate.  The VM should stop, change to "Terminated" status and will eventually be
   removed from your list of VMs (removal may not happen immediately).
 
