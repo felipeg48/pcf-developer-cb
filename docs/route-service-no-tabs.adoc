@@ -51,7 +51,7 @@ The `attendee-service` service exposes a RESTful API, so we will front it with o
 
 === Implementing `rate-limiter-app`
 
-. Review the following file: `~/pivotal-cloud-foundry-developer-workshop/ route-service/src/main/java/org/cloudfoundry/example/Controller.java`.
+. Review the following file: `.../pivotal-cloud-foundry-developer-workshop/ route-service/src/main/java/org/cloudfoundry/example/Controller.java`.
 +
 [source,java]
 ----
@@ -177,14 +177,9 @@ NOTE: This is an example implementation for lab purposes only. A proper rate lim
 +
 [source.terminal]
 ----
-cd ~/pivotal-cloud-foundry-developer-workshop/route-service/
-----
-+
-..and:
-+
-[source.terminal]
-----
-cf push rate-limiter-app -p ./target/route-service-1.0.0.BUILD-SNAPSHOT.jar -m 512M --random-route --no-start
+$> cd .../pivotal-cloud-foundry-developer-workshop/route-service/
+
+$> cf push rate-limiter-app -p ./target/route-service-1.0.0.BUILD-SNAPSHOT.jar -m 512M --random-route --no-start
 ----
 
 . Create a Redis service instance.  Do ONE of the following:

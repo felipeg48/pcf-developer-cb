@@ -53,7 +53,7 @@ Install Jenkins on your local machine or use AWS Jenkins AMI.
 [source.terminal]
 ----
 Unix, Mac: cd ~/pivotal-cloud-foundry-developer-workshop/jenkins/
-Windows:   cd C:\pivotal-cloud-foundry-developer-workshop/jenkins/
+Windows:   cd C:\pivotal-cloud-foundry-developer-workshop\jenkins\
 ----
 
 . Run Jenkins.

@@ -28,11 +28,11 @@ image::services.png[Services]
 === Push the `attendee-service` application
 
 . The attendee-service JAR, `attendee-service-0.1.jar` is in you lab files under
-  `demo-apps`.  If so, jump to step (3)
+  its own directory.  If so, jump to step (3)
 
 . Alternatively, you can 
   https://github.com/eitansuez/attendee-service/releases/download/v0.1/attendee-service-0.1.jar[Download^]
-  the `attendee-service` application, create `pivotal-cloud-foundry-developer-workshop/demo-apps/attendee-service/`
+  the `attendee-service` application, create `pivotal-cloud-foundry-developer-workshop/attendee-service/`
   directory and copy the JAR there.
 +
 NOTE: If your browser warns you about downloading this file please proceed to download it.
@@ -45,7 +45,7 @@ NOTE: If your browser warns you about downloading this file please proceed to do
 [source.terminal]
 ----
 
-$> cd .../pivotal-cloud-foundry-developer-workshop/demo-apps/attendee-service/
+$> cd .../pivotal-cloud-foundry-developer-workshop/attendee-service/
 
 $> cf push attendee-service -p ./attendee-service-0.1.jar -m 512M --random-route
 ----
@@ -212,4 +212,5 @@ NOTE: If you can't add attendees, review the `articulate` logs and the user-prov
 
 == Beyond the class
 
-* Use https://github.com/cloudfoundry-samples/spring-music[Spring Music^] and a User Provided Service Instance to connect to a database (MySQL or Oracle) in your environment.
+* Use https://github.com/cloudfoundry-samples/spring-music[Spring Music^] and a User
+  Provided Service Instance to connect to a database (MySQL or Oracle) in your environment.

@@ -23,7 +23,8 @@ https://github.com/eitansuez/articulate[Source^] is not required, but you may be
 +
 [source.terminal]
 ----
-cd ~/pivotal-cloud-foundry-developer-workshop/articulate/
+Unix, Mac: cd ~/pivotal-cloud-foundry-developer-workshop/articulate/
+Windows:  cd C:\Users\<login-id>\pivotal-cloud-foundry-developer-workshop\articulate\
 ----
 +
 [source.terminal]

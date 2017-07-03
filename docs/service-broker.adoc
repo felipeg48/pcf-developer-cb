@@ -19,17 +19,33 @@ You'll deploy an application that implements the service broker API, register it
 
 === Setup
 
-. Download the following https://github.com/eitansuez/cloudfoundry-mongodb-service-broker/releases/download/v0.3/cloudfoundry-mongodb-service-broker-0.3.zip[zip file^], which contains the source code and precompiled jar file, ready for you to deploy (no building necessary).  Copy the file to folder: `~/pivotal-cloud-foundry-developer-workshop/`.
+. The code for our service broker is in your lab files in `cloudfoundry-mongodb-service-broker-0.3.zip`.
+  If you have it, skip to (3)/
 
-. Extract the the zip file to `~/pivotal-cloud-foundry-developer-workshop/cloudfoundry-mongodb-service-broker`.
+. Alternatively, download the following
+  https://github.com/eitansuez/cloudfoundry-mongodb-service-broker/releases/download/v0.3/cloudfoundry-mongodb-service-broker-0.3.zip[zip file^],
+  which contains the source code and precompiled jar file, ready for you to deploy (no building necessary).
+  Copy the file to your `pivotal-cloud-foundry-developer-workshop` folder.
+
+. Extract the the zip file to `.../pivotal-cloud-foundry-developer-workshop/cloudfoundry-mongodb-service-broker`.
 
 . OPTIONAL STEP - Import applications into your IDE such as https://spring.io/tools[Spring Tool Suite^] (STS).
 
-STS Import Help:
+*STS Import Help*
 
-Select menu:File[Import...] Then select Gradle +->+ Gradle Project. On the Import Gradle Project page, browse to the directory where you extracted the zip.  Then push the "Build Model" button.  Select the project.  Click "Finish".
+. Make sure the `Gradle Support` IDE extension is installed.
+.. To install `Gradle Support` select menu:Help[Dashboard].  This will open a new tab to the Dashboard.
+.. Click on "IDE Extensions" then search for "Gradle".  If you can't find it or can't select it, it's already installed.
+.. Select `Gradle Support` or `Gradle (STS Legacy) Support` and click the "Install" button.
+.. Complete the installation wizard and restart STS.
 
-The above steps require the `Gradle Support` IDE extension to be installed. To install `Gradle Support` select menu:Help[Dashboard].  This will open a new tab to the Dashboard.  Click on "IDE Extensions" then search for "Gradle".  Select `Gradle Support` or `Gradle (STS Legacy) Support` and click the "Install" button.  Complete the installation wizard and restart STS.
+. Import the broker code
+.. Select menu:File[Import...]
+.. Then select Gradle +->+ Gradle Project.
+.. On the Import Gradle Project page, browse to the directory where you extracted the zip.
+.. Then push the "Build Model" button.
+.. Select the project.  Click "Finish".
+
 
 === Service Broker API Overview
 
@@ -50,7 +66,9 @@ http://cloud.spring.io/spring-cloud-cloudfoundry-service-broker/[Cloud Foundry S
 
 . We have an endpoint, but the Spring Cloud Service Broker can't provide all the implementation.  We need to describe our catalog.  To to that, all we need to do is provide a `Catalog` bean.
 +
-Review the following file: `~/pivotal-cloud-foundry-developer-workshop/cloudfoundry-mongodb-service-broker/src/main/java/org/springframework/cloud/servicebroker/mongodb/config/CatalogConfig.java`.
+Review the following file:
++
+`.../pivotal-cloud-foundry-developer-workshop/cloudfoundry-mongodb-service-broker/src/main/java/org/springframework/cloud/servicebroker/mongodb/config/CatalogConfig.java`.
 +
 [source,java]
 ----
@@ -84,7 +102,7 @@ public class CatalogConfig {
 +
 [source.terminal]
 ----
-cd ~/pivotal-cloud-foundry-developer-workshop/cloudfoundry-mongodb-service-broker/
+cd .../pivotal-cloud-foundry-developer-workshop/cloudfoundry-mongodb-service-broker/
 ----
 +
 ..and:
@@ -163,7 +181,9 @@ Congratulations, you have implemented and tested the catalog endpoint in your se
 
 . We need to implement provisioning/deprovisioning in our `mongodb-service-broker` application. To do so we just need to implement the https://github.com/spring-cloud/spring-cloud-cloudfoundry-service-broker/blob/master/src/main/java/org/springframework/cloud/servicebroker/service/ServiceInstanceService.java[ServiceInstanceService^] interface, because the Spring Cloud Service Broker project has already done the https://github.com/spring-cloud/spring-cloud-cloudfoundry-service-broker/blob/master/src/main/java/org/springframework/cloud/servicebroker/controller/ServiceInstanceController.java[mapping^].
 
-Review the following file: `~/pivotal-cloud-foundry-developer-workshop/cloudfoundry-mongodb-service-broker/src/main/java/org/springframework/cloud/servicebroker/mongodb/service/MongoServiceInstanceService.java`
+Review the following file:
++
+`.../pivotal-cloud-foundry-developer-workshop/cloudfoundry-mongodb-service-broker/src/main/java/org/springframework/cloud/servicebroker/mongodb/service/MongoServiceInstanceService.java`
 
 Provisioning Code:
 
@@ -253,7 +273,9 @@ The `deleteServiceInstance` method is where our broker deprovisions the database
 
 . We need to implement binding/unbinding in our `mongodb-service-broker` application. To do so we just need to implement the https://github.com/spring-cloud/spring-cloud-cloudfoundry-service-broker/blob/master/src/main/java/org/springframework/cloud/servicebroker/service/ServiceInstanceBindingService.java[ServiceInstanceBindingService^] interface, because the Spring Cloud Service Broker project has already done the https://github.com/spring-cloud/spring-cloud-cloudfoundry-service-broker/blob/master/src/main/java/org/springframework/cloud/servicebroker/controller/ServiceInstanceBindingController.java[mapping^].
 
-Review the following file: `~/pivotal-cloud-foundry-developer-workshop/cloudfoundry-mongodb-service-broker/src/main/java/org/springframework/cloud/servicebroker/mongodb/service/MongoServiceInstanceBindingService.java`
+Review the following file:
++
+`.../pivotal-cloud-foundry-developer-workshop/cloudfoundry-mongodb-service-broker/src/main/java/org/springframework/cloud/servicebroker/mongodb/service/MongoServiceInstanceBindingService.java`
 
 Binding Code:
 

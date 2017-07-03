@@ -14,11 +14,11 @@ In this lab, we build on the foundation we've picked up from the first lab.  We 
 === Push the `articulate` application
 
 1. The `articulate` application, `articulate-0.2.jar`, should be in your lab files
-   under `demo-apps`.  If so, jump to step (3)
+   in its own directory.  If so, jump to step (3)
 
 2. Alternatively, you can 
    https://github.com/eitansuez/articulate/releases/download/v0.2/articulate-0.2.jar[Download^]
-   the `articulate` JAR, create `pivotal-cloud-foundry-developer-workshop/demo-apps/articulate/`
+   the `articulate` JAR, create `pivotal-cloud-foundry-developer-workshop/articulate/`
    directory and copy the JAR there.
 +
 NOTE: If your browser warns you about downloading this file please proceed to download it.
@@ -31,7 +31,8 @@ NOTE: If your browser warns you about downloading this file please proceed to do
 [source.terminal]
 ----
  
-$> cd ~/pivotal-cloud-foundry-developer-workshop/demo-apps/articulate/
+$> cd .../pivotal-cloud-foundry-developer-workshop/articulate/
+
 $> cf push articulate -p ./articulate-0.2.jar -m 512M --random-route --no-start
  
 ----

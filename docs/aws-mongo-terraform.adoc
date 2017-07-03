@@ -54,7 +54,7 @@ variable "key_name" {
 }
 
 variable "key_path" {
-    default = "/absolute/path/to/your/PEM/file"
+    default = "/absolute/path/to/my-key-pair.pem"
 }
 
 variable "region" {
@@ -121,7 +121,7 @@ For example:
 
 [source.terminal]
 ----
-ssh -i ~/.ssh/my-key-pair.pem bitnami@53.91.185.0
+ssh -i my-key-pair.pem bitnami@53.91.185.0
 ----
 
 For more information refer to the 

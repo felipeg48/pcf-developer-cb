@@ -103,11 +103,11 @@ Next we will push (deploy) several applications.
 
 . Unzip this file and copy `pivotal-cloud-foundry-developer-workshop` somewhere
   convenient.  We recommend:
-** *Unix, Linux:* copy it to you home directory: `~/pivotal-cloud-foundry-developer-workshop/`
+** *Unix, Linux:* Copy it to you home directory: `~/pivotal-cloud-foundry-developer-workshop/`
 ** *Windows:* Copy it to the root of you `C:\` drive: `C:\pivotal-cloud-foundry-developer-workshop\`
 +
 NOTE: From now on in these notes, we will simply refer to the 
-      `pivotal-cloud-foundry-developer-workshop` directory.
+      `.../pivotal-cloud-foundry-developer-workshop` directory.
 
 . In `pivotal-cloud-foundry-developer-workshop` you will find a `demo-apps` directory.
 +
