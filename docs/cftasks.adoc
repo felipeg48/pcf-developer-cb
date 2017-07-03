@@ -21,6 +21,14 @@ In this lab, we'll turn off this feature, and instead learn how to run a "one-of
 
 == Setup
 
+. If you don't have it already, Maven is included in your lab files in `apache-maven-3.5.0-bin.zip`.
+** Unpack it and add .../apache-maven-3.5.0-bin/bin to your `PATH`
+** Close any terminal/command windows and open a new one to pick up the changed \PATH\
++
+WARNING: You will need access to Maven Central to download dependencies.  If your
+         company mandates its own local Maven repository, it may not contain the right
+         dependencies and you won't be able to do this lab.
+
 . If necessary, get a copy of the https://github.com/eitansuez/attendee-service[source code^] for `attendee-service` (clone or download)
 
 . Edit the `application.yml` file and set `generate-ddl` to false.  Rebuild the application jar file with:
