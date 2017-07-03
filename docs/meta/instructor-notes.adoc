@@ -20,11 +20,21 @@ This course is designed to be delivered over a period of three days at a leisure
 Suggested topics to cover on day 1:
 
 * An introduction to Pivotal Cloud Foundry
+* Concepts
+* Getting Started with cf CLI (also includes App Manager)
 * Logging, Scale and HA
+* Installation Overview (optional, allows you to discuss Service Tiles)
+** Notes at _back_ of student handout PDF
 * Services
-* Manifest
 
-What stands out about day one is that some time has to be allotted for attendees to bootstrap into the course:  there's the general course intro and logistical information, introductions, and then there's setting up the student environment, which primarily entails setting up a cloudfoundry account.  The cf cli installation and cf login steps are performed as part of the first lab.
+What stands out about day one is that some time has to be allotted for attendees to
+bootstrap into the course:  there's the general course intro and logistical information,
+introductions, and then there's setting up the student environment, which primarily
+entails setting up a cloudfoundry account.
+
+The cf cli installation and cf login steps are described as part of the first lab - but
+we recommend you get the class to do it as part of the "Getting Started" section (see
+below).
 
 Depending on the experience level of the class, you may finish day 1 a little early.
 
@@ -32,6 +42,7 @@ Depending on the experience level of the class, you may finish day 1 a little ea
 
 Topics:
 
+* Manifest and Env Vars
 * Application Security Groups
 * Log Drain
 * Blue-Green
@@ -50,20 +61,43 @@ Topics:
 * Service Broker
 * Continuous Delivery
 * Route Service
+* Advanced Topics
 
-Buildpack and Service Broker labs tend to go together:  they both speak to means of extending the platform.  There's no particular reason that route services has to be at the end.  I personally would prefer to see it group with other service-related topics:  services, and log-draining.  They all have in common the create-user-provided-service command, which using a different flag:  -p, -l, and -r.  The continuous delivery topic is a sort of part 2 to the microservices talk.  I personally like the fact that the two talks are spread out, each on a separate day.
+Buildpack and Service Broker labs tend to go together:  they both speak to means of
+extending the platform.  There's no particular reason that route services has to be at
+the end.  I personally would prefer to see it group with other service-related topics:
+services, and log-draining.  They all have in common the create-user-provided-service
+command, just using a different flag:  `-p`, `-l`, and `-r`.
+
+The continuous delivery topic is a sort of part 2 to the microservices talk.  I
+personally like the fact that the two talks are spread out, each on a separate day.
 
 I often finish day 3 around 4:00 PM as well.
 
 == Setup
 
-The main concern here is providing students with a PCF account.  Technically an instructor could stand up a PCF instance in AWS or GCP or elsewhere, and create accounts for each student.  I've done that before.  But for the majority of deliveries, I've used Pivotal Web Services.  Students setup a free-trial account, and that works fine.
+The main concern here is providing students with a PCF account.  Technically an
+instructor could stand up a PCF instance in AWS or GCP or elsewhere, and create accounts
+for each student.  I've done that before.  But for the majority of deliveries,
+I've used Pivotal Web Services.  Students setup a free-trial account, and that works fine.
 
-Sometimes we encounter situations where a student has in the past already created such an account, where their free trial has expired.  They can still log in, but are prompted for payment information.  In these situations, instructors can setup a space for the student in question in the Pivotal-Education-Students organization in PWS.  If you do not have access to this organization, contact Pivotal Education.
+Sometimes we encounter situations where a student has in the past already created such
+an account, where their free trial has expired.  They can still log in, but are
+prompted for payment information.  In these situations, instructors can setup
+a space for the student in question in the Pivotal-Education-Students organization
+in PWS.  If you do not have access to this organization, contact Pivotal Education.
 
-Here is a link:../artifacts/create-pes-spaces.sh[shell script^] that automates the creation of a space for a student.  And here's the corresponding link:../artifacts/delete-pes-spaces.sh[cleanup script^] for cleaning up the space (and removing the user from the org) after class is over.
+Another work around is to get the student to register a new PWS account. They will
+need a new email (not normally a problem) and they will need a different phone number
+for SMS validation.  In most cases they should be able to use a friend's or
+relative's phone.
 
-Additional setup is required for the jenkins and service broker labs.  These are explained respectively in each of these modules' notes below.
+The instructor materials include the `create-pes-spaces.sh` shell script that automates the
+creation of a space for a student.  There is also `delete-pes-spaces.sh` (cleanup script)
+for cleaning up the space (and removing the user from the org) after class is over.
+
+Additional setup is required for the jenkins and service broker labs.  These are
+explained respectively in each of these modules' notes below.
 
 == Modules
 
@@ -88,6 +122,33 @@ TODO:  Modify the lab instructions to push a java application too, not just dyna
 
 I also like, in a review, to cover other basic cf commands that the students weren't exposed to:  apps, app, stop, start, restart, etc..
 
+=== Concepts ===
+
+Cloud Foundry uses many terms in a specific way and this section covers them all in
+one go.  Most of them are not that complex, although organization and space do have
+very specific mean in PCF.
+
+This should be a shot section to introduce the terms. They are all listed on the 
+last (summary) slide, so you can go around the room and see if they remember what
+you just taught.
+
+=== Getting Started
+
+This is a module from the old DAwCF course and it is designed to be interactive.
+
+As you go through discussing some common cf commands, the students get to run them
+and answer questions.
+
+This means you need to get the students setup on PCF/PWS and have cf installed.  It
+is actually easier to do these two activities as a class session rather than having
+to go around the room during the first lab explaining the same things over and over.
+
+Once you get to cf push, it ceases to be interactive.  They will do `cf push` in the
+first lab.
+
+Make sure students are in the right directory when they try to push each of the demo apps.
+
+
 === Module: Logging, Scale and HA
 
 The presentation here is difficult, because the instructor is needs to explain a great deal about the internal architecture of Cloudfoundry, perhaps a little too early in the course.
@@ -106,9 +167,19 @@ It ties into the High Availability portion of the presentation by having the stu
 
 In the review, I look for opportunities to show students things that perhaps were not covered.  I like to show them `cf ssh`, for example.
 
+=== OPTIONAL Module: Installation Guide
+
+This is useful for two reasons.  You often get Admins on this course anyway, so you can
+at least give them a taste of what setting up PCF entails.
+
+Secondly, it can be hard to discuss where services come from, if they don't know
+what a Tile is.
+
+The slides are at the very end of their handout PDF.
+
 === Module: Services
 
-The presentation deck here is brief and to the point.  Explain the idea of services and distinction between managed and user-provided services.  I often like to make reference to how one used to manually obtain database credentials, for example.
+The presentation deck here is much less brief than before.  Explains the idea of services and distinction between managed and user-provided services.  I often like to make reference to how one used to manually obtain database credentials, for example.
 
 I also like to state how, although the main purpose for cloudfoundry is to push apps, it doesn't stop there:  managed services automate the provisioning of backing resources for developers.
 
@@ -169,19 +240,31 @@ TODO:  explore using names aritculate-blue and articulate-green instead of artic
 
 === Module: Microservices
 
-Presentation only.  It's essential to point out that a platform can only go so far.  In tandem, we must design our applications to run well in the cloud:  to be cloud native.
+Presentation only.  It's essential to point out that a platform can only go so far.
+
+In tandem, we must design our applications to run well in the cloud: to be cloud native.
+
+Also managing a microservices system involves keeping many, many processes runnging.
+The system involves multiple microservices, plus helper processes (like service
+registration) and multiple instances of each for load-sharing and redundancy.
+
+A PaaS makes this so much easier to do. Good opportunity to do a quick quiz on the
+4 levels of HA in PCF.
 
 
 === Module: Application Autoscaler
 
-This is a fun lab.  No presentation here.  Using jmeter to exercise a load against an application is always fun, and seeing an app autoscale.
+This is a fun lab.  Using jmeter to exercise a load against an application is always fun, and seeing an app autoscale.
 
-One difficulty here is maintaining a high cpu for over 30 seconds, especially when the endpoint just returns data.  I usually can make it work for myself.  Increase the number of jmeter threads or lower the cpu threshold, or try to hit a different endpoint.  If you encounter such difficulty, consider manually scaling up the application to five instances, then to turn on the autoscaler and watch it scale down your application.
+One difficulty here is maintaining a high cpu for over 30 seconds, especially when the
+endpoint just returns data.  I usually can make it work for myself.  Increase the number
+of jmeter threads or lower the cpu threshold, or try to hit a different endpoint.
+If you encounter such difficulty, consider manually scaling up the application to five instances, then to turn on the autoscaler and watch it scale down your application.
 
 
 === Module: Application Performance Monitor
 
-Here we use newrelic.  Again, there's no presentation.  What I like to do with each module that has no presentation is to give a quick overview of the lab, a sort of introduction to the activity they're about to undertake.
+Here we use newrelic.
 
 Stress that the students should use the managed service in the PWS marketplace (assuming you're using PWS), and that the integration with newrelic transparently takes care of the "account-setup" negotiation between PWS and newrelic (i.e. there's no need to create a newrelic account).
 
@@ -197,11 +280,11 @@ This lab is very short and sparse.  Again it puts the onus on the student to tak
 TODO:  consider ways to expand or re-cast the lab with specific activities and goals.
 
 I've often ended the day early at this point (~ 3:30 PM - 4:00 PM) and reserved the remaining topics for day 3.
+However the extra material on Day 1 should help overcome this.
 
 === Module: Buildpack
 
-The presentation here is straightforward and to the point.  I usually like to complement the existing materials (presentation and lab) with the following discussions and demonstrations:
-
+The presentation here is much expanded from before..  I usually like to complement the existing materials (presentation and lab) with the following discussions and demonstrations:
 
 - discuss the variety of buildpacks that exist: the built-in ones, the community buildpacks.  i like to demonstrate the staticfile buildpack as an example.
 
@@ -216,7 +299,8 @@ The presentation here is straightforward and to the point.  I usually like to co
 
 The presentation here is straightforward.  I like to pull up the service broker api documentation online and show students where they can get to the docs.
 
-For the lab here we provision a vm instance in AWS in advance.  Here's the link:../artifacts/mongo.tf[terraform script^] for it.  The output of the script will be the public ip address of the vm, which needs to be communicated to the students (they set an environment variable named MONGODB_HOST).
+For the lab here we provision a VM instance in AWS in advance.  Use the `mongo.tf` terraform script in the student files
+(e-learning students have to do this for themselves).  The output of the script will be the public ip address of the VM, which needs to be communicated to the students (they set an environment variable named MONGODB_HOST).
 
 I like to review the lab in two parts:
 
@@ -230,12 +314,22 @@ This also gives me the chance to talk about and explain the --guid flag in many 
 
 === Module: Continuous Delivery
 
-With respect to the lab, students here have two options:  they can run a jenkins instance locally on their machine (the hard way), or use a jenkins instance that's already provisioned for them.  In my experience, the latter option is a lot simpler and goes a whole lot smoother.  So encourage students to use your aws-provisioned instance of jenkins.  Here's the link:../artifacts/jenkins.tf[terraform script^].
+With respect to the lab, students here have two options:  they can run a jenkins instance locally on their machine (the hard way), or use a jenkins instance that's already provisioned for them.  In my experience, the latter option is a lot simpler and goes a whole lot smoother.  So encourage students to use your aws-provisioned instance of jenkins.  H
+Again thee is a terraform script `jenkins.tf` in the student lab files
 
 For the presentation, I often go beyond what the slides offer.
+
+This lab consumes a lot of time and is much more about learning Jenkins that CD.
+You may not feel it is worth the time to do it.
 
 TODO: retrofit the slide deck to include additional information:  pictures of teams working in an agile fashion, radiators on dev floors, a screenshot of a build pipeline, mike cohn's test pyramid, perhaps a photo of mary popendieck to go along with her quote, and the name of the book from which the quote was taken, etc..
 
 === Module: Route Service
 
 This module targets a distinct feature of cloudfoundry and works well.  Students often have difficulty with the basics:  they often will fail to run a "cf help" on a new command before invoking it, or are confused by the syntax of a command, that one must specify the domain name and hostname separately.  They often also struggle with taking an example instruction and revising it correctly so that it uses their application's hostname, for example.
+
+== Module: Advanced Topics
+
+A few new features since 1.7 (the last release of this course).  Brief discussion, but there
+is a lab on Tasks afterwards.  Unfortunately the students need maven for this one part of
+the course - it is provided as a zip in the student files.
