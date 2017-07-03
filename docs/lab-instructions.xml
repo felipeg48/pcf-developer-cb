@@ -27,6 +27,7 @@
 <!ENTITY lab_continuous_delivery                  SYSTEM "continuous-delivery.xml">
 <!ENTITY lab_route_service                        SYSTEM "route-service.xml">
 <!ENTITY lab_cftasks                              SYSTEM "cftasks.xml">
+<!ENTITY lab_windows_vm                           SYSTEM "windows-vm.xml">
 <!ENTITY lab_aws_mongo_terraform                  SYSTEM "aws-mongo-terraform.xml">
 <!ENTITY lab_aws_jenkins_ami                      SYSTEM "aws-jenkins-ami.xml">
 <!ENTITY lab_certification                        SYSTEM "certification.xml">
@@ -71,6 +72,7 @@
     <!-- Section: finish -->
 
     <!-- Section: appendix -->
+    &lab_windows_vm;
     &lab_aws_mongo_terraform;
     &lab_aws_jenkins_ami;
     &lab_certification;
